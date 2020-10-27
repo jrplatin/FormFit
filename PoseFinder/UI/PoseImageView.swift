@@ -64,6 +64,8 @@ class PoseImageView: UIImageView {
             draw(image: frame, in: rendererContext.cgContext)
 
             for pose in poses {
+                print(pose)
+                
                 // Draw the segment lines.
                 for segment in PoseImageView.jointSegments {
                     let jointA = pose[segment.jointA]
