@@ -44,7 +44,40 @@ class PoseImageView: UIImageView {
     /// The color of the circles drawn for each joint.
     @IBInspectable var jointColor: UIColor = UIColor.systemPink
 
-    // MARK: - Rendering methods
+    func getSlopeFromPoint(point1: CGPoint, point2: CGPoint){
+        let rise = point1.y - point2.y
+        let run = poitnt1.x - point2.x
+        //return a big number in the case of inf/ slope
+        if(run == 0){
+            return 100000
+        }
+        return rise / run
+    }
+
+    func findAngleBetweenTwoLines(slope1: float, slope2 float){
+        let numerator = slope1 - slope2
+        let denominator = 1 + (slope2 *slope1)
+        //return degrees
+        return (180/pi) * atan(numerator/denominator)
+    }   
+
+    func squatAlgorithim(jointToPosMap: [String : CGPoint]){ 
+        // hip to shoulder, and hip to knee
+        let leftShoulderLoc = jointToPosMap["leftShoulder"]
+        let leftKneeLoc = jointToPosMap["leftKnee"]
+        let leftHipLoc = jointToPosMap["leftHip"]
+
+        hipToKneeSlope = getSlopeFromPoint(leftShoulderLoc, leftHipLoc)
+        shoulderToHipSlope = getSlopeFromPoint(leftHipLoc, leftKneeLoc))
+        let backAngle = findAngleBetweenTwoLines(hipToKneeSlope, shoulderToHipSlope)
+        
+        //the actual "check"
+        if(backAngle < 80){
+            return "Your form is bad!"
+        }
+       
+
+    }
 
     /// Returns an image showing the detected poses.
     ///
@@ -54,6 +87,7 @@ class PoseImageView: UIImageView {
     func show(poses: [Pose], on frame: CGImage) {
         let dstImageSize = CGSize(width: frame.width, height: frame.height)
         let dstImageFormat = UIGraphicsImageRendererFormat()
+        let isFindingSquat = true
 
         dstImageFormat.scale = 1
         let renderer = UIGraphicsImageRenderer(size: dstImageSize,
@@ -62,9 +96,19 @@ class PoseImageView: UIImageView {
         let dstImage = renderer.image { rendererContext in
             // Draw the current frame as the background for the new image.
             draw(image: frame, in: rendererContext.cgContext)
+                var jointToPosMap = [String : CGPoint]()
+                for pose in poses {
+                     for joint in listOfJoints {
+                        let name = pose[joint.key].name
+                        let pos = pose[joint.key].position
+                        let conf = pose[joint.key].confidence    
+                        jointToPosMap[name] = pos
+                        
+                    }
+                    if(isFindingSquat){
+                        print(squatAlgorithim(jointToPosMap))
+                    }
 
-            for pose in poses {
-                print(pose)
                 
                 // Draw the segment lines.
                 for segment in PoseImageView.jointSegments {
