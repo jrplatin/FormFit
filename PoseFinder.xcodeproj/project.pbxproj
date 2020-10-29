@@ -30,16 +30,17 @@
 		4AE8C3CF23AD2A74005F9953 /* CGImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE8C3CE23AD2A74005F9953 /* CGImage+Extension.swift */; };
 		4AE8C3D123AD2D3B005F9953 /* PoseNetInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE8C3D023AD2D3B005F9953 /* PoseNetInput.swift */; };
 		4AE8C3D323AD2D8A005F9953 /* PoseNetOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE8C3D223AD2D8A005F9953 /* PoseNetOutput.swift */; };
+		88EE8FD4254A40C4006654CE /* FormStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88EE8FD3254A40C4006654CE /* FormStatusView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		0563E980FDE557646F54ED8A /* LICENSE.txt */ = {isa = PBXFileReference; includeInIndex = 1; path = LICENSE.txt; sourceTree = "<group>"; };
+		0563E980FDE557646F54ED8A /* LICENSE.txt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
 		0D4BB83E249769C800076D64 /* PoseNetMobileNet075S16FP16.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = PoseNetMobileNet075S16FP16.mlmodel; sourceTree = "<group>"; };
 		0DCEF2C6241666CA00ECEC99 /* PoseBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoseBuilder.swift; sourceTree = "<group>"; };
 		0DCEF2C82416701D00ECEC99 /* PoseBuilder+Single.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PoseBuilder+Single.swift"; sourceTree = "<group>"; };
 		0DCEF2CA2416709B00ECEC99 /* PoseBuilder+Multiple.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PoseBuilder+Multiple.swift"; sourceTree = "<group>"; };
 		0DCEF2CD241676C000ECEC99 /* PoseBuilderConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoseBuilderConfiguration.swift; sourceTree = "<group>"; };
-		420B7A9F4BA833CE510130DA /* ACKNOWLEDGMENTS.txt */ = {isa = PBXFileReference; includeInIndex = 1; path = ACKNOWLEDGMENTS.txt; sourceTree = "<group>"; };
+		420B7A9F4BA833CE510130DA /* ACKNOWLEDGMENTS.txt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = ACKNOWLEDGMENTS.txt; sourceTree = "<group>"; };
 		4A0FC5BB23190AD6004886B9 /* CGPoint+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGPoint+Extension.swift"; sourceTree = "<group>"; };
 		4A2D05CD23BF9A2C00D002ED /* ConfigurationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationViewController.swift; sourceTree = "<group>"; };
 		4A2D05CF23BF9BBF00D002ED /* PopOverModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopOverModalViewController.swift; sourceTree = "<group>"; };
@@ -61,7 +62,8 @@
 		4AE8C3D023AD2D3B005F9953 /* PoseNetInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoseNetInput.swift; sourceTree = "<group>"; };
 		4AE8C3D223AD2D8A005F9953 /* PoseNetOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoseNetOutput.swift; sourceTree = "<group>"; };
 		57C02DF057C02B4000000001 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		BEE6CF152B804A05BF905D20 /* SampleCode.xcconfig */ = {isa = PBXFileReference; name = SampleCode.xcconfig; path = Configuration/SampleCode.xcconfig; sourceTree = "<group>"; };
+		88EE8FD3254A40C4006654CE /* FormStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormStatusView.swift; sourceTree = "<group>"; };
+		BEE6CF152B804A05BF905D20 /* SampleCode.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = SampleCode.xcconfig; path = Configuration/SampleCode.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,7 +83,6 @@
 				0563E980FDE557646F54ED8A /* LICENSE.txt */,
 				420B7A9F4BA833CE510130DA /* ACKNOWLEDGMENTS.txt */,
 			);
-			name = LICENSE;
 			path = LICENSE;
 			sourceTree = "<group>";
 		};
@@ -176,6 +177,7 @@
 				4A6C8A8123E84D1D0080886A /* GradientOverlayView.swift */,
 				4A2D05CD23BF9A2C00D002ED /* ConfigurationViewController.swift */,
 				4A2D05CF23BF9BBF00D002ED /* PopOverModalViewController.swift */,
+				88EE8FD3254A40C4006654CE /* FormStatusView.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -264,6 +266,7 @@
 			files = (
 				4A2D05D023BF9BBF00D002ED /* PopOverModalViewController.swift in Sources */,
 				0DCEF2C92416701D00ECEC99 /* PoseBuilder+Single.swift in Sources */,
+				88EE8FD4254A40C4006654CE /* FormStatusView.swift in Sources */,
 				0DCEF2CB2416709B00ECEC99 /* PoseBuilder+Multiple.swift in Sources */,
 				0DCEF2C7241666CA00ECEC99 /* PoseBuilder.swift in Sources */,
 				4A6C8A8223E84D1D0080886A /* GradientOverlayView.swift in Sources */,
@@ -431,7 +434,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 9J7UX2RQ7T;
 				INFOPLIST_FILE = PoseFinder/App/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -451,7 +454,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 9J7UX2RQ7T;
 				INFOPLIST_FILE = PoseFinder/App/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

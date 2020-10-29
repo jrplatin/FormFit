@@ -44,9 +44,9 @@ class PoseImageView: UIImageView {
     /// The color of the circles drawn for each joint.
     @IBInspectable var jointColor: UIColor = UIColor.systemPink
 
-    func getSlopeFromPoint(point1: CGPoint, point2: CGPoint){
+    func getSlopeFromPoint(point1: CGPoint, point2: CGPoint) -> CGFloat {
         let rise = point1.y - point2.y
-        let run = poitnt1.x - point2.x
+        let run = point1.x - point2.x
         //return a big number in the case of inf/ slope
         if(run == 0){
             return 100000
@@ -54,29 +54,28 @@ class PoseImageView: UIImageView {
         return rise / run
     }
 
-    func findAngleBetweenTwoLines(slope1: float, slope2 float){
+    func findAngleBetweenTwoLines(slope1: CGFloat, slope2: CGFloat) -> CGFloat {
         let numerator = slope1 - slope2
-        let denominator = 1 + (slope2 *slope1)
+        let denominator = 1 + (slope2 * slope1)
         //return degrees
-        return (180/pi) * atan(numerator/denominator)
+        return (180 / CGFloat.pi) * atan(numerator / denominator)
     }   
 
-    func squatAlgorithim(jointToPosMap: [String : CGPoint]){ 
+    func squatAlgorithim(jointToPosMap: [Joint.Name : CGPoint]) -> String {
         // hip to shoulder, and hip to knee
-        let leftShoulderLoc = jointToPosMap["leftShoulder"]
-        let leftKneeLoc = jointToPosMap["leftKnee"]
-        let leftHipLoc = jointToPosMap["leftHip"]
+        let leftShoulderLoc = jointToPosMap[Joint.Name.leftShoulder]
+        let leftKneeLoc = jointToPosMap[Joint.Name.leftKnee]
+        let leftHipLoc = jointToPosMap[Joint.Name.leftHip]
 
-        hipToKneeSlope = getSlopeFromPoint(leftShoulderLoc, leftHipLoc)
-        shoulderToHipSlope = getSlopeFromPoint(leftHipLoc, leftKneeLoc))
-        let backAngle = findAngleBetweenTwoLines(hipToKneeSlope, shoulderToHipSlope)
+        let hipToKneeSlope = getSlopeFromPoint(point1: leftShoulderLoc!, point2: leftHipLoc!)
+        let shoulderToHipSlope = getSlopeFromPoint(point1: leftHipLoc!, point2: leftKneeLoc!)
+        let backAngle = findAngleBetweenTwoLines(slope1: hipToKneeSlope, slope2: shoulderToHipSlope)
         
         //the actual "check"
         if(backAngle < 80){
             return "Your form is bad!"
         }
-       
-
+        return "your form is good!"
     }
 
     /// Returns an image showing the detected poses.
@@ -96,19 +95,17 @@ class PoseImageView: UIImageView {
         let dstImage = renderer.image { rendererContext in
             // Draw the current frame as the background for the new image.
             draw(image: frame, in: rendererContext.cgContext)
-                var jointToPosMap = [String : CGPoint]()
+            var jointToPosMap = [Joint.Name : CGPoint]()
                 for pose in poses {
-                     for joint in listOfJoints {
+                    for joint in pose.joints {
                         let name = pose[joint.key].name
                         let pos = pose[joint.key].position
-                        let conf = pose[joint.key].confidence    
                         jointToPosMap[name] = pos
                         
                     }
                     if(isFindingSquat){
-                        print(squatAlgorithim(jointToPosMap))
+                        print(squatAlgorithim(jointToPosMap: jointToPosMap))
                     }
-
                 
                 // Draw the segment lines.
                 for segment in PoseImageView.jointSegments {
