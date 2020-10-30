@@ -55,10 +55,9 @@ class PoseImageView: UIImageView {
     }
 
     func findAngleBetweenTwoLines(slope1: CGFloat, slope2: CGFloat) -> CGFloat {
-        let numerator = slope1 - slope2
-        let denominator = 1 + (slope2 * slope1)
-        //return degrees
-        return (180 / CGFloat.pi) * atan(numerator / denominator)
+        let angle1 = (180 / CGFloat.pi) * atan(abs(slope1))
+        let angle2 = (180 / CGFloat.pi) * atan(abs(slope2))
+        return (angle1 + angle2)
     }   
 
     func squatAlgorithim(jointToPosMap: [Joint.Name : CGPoint]) -> String {
@@ -73,9 +72,9 @@ class PoseImageView: UIImageView {
         
         //the actual "check"
         if(backAngle < 80){
-            return "Your form is bad!"
+            return "Your form is bad! (angle: \(backAngle)"
         }
-        return "your form is good!"
+        return "your form is good! (angle: \(backAngle)"
     }
 
     /// Returns an image showing the detected poses.
