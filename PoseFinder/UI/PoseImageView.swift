@@ -55,9 +55,9 @@ class PoseImageView: UIImageView {
     }
 
     func findAngleBetweenTwoLines(slope1: CGFloat, slope2: CGFloat) -> CGFloat {
-        let angle1 = (180 / CGFloat.pi) * atan(abs(slope1))
-        let angle2 = (180 / CGFloat.pi) * atan(abs(slope2))
-        return (angle1 + angle2)
+        let angle1 = atan(abs(slope1))
+        let angle2 = atan(abs(slope2))
+        return (180 / CGFloat.pi) * (angle1 + angle2)
     }   
     var squatAngles = [CGFloat]()
     func squatAlgorithim(jointToPosMap: [Joint.Name : CGPoint]) -> String {
@@ -70,13 +70,13 @@ class PoseImageView: UIImageView {
         let shoulderToHipSlope = getSlopeFromPoint(point1: leftHipLoc!, point2: leftKneeLoc!)
         let backAngle = findAngleBetweenTwoLines(slope1: hipToKneeSlope, slope2: shoulderToHipSlope)
         squatAngles.append(backAngle)
-        let avgArrayValue = squatAngles / squatAngles.count
+        let avgArrayValue = squatAngles.reduce(0.0, +) / CGFloat(squatAngles.count)
 
         //the actual "check"
-        if(avgArrayValue < 80){
-            return "Your form is bad! (angle: \(backAngle)"
+        if(avgArrayValue > 85) {
+            return String(format: "Your form is bad! (angle: %.2f)", avgArrayValue)
         }
-        return "your form is good! (angle: \(backAngle)"
+        return String(format: "Your form is good! (angle: %.2f)", avgArrayValue)
     }
 
 
