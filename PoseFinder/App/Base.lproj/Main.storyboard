@@ -40,7 +40,18 @@
                             </imageView>
                             <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kFx-2J-Bjc" customClass="GradientOverlayView" customModule="PoseFinder" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="121.66666666666667"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wAe-wD-G3r">
+                                        <rect key="frame" x="167" y="92" width="41.333333333333343" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="wAe-wD-G3r" firstAttribute="centerX" secondItem="kFx-2J-Bjc" secondAttribute="centerX" id="4Mk-uY-Uzd"/>
+                                </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="color" keyPath="startColor">
                                         <color key="value" red="0.20895463197969544" green="0.20895463197969544" blue="0.20895463197969544" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -94,6 +105,7 @@
                             <constraint firstItem="ArZ-44-lD1" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" id="2Jo-v1-F6T"/>
                             <constraint firstItem="8o7-cd-AQr" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="5kX-v9-7Op"/>
                             <constraint firstAttribute="trailing" secondItem="kFx-2J-Bjc" secondAttribute="trailing" id="6gk-Va-ZsI"/>
+                            <constraint firstItem="ArZ-44-lD1" firstAttribute="top" secondItem="wAe-wD-G3r" secondAttribute="bottom" constant="-113" id="7KT-os-Jji"/>
                             <constraint firstAttribute="trailing" secondItem="8o7-cd-AQr" secondAttribute="trailing" id="8SQ-dt-aql"/>
                             <constraint firstAttribute="bottom" secondItem="8o7-cd-AQr" secondAttribute="bottom" id="AJN-eH-I4s"/>
                             <constraint firstItem="c4t-1N-oJy" firstAttribute="centerX" secondItem="ArZ-44-lD1" secondAttribute="centerX" id="GhP-pt-YXU"/>
@@ -110,6 +122,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="degreeLabel" destination="wAe-wD-G3r" id="DYv-W8-E0r"/>
                         <outlet property="previewImageView" destination="ArZ-44-lD1" id="nT5-Yu-T3h"/>
                     </connections>
                 </viewController>

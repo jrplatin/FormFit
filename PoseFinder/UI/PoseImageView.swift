@@ -34,6 +34,9 @@ class PoseImageView: UIImageView {
         JointSegment(jointA: .leftShoulder, jointB: .rightShoulder),
         JointSegment(jointA: .leftHip, jointB: .rightHip)
     ]
+    
+    var squatDegrees: Double?
+    var goodSquat = false
 
     /// The width of the line connecting two joints.
     @IBInspectable var segmentLineWidth: CGFloat = 2
@@ -72,10 +75,13 @@ class PoseImageView: UIImageView {
         squatAngles.append(backAngle)
         let avgArrayValue = squatAngles.reduce(0.0, +) / CGFloat(squatAngles.count)
 
+        squatDegrees = Double(avgArrayValue)
         //the actual "check"
         if(avgArrayValue > 85) {
+            goodSquat = false
             return String(format: "Your form is bad! (angle: %.2f)", avgArrayValue)
         }
+        goodSquat = true
         return String(format: "Your form is good! (angle: %.2f)", avgArrayValue)
     }
 
