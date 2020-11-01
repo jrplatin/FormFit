@@ -75,8 +75,7 @@ class PoseImageView: UIImageView {
         //the actual "check"
         if(avgArrayValue < 80){
             return "Your form is bad! (angle: \(backAngle)"
-        }
-        return "your form is good! (angle: \(backAngle)"
+        }        return "your form is good! (angle: \(backAngle)"
     }
 
 
