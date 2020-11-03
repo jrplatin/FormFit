@@ -14,6 +14,8 @@ class ViewController: UIViewController {
     /// The view the controller uses to visualize the detected poses.
     @IBOutlet private var previewImageView: PoseImageView!
 
+    @IBOutlet weak var degreeLabel: UILabel!
+    
     private let videoCapture = VideoCapture()
 
     private var poseNet: PoseNet!
@@ -163,5 +165,16 @@ extension ViewController: PoseNetDelegate {
             : poseBuilder.poses
 
         previewImageView.show(poses: poses, on: currentFrame)
+        if let degs = previewImageView.squatDegrees {
+            degreeLabel.text = String(format: "%.2f", degs)
+            if previewImageView.goodSquat {
+                degreeLabel.textColor = UIColor.green
+            } else {
+                degreeLabel.textColor = UIColor.red
+            }
+        } else {
+            degreeLabel.textColor = UIColor.white
+            degreeLabel.text = "Not Squatting!"
+        }
     }
 }
