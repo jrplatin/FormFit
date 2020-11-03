@@ -63,7 +63,8 @@ class PoseImageView: UIImageView {
         return (180 / CGFloat.pi) * (angle1 + angle2)
     }   
 
-    // let BAD_SQUAT_ANGLE = 80
+    let FRAME_AVE = 8
+    let BAD_SQUAT_ANGLE = CGFloat(80.0)
     // let BAD_TIBIA_ANGLE = 30
     // let BAD_LEG_SLOPE = 0.5
     // func realSquatAlgorithm(listOfBackAngles: [CGFloat], listOfTibiaAngles: [CGFloat],
@@ -109,11 +110,15 @@ class PoseImageView: UIImageView {
         let shoulderToHipSlope = getSlopeFromPoint(point1: leftHipLoc!, point2: leftKneeLoc!)
         let backAngle = findAngleBetweenTwoLines(slope1: hipToKneeSlope, slope2: shoulderToHipSlope)
         squatAngles.append(backAngle)
-        let avgArrayValue = squatAngles.reduce(0.0, +) / CGFloat(squatAngles.count)
+        
+        let lastIndex = max(0, squatAngles.count - FRAME_AVE)
+        let numElements = min(squatAngles.count, FRAME_AVE)
+        let recentSquatAngles = squatAngles[lastIndex...]
+        let avgArrayValue = recentSquatAngles.reduce(0.0, +) / CGFloat(numElements)
 
         squatDegrees = Double(avgArrayValue)
         //the actual "check"
-        if(avgArrayValue < BAD_SQUAT_ANGLE) {
+        if(avgArrayValue > BAD_SQUAT_ANGLE) {
             goodSquat = false
             return String(format: "Your form is bad! (angle: %.2f)", avgArrayValue)
         }
@@ -121,11 +126,11 @@ class PoseImageView: UIImageView {
         return String(format: "Your form is good! (angle: %.2f)", avgArrayValue)
     }
 
-    func shoulderPressAlgorithm(jointToPosMap: [Joint.Name : CGPoint]) -> String {
-
-
-
-    }
+//    func shoulderPressAlgorithm(jointToPosMap: [Joint.Name : CGPoint]) -> String {
+//
+//
+//
+//    }
 
     /// Returns an image showing the detected poses.
     ///
