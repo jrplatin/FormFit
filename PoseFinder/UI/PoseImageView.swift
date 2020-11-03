@@ -62,6 +62,42 @@ class PoseImageView: UIImageView {
         let angle2 = atan(abs(slope2))
         return (180 / CGFloat.pi) * (angle1 + angle2)
     }   
+
+    // let BAD_SQUAT_ANGLE = 80
+    // let BAD_TIBIA_ANGLE = 30
+    // let BAD_LEG_SLOPE = 0.5
+    // func realSquatAlgorithm(listOfBackAngles: [CGFloat], listOfTibiaAngles: [CGFloat],
+    //  listOfShoulderPositions: [CGPoint], listOfKneeToHipSlopes: [CGFloat]){
+    //     //TODO: check when the lift starts using the listOfShoulderPositions
+    //     //TODO: change this to the index of when the lift starts
+    //     let startPosition = 10;
+
+    //     //TODO: check when the user is at the bottom of the squat using the listOfShoulderPositions
+    //     let bottomPosition = 50;
+
+    //     for i in startPosition ..< listOfBackAngles.count {
+    //         //check the leg angle at the bottom
+    //         if(i == bottomPosition){
+    //             if(listOfKneeToHipSlopes[i] > BAD_LEG_SLOPE){
+    //                 let message = "Your leg has a slope of " + listOfKneeToHipSlopes[i] + " , but it should be at " + BAD_LEG_SLOPE
+    //                 print(message)
+    //             }
+    //         }
+    //         if(listOfBackAngles[i] < BAD_SQUAT_ANGLE){
+    //             let message = "Your back is at " + listOfBackAngles[i] + " , but it should be at " + BAD_SQUAT_ANGLE
+    //             print(message)
+    //         }
+    //         if(listOfBackAngles[i] > BAD_TIBIA_ANGLE){
+    //             let message = "Your tibia is at " + listOfTibiaAngles[i] + " , but it should be at " + BAD_TIBIA_ANGLE
+    //             print(message)
+    //         }       
+        
+    //      }
+
+
+
+    // }
+
     var squatAngles = [CGFloat]()
     func squatAlgorithim(jointToPosMap: [Joint.Name : CGPoint]) -> String {
         // hip to shoulder, and hip to knee
@@ -77,7 +113,7 @@ class PoseImageView: UIImageView {
 
         squatDegrees = Double(avgArrayValue)
         //the actual "check"
-        if(avgArrayValue > 85) {
+        if(avgArrayValue < BAD_SQUAT_ANGLE) {
             goodSquat = false
             return String(format: "Your form is bad! (angle: %.2f)", avgArrayValue)
         }
@@ -85,7 +121,7 @@ class PoseImageView: UIImageView {
         return String(format: "Your form is good! (angle: %.2f)", avgArrayValue)
     }
 
-    func benchpressAlgorithm(jointToPosMap: [Joint.Name : CGPoint]) -> String {
+    func shoulderPressAlgorithm(jointToPosMap: [Joint.Name : CGPoint]) -> String {
 
 
 
