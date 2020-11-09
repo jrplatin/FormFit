@@ -131,7 +131,15 @@ class PoseImageView: UIImageView {
 //
 //
 //    }
-
+    func isJointStationary(jointName : Joint.Name, jointToPosMap: [Joint.Name : CGPoint]) -> Bool {
+        /* let initLoc = jointToPosMap[jointName]
+         * create array of last 4(?) timesteps
+         * find average change between each pair of successive positions
+         * if average change is less than X, return true else return false
+         */
+        return true
+     }
+     
     /// Returns an image showing the detected poses.
     ///
     /// - parameters:
