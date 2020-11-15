@@ -16,7 +16,7 @@ class FormFitAlgos {
     let BAD_TIBIA_ANGLE = CGFloat(30)
     let BAD_LEG_SLOPE = CGFloat(0.5)
     
-    var squatDegrees: Double? = 0.0
+    var squatDegrees: Double?
     var goodSquat = false
     
     var squatAngles = [CGFloat]()
