@@ -165,9 +165,9 @@ extension ViewController: PoseNetDelegate {
             : poseBuilder.poses
 
         previewImageView.show(poses: poses, on: currentFrame)
-        if let degs = previewImageView.squatDegrees {
+        if let degs = previewImageView.algos.squatDegrees {
             degreeLabel.text = String(format: "%.2f", degs)
-            if previewImageView.goodSquat {
+            if previewImageView.algos.goodSquat {
                 degreeLabel.textColor = UIColor.green
             } else {
                 degreeLabel.textColor = UIColor.red
