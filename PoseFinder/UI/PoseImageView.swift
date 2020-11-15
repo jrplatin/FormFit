@@ -72,7 +72,8 @@ class PoseImageView: UIImageView {
                         
                     }
                     if(isFindingSquat){
-                        print(algos.squatAlgorithim(jointToPosMap: jointToPosMap))
+                       print(algos.squatAlgorithim(jointToPosMap: jointToPosMap))
+  //                      print(algos.hasSquatStarted(jointToPosMap: jointToPosMap))
                     }
                 
                 // Draw the segment lines.

@@ -91,6 +91,22 @@ class FormFitAlgos {
         
     }
     
+    var leftShoulderLocs = [CGFloat]()
+    func hasSquatStarted(jointToPosMap: [Joint.Name : CGPoint]) -> Bool {
+        let listSize = 5
+        if let loc = jointToPosMap[Joint.Name.leftShoulder]?.y {
+            leftShoulderLocs.append(loc)
+        }
+        if (leftShoulderLocs.count > listSize) {
+            leftShoulderLocs.removeFirst()
+        } else {
+            return false
+        }
+        
+        return abs(leftShoulderLocs[0] - leftShoulderLocs[listSize-1]) > 20
+        
+    }
+    
     func shoulderPressAlgorithm(jointToPosMap: [Joint.Name : CGPoint]) -> String {
         return ""
     }
