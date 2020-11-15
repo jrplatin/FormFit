@@ -36,6 +36,8 @@ class PoseImageView: UIImageView {
     ]
     
     let algos = FormFitAlgos()
+    
+    var isMovingArr = [Bool]()
 
     /// The width of the line connecting two joints.
     @IBInspectable var segmentLineWidth: CGFloat = 2
@@ -72,8 +74,15 @@ class PoseImageView: UIImageView {
                         
                     }
                     if(isFindingSquat){
-                       print(algos.squatAlgorithim(jointToPosMap: jointToPosMap))
-  //                      print(algos.hasSquatStarted(jointToPosMap: jointToPosMap))
+                        isMovingArr.append(algos.isLeftShoulderMoving(jointToPosMap: jointToPosMap))
+                        if (isMovingArr.count > 10) {
+                            isMovingArr.removeFirst()
+                        }
+                        let moving = isMovingArr.contains(true)
+                        
+                        if (moving) {
+                            print(algos.squatAlgorithim(jointToPosMap: jointToPosMap))
+                        }                 
                     }
                 
                 // Draw the segment lines.

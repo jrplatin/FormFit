@@ -16,6 +16,8 @@ class FormFitAlgos {
     let BAD_TIBIA_ANGLE = CGFloat(30)
     let BAD_LEG_SLOPE = CGFloat(0.5)
     
+    let MOVEMENT_THRESHOLD = CGFloat(10)
+    
     var squatDegrees: Double?
     var goodSquat = false
     
@@ -92,7 +94,7 @@ class FormFitAlgos {
     }
     
     var leftShoulderLocs = [CGFloat]()
-    func hasSquatStarted(jointToPosMap: [Joint.Name : CGPoint]) -> Bool {
+    func isLeftShoulderMoving(jointToPosMap: [Joint.Name : CGPoint]) -> Bool {
         let listSize = 5
         if let loc = jointToPosMap[Joint.Name.leftShoulder]?.y {
             leftShoulderLocs.append(loc)
@@ -102,8 +104,12 @@ class FormFitAlgos {
         } else {
             return false
         }
-        
-        return abs(leftShoulderLocs[0] - leftShoulderLocs[listSize-1]) > 20
+        var sum = CGFloat(0.0)
+        for i in 1...listSize-1 {
+            sum += abs(leftShoulderLocs[i] - leftShoulderLocs[i-1])
+        }
+        let avg = sum / CGFloat(listSize-1)
+        return avg > MOVEMENT_THRESHOLD
         
     }
     
