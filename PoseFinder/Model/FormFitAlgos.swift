@@ -12,16 +12,19 @@ import UIKit
 class FormFitAlgos {
     let FRAME_AVE = 4
     
-    let BAD_SQUAT_ANGLE = CGFloat(80.0)
+    let BAD_BACK_ANGLE = CGFloat(80.0)
     let BAD_TIBIA_ANGLE = CGFloat(30)
     let BAD_LEG_SLOPE = CGFloat(0.5)
     
     let MOVEMENT_THRESHOLD = CGFloat(10)
     
-    var squatDegrees: Double?
+    var backDegrees: Double?
+    var tibiaDegrees: Double?
     var goodSquat = false
     
     var squatAngles = [CGFloat]()
+    var tibiaAngles = [CGFloat]()
+
     
     func getSlopeFromPoint(point1: CGPoint, point2: CGPoint) -> CGFloat {
         let rise = point1.y - point2.y
@@ -38,31 +41,54 @@ class FormFitAlgos {
         let angle2 = atan(abs(slope2))
         return (180 / CGFloat.pi) * (angle1 + angle2)
     }
+
+    func checkIfKneesAreParallelToGround(jointToPosMap: [Joint.Name : CGPoint]) -> String {
+        let leftKneeLoc = jointToPosMap[Joint.Name.leftKnee]
+        let leftHipLoc = jointToPosMap[Joint.Name.leftHip]
+        let hipToKneeSlope = getSlopeFromPoint(point1: leftShoulderLoc!, point2: leftHipLoc!)
+
+        return hipToKneeSlope > BAD_LEG_SLOPE
+
+    }
+
     
-    func squatAlgorithim(jointToPosMap: [Joint.Name : CGPoint]) -> String {
+    func checkTibiaAndBackAngles(jointToPosMap: [Joint.Name : CGPoint]) -> Bool {
         // hip to shoulder, and hip to knee
         let leftShoulderLoc = jointToPosMap[Joint.Name.leftShoulder]
         let leftKneeLoc = jointToPosMap[Joint.Name.leftKnee]
         let leftHipLoc = jointToPosMap[Joint.Name.leftHip]
+        let leftAnkleLoc = jointToPosMap[Joint.Name.leftAnkle]
 
         let hipToKneeSlope = getSlopeFromPoint(point1: leftShoulderLoc!, point2: leftHipLoc!)
         let shoulderToHipSlope = getSlopeFromPoint(point1: leftHipLoc!, point2: leftKneeLoc!)
+        let ankleToKneeSlope = getSlopeFromPoint(point1: leftKneeLoc!, point2: leftAnkleLoc!)
         let backAngle = findAngleBetweenTwoLines(slope1: hipToKneeSlope, slope2: shoulderToHipSlope)
+        let tibiaAngle = findAngleBetweenTwoLines(slope1: hipToKneeSlope, slope2: ankleToKneeSlope)
         squatAngles.append(backAngle)
+        tibiaAngles.append(tibiaAngle)
         
         let lastIndex = max(0, squatAngles.count - FRAME_AVE)
         let numElements = min(squatAngles.count, FRAME_AVE)
         let recentSquatAngles = squatAngles[lastIndex...]
         let avgArrayValue = recentSquatAngles.reduce(0.0, +) / CGFloat(numElements)
 
-        squatDegrees = Double(avgArrayValue)
-        //the actual "check"
-        if(avgArrayValue > BAD_SQUAT_ANGLE) {
-            goodSquat = false
-            return String(format: "Your form is bad! (angle: %.2f)", avgArrayValue)
-        }
+        let lastIndexTib = max(0, tibiaAngles.count - FRAME_AVE)
+        let numElementsTib = min(tibiaAngles.count, FRAME_AVE)
+        let recentTibAngles = tibiaAngles[lastIndexTib...]
+        let tibAvgValue = recentTibAngles.reduce(0.0, +) / CGFloat(numElementsTib)
+
+        backDegrees = Double(avgArrayValue)
+        tibiaDegrees = Double(tibAvgValue)
         goodSquat = true
-        return String(format: "Your form is good! (angle: %.2f)", avgArrayValue)
+
+        //the actual "check"
+        if(avgArrayValue > BAD_BACK_ANGLE || tibAvgValue > BAD_TIBIA_ANGLE) {
+            goodSquat = false
+            //return String(format: "Your form is bad! (angle: %.2f)", avgArrayValue)
+        }
+        //return String(format: "Your form is good! (angle: %.2f)", avgArrayValue)
+
+        return goodSquat
     }
     
     func realSquatAlgorithm(listOfBackAngles: [CGFloat], listOfTibiaAngles: [CGFloat], listOfShoulderPositions: [CGPoint], listOfKneeToHipSlopes: [CGFloat]){
@@ -81,8 +107,8 @@ class FormFitAlgos {
                 print(message)
             }
             }
-            if(listOfBackAngles[i] < BAD_SQUAT_ANGLE){
-                let message = "Your back is at \(listOfBackAngles[i]), but it should be at \(BAD_SQUAT_ANGLE)"
+            if(listOfBackAngles[i] < BAD_BACK_ANGLE){
+                let message = "Your back is at \(listOfBackAngles[i]), but it should be at \(BAD_BACK_ANGLE)"
                 print(message)
             }
             if(listOfBackAngles[i] > BAD_TIBIA_ANGLE){
@@ -113,8 +139,5 @@ class FormFitAlgos {
         
     }
     
-    func shoulderPressAlgorithm(jointToPosMap: [Joint.Name : CGPoint]) -> String {
-        return ""
-    }
 
 }

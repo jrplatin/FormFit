@@ -39,6 +39,12 @@ class PoseImageView: UIImageView {
     
     var isMovingArr = [Bool]()
 
+    var goingDown = true
+
+    var hasStarted = false
+
+    var numReps = 0
+
     /// The width of the line connecting two joints.
     @IBInspectable var segmentLineWidth: CGFloat = 2
     /// The color of the line connecting two joints.
@@ -80,9 +86,32 @@ class PoseImageView: UIImageView {
                         }
                         let moving = isMovingArr.contains(true)
                         
-                        if (moving) {
-                            print(algos.squatAlgorithim(jointToPosMap: jointToPosMap))
-                        }                 
+                        //the user has started the descent
+                        if (moving && !hasStarted) {
+                            hasStarted = true 
+                            let isGoodSquat = checkTibiaAndBackAngles(jointToPosMap);
+                        }    
+                        //the user is descending and still moving
+                        else if(!moving && goingDown && hasStarted){
+                            let isGoodSquat = checkTibiaAndBackAngles(jointToPosMap);
+
+                        }   
+                        //the user has started the lift and stopped their descent, so we are at the bottom
+                        else if (!moving && hasStarted && goingDown){
+                            goingDown = false
+                            let areKneesParallelToGround = checkIfKneesAreParallelToGround()
+                        }    
+                        //the user is ascending
+                        else if(moving && !goingDown && hasStarted){
+                            let isGoodSquat = checkTibiaAndBackAngles(jointToPosMap);
+                        }
+                        //the user is at the top again, so a rep has been completed
+                        else if(!moving && !goingDown && hasStarted){
+                            numReps += 1
+                            var goingDown = true
+                            var hasStarted = false
+
+                        }
                     }
                 
                 // Draw the segment lines.
