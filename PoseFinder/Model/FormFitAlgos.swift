@@ -42,7 +42,7 @@ class FormFitAlgos {
         return (180 / CGFloat.pi) * (angle1 + angle2)
     }
 
-    func checkIfKneesAreParallelToGround(jointToPosMap: [Joint.Name : CGPoint]) -> String {
+    func checkIfKneesAreParallelToGround(jointToPosMap: [Joint.Name : CGPoint]) -> Bool {
         let leftKneeLoc = jointToPosMap[Joint.Name.leftKnee]
         let leftHipLoc = jointToPosMap[Joint.Name.leftHip]
         let hipToKneeSlope = getSlopeFromPoint(point1: leftShoulderLoc!, point2: leftHipLoc!)
