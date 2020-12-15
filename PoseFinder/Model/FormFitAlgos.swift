@@ -9,6 +9,16 @@
 import Foundation
 import UIKit
 
+
+
+struct PoseInformation {
+    var exerciseName : String?
+    var timeStamp : Int?
+    var exerciseScore : Int?
+    var exerciseComments = [String]()
+}
+
+
 class FormFitAlgos {
     
     // "static" final constants
@@ -17,7 +27,7 @@ class FormFitAlgos {
     let BAD_BACK_ANGLE = CGFloat(80.0)
     let BAD_TIBIA_ANGLE = CGFloat(30.0)
     let BAD_LEG_SLOPE = CGFloat(0.5)
-    
+
     let MOVEMENT_THRESHOLD = CGFloat(10.0)
     
     // intstance variables
@@ -25,12 +35,19 @@ class FormFitAlgos {
     var leftShoulderLocs : [CGFloat]
     var tibiaAngles : [CGFloat]
     var isMovingArr : [Bool]
+    var listOfPoseInformation : [PoseInformation]
+    
+    var currentPoseInformation : PoseInformation
+    var currentBackAngle : CGFloat?
     
     var hasStarted : Bool
     var goingDown : Bool
+    var areKneesParallelToGround : Bool
     var isGoodSquat : Bool
-
+    
+    var exerciseScore : Int
     var numReps : Int
+
     
     // initialization
     init() {
@@ -38,11 +55,16 @@ class FormFitAlgos {
         leftShoulderLocs = [CGFloat]()
         tibiaAngles = [CGFloat]()
         isMovingArr = [Bool]()
+        listOfPoseInformation = [PoseInformation]()
+        
+        currentPoseInformation = PoseInformation(exerciseName: "Squat")
         
         hasStarted = false
         goingDown = false
+        areKneesParallelToGround = false
         isGoodSquat = false
         
+        exerciseScore = 100
         numReps = 0
     }
     
@@ -69,7 +91,6 @@ class FormFitAlgos {
         let hipToKneeSlope = getSlopeFromPoint(point1: leftKneeLoc!, point2: leftHipLoc!)
 
         return hipToKneeSlope > BAD_LEG_SLOPE
-
     }
     
     func isLeftShoulderMoving(jointToPosMap: [Joint.Name : CGPoint]) -> Bool {
@@ -106,6 +127,8 @@ class FormFitAlgos {
         squatAngles.append(backAngle)
         tibiaAngles.append(tibiaAngle)
         
+        currentBackAngle = backAngle
+        
         let lastIndex = max(0, squatAngles.count - FRAME_AVE)
         let numElements = min(squatAngles.count, FRAME_AVE)
         let recentSquatAngles = squatAngles[lastIndex...]
@@ -137,49 +160,47 @@ class FormFitAlgos {
         //the user is descending and still moving
         else if(!moving && goingDown && hasStarted){
             isGoodSquat = checkTibiaAndBackAngles(jointToPosMap: jointToPosMap);
+            if(!isGoodSquat && exerciseScore > 75){
+                //deduct 25 points for a bad descent
+                exerciseScore = 75
+                currentPoseInformation.exerciseComments.append("Your back and/or tibia were not at good angles on your descent")
 
+            }
         }
         //the user has started the lift and stopped their descent, so we are at the bottom
         else if (!moving && hasStarted && goingDown){
             goingDown = false
-            isGoodSquat = checkIfKneesAreParallelToGround(jointToPosMap: jointToPosMap);
+            areKneesParallelToGround = checkIfKneesAreParallelToGround(jointToPosMap: jointToPosMap)
+
+            if(!areKneesParallelToGround && exerciseScore > 50){
+                //deduct 25 points for not being parallel
+                exerciseScore = 50
+                currentPoseInformation.exerciseComments.append("Your knees were not at or below parallel")
+
+            }
         }
         //the user is ascending
         else if(moving && !goingDown && hasStarted){
             isGoodSquat = checkTibiaAndBackAngles(jointToPosMap: jointToPosMap);
+
+            if(!isGoodSquat && exerciseScore > 25){
+                //deduct 25 points for not ascending well
+                exerciseScore = 25
+                currentPoseInformation.exerciseComments.append("Your back and/or tibia were not at good angles on your ascent")
+            }
         }
         //the user is at the top again, so a rep has been completed
         else if(!moving && !goingDown && hasStarted){
             numReps += 1
             goingDown = true
             hasStarted = false
-        }
-    }
-    
-    func realSquatAlgorithm(listOfBackAngles: [CGFloat], listOfTibiaAngles: [CGFloat], listOfShoulderPositions: [CGPoint], listOfKneeToHipSlopes: [CGFloat]) {
-         //TODO: check when the lift starts using the listOfShoulderPositions
-         //TODO: change this to the index of when the lift starts
-        let startPosition = 10;
-
-        //TODO: check when the user is at the bottom of the squat using the listOfShoulderPositions
-        let bottomPosition = 50;
-
-        for i in startPosition ..< listOfBackAngles.count {
-            //check the leg angle at the bottom
-            if(i == bottomPosition) {
-                if(listOfKneeToHipSlopes[i] > BAD_LEG_SLOPE){
-                    let message = "Your leg has a slope of \(listOfKneeToHipSlopes[i]), but it should be at \(BAD_LEG_SLOPE)"
-                    print(message)
-                }
-            }
-            if(listOfBackAngles[i] < BAD_BACK_ANGLE){
-                let message = "Your back is at \(listOfBackAngles[i]), but it should be at \(BAD_BACK_ANGLE)"
-                print(message)
-            }
-            if(listOfBackAngles[i] > BAD_TIBIA_ANGLE){
-                let message = "Your tibia is at \(listOfTibiaAngles[i]), but it should be at \(BAD_TIBIA_ANGLE)"
-                print(message)
-            }
+            //set the final variables for currentPoseInformation
+            currentPoseInformation.exerciseScore = exerciseScore
+            //TODO: set the time stamp to the rep for now
+            currentPoseInformation.timeStamp = numReps
+            listOfPoseInformation.append(currentPoseInformation)
+            //set the currentPoseInfo to a new one
+            currentPoseInformation = PoseInformation()
         }
     }
 
