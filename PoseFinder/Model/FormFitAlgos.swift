@@ -48,7 +48,6 @@ class FormFitAlgos {
         let hipToKneeSlope = getSlopeFromPoint(point1: leftShoulderLoc!, point2: leftHipLoc!)
 
         return hipToKneeSlope > BAD_LEG_SLOPE
-
     }
 
     
