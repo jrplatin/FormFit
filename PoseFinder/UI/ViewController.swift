@@ -16,6 +16,8 @@ class ViewController: UIViewController {
 
     @IBOutlet weak var degreeLabel: UILabel!
     
+    @IBOutlet weak var repsLabel: UILabel!
+    
     private let videoCapture = VideoCapture()
 
     private var poseNet: PoseNet!
@@ -165,6 +167,7 @@ extension ViewController: PoseNetDelegate {
             : poseBuilder.poses
 
         previewImageView.show(poses: poses, on: currentFrame)
+        
         if let degs = previewImageView.algos.backDegrees {
             degreeLabel.text = String(format: "%.2f", degs)
             if previewImageView.algos.goodSquat {
@@ -176,5 +179,8 @@ extension ViewController: PoseNetDelegate {
             degreeLabel.textColor = UIColor.white
             degreeLabel.text = "Not Squatting!"
         }
+        
+        repsLabel.textColor = UIColor.white
+        repsLabel.text = String(previewImageView.numReps)
     }
 }

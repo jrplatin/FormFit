@@ -24,7 +24,13 @@ class FormFitAlgos {
     
     var squatAngles = [CGFloat]()
     var tibiaAngles = [CGFloat]()
+    
+    var isMovingArr = [Bool]()
+    var goingDown = true
+    var isGoodSquat = false
+    var hasStarted = false
 
+    var numReps = 0
     
     func getSlopeFromPoint(point1: CGPoint, point2: CGPoint) -> CGFloat {
         let rise = point1.y - point2.y
@@ -45,10 +51,46 @@ class FormFitAlgos {
     func checkIfKneesAreParallelToGround(jointToPosMap: [Joint.Name : CGPoint]) -> Bool {
         let leftKneeLoc = jointToPosMap[Joint.Name.leftKnee]
         let leftHipLoc = jointToPosMap[Joint.Name.leftHip]
-        let hipToKneeSlope = getSlopeFromPoint(point1: leftShoulderLoc!, point2: leftHipLoc!)
+        let hipToKneeSlope = getSlopeFromPoint(point1: leftKneeLoc!, point2: leftHipLoc!)
 
         return hipToKneeSlope > BAD_LEG_SLOPE
 
+    }
+    
+    func squatCheck(jointToPosMap: [Joint.Name : CGPoint]) {
+        // detecting motion
+        isMovingArr.append(isLeftShoulderMoving(jointToPosMap: jointToPosMap))
+        if (isMovingArr.count > 10) {
+            isMovingArr.removeFirst()
+        }
+        
+        let moving = isMovingArr.contains(true)
+        
+        //the user has started the descent
+        if (moving && !hasStarted) {
+            hasStarted = true
+            isGoodSquat = checkTibiaAndBackAngles(jointToPosMap: jointToPosMap);
+        }
+        //the user is descending and still moving
+        else if(!moving && goingDown && hasStarted){
+            isGoodSquat = checkTibiaAndBackAngles(jointToPosMap: jointToPosMap);
+
+        }
+        //the user has started the lift and stopped their descent, so we are at the bottom
+        else if (!moving && hasStarted && goingDown){
+            goingDown = false
+            isGoodSquat = checkIfKneesAreParallelToGround(jointToPosMap: jointToPosMap);
+        }
+        //the user is ascending
+        else if(moving && !goingDown && hasStarted){
+            isGoodSquat = checkTibiaAndBackAngles(jointToPosMap: jointToPosMap);
+        }
+        //the user is at the top again, so a rep has been completed
+        else if(!moving && !goingDown && hasStarted){
+            numReps += 1
+            goingDown = true
+            hasStarted = false
+        }
     }
 
     

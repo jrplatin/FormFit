@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -99,17 +99,25 @@
                                     <segue destination="pL4-M0-HM5" kind="presentation" identifier="ConfigurationSeque" id="2C3-dO-Aqi"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HHZ-93-8LK">
+                                <rect key="frame" x="166" y="121" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="ArZ-44-lD1" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" id="2Jo-v1-F6T"/>
                             <constraint firstItem="8o7-cd-AQr" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="5kX-v9-7Op"/>
+                            <constraint firstItem="HHZ-93-8LK" firstAttribute="centerX" secondItem="wAe-wD-G3r" secondAttribute="centerX" id="6Bb-dK-hH6"/>
                             <constraint firstAttribute="trailing" secondItem="kFx-2J-Bjc" secondAttribute="trailing" id="6gk-Va-ZsI"/>
                             <constraint firstItem="ArZ-44-lD1" firstAttribute="top" secondItem="wAe-wD-G3r" secondAttribute="bottom" constant="-113" id="7KT-os-Jji"/>
                             <constraint firstAttribute="trailing" secondItem="8o7-cd-AQr" secondAttribute="trailing" id="8SQ-dt-aql"/>
                             <constraint firstAttribute="bottom" secondItem="8o7-cd-AQr" secondAttribute="bottom" id="AJN-eH-I4s"/>
                             <constraint firstItem="c4t-1N-oJy" firstAttribute="centerX" secondItem="ArZ-44-lD1" secondAttribute="centerX" id="GhP-pt-YXU"/>
                             <constraint firstItem="ArZ-44-lD1" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="IQo-uE-KGM"/>
+                            <constraint firstItem="HHZ-93-8LK" firstAttribute="top" secondItem="wAe-wD-G3r" secondAttribute="bottom" constant="8" symbolic="YES" id="KKS-be-gsM"/>
                             <constraint firstAttribute="trailing" secondItem="ArZ-44-lD1" secondAttribute="trailing" id="Ofr-gP-hut"/>
                             <constraint firstItem="8o7-cd-AQr" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="0.15" id="OoF-eO-91Y"/>
                             <constraint firstItem="BtZ-RJ-x8n" firstAttribute="top" secondItem="F1z-cx-652" secondAttribute="bottom" constant="12" id="ZA4-Ra-Xz4"/>
@@ -124,6 +132,7 @@
                     <connections>
                         <outlet property="degreeLabel" destination="wAe-wD-G3r" id="DYv-W8-E0r"/>
                         <outlet property="previewImageView" destination="ArZ-44-lD1" id="nT5-Yu-T3h"/>
+                        <outlet property="repsLabel" destination="HHZ-93-8LK" id="Lek-2S-Uqj"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

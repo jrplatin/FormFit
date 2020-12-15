@@ -36,14 +36,6 @@ class PoseImageView: UIImageView {
     ]
     
     let algos = FormFitAlgos()
-    
-    var isMovingArr = [Bool]()
-
-    var goingDown = true
-
-    var hasStarted = false
-
-    var numReps = 0
 
     /// The width of the line connecting two joints.
     @IBInspectable var segmentLineWidth: CGFloat = 2
@@ -62,7 +54,6 @@ class PoseImageView: UIImageView {
     func show(poses: [Pose], on frame: CGImage) {
         let dstImageSize = CGSize(width: frame.width, height: frame.height)
         let dstImageFormat = UIGraphicsImageRendererFormat()
-        let isFindingSquat = true
 
         dstImageFormat.scale = 1
         let renderer = UIGraphicsImageRenderer(size: dstImageSize,
@@ -71,48 +62,19 @@ class PoseImageView: UIImageView {
         let dstImage = renderer.image { rendererContext in
             // Draw the current frame as the background for the new image.
             draw(image: frame, in: rendererContext.cgContext)
-            var jointToPosMap = [Joint.Name : CGPoint]()
-                for pose in poses {
-                    for joint in pose.joints {
-                        let name = pose[joint.key].name
-                        let pos = pose[joint.key].position
-                        jointToPosMap[name] = pos
-                        
-                    }
-                    if(isFindingSquat){
-                        isMovingArr.append(algos.isLeftShoulderMoving(jointToPosMap: jointToPosMap))
-                        if (isMovingArr.count > 10) {
-                            isMovingArr.removeFirst()
-                        }
-                        let moving = isMovingArr.contains(true)
-                        
-                        //the user has started the descent
-                        if (moving && !hasStarted) {
-                            hasStarted = true 
-                            let isGoodSquat = checkTibiaAndBackAngles(jointToPosMap);
-                        }    
-                        //the user is descending and still moving
-                        else if(!moving && goingDown && hasStarted){
-                            let isGoodSquat = checkTibiaAndBackAngles(jointToPosMap);
-
-                        }   
-                        //the user has started the lift and stopped their descent, so we are at the bottom
-                        else if (!moving && hasStarted && goingDown){
-                            goingDown = false
-                            let areKneesParallelToGround = checkIfKneesAreParallelToGround()
-                        }    
-                        //the user is ascending
-                        else if(moving && !goingDown && hasStarted){
-                            let isGoodSquat = checkTibiaAndBackAngles(jointToPosMap);
-                        }
-                        //the user is at the top again, so a rep has been completed
-                        else if(!moving && !goingDown && hasStarted){
-                            numReps += 1
-                            var goingDown = true
-                            var hasStarted = false
-
-                        }
-                    }
+            
+            // analyze pose with highest confidence
+            if (!poses.isEmpty) {
+                let pose = poses.sorted(by: {$0.confidence < $1.confidence})[0]
+                var jointToPosMap = [Joint.Name : CGPoint]()
+                for joint in pose.joints {
+                    let name = pose[joint.key].name
+                    let pos = pose[joint.key].position
+                    jointToPosMap[name] = pos
+                }
+                
+                // update squat algo
+                algos.squatCheck(jointToPosMap: jointToPosMap)
                 
                 // Draw the segment lines.
                 for segment in PoseImageView.jointSegments {
@@ -127,7 +89,7 @@ class PoseImageView: UIImageView {
                              to: jointB,
                              in: rendererContext.cgContext)
                 }
-
+                
                 // Draw the joints as circles above the segment lines.
                 for joint in pose.joints.values.filter({ $0.isValid }) {
                     draw(circle: joint, in: rendererContext.cgContext)
