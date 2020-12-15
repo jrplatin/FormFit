@@ -181,6 +181,6 @@ extension ViewController: PoseNetDelegate {
         }
         
         repsLabel.textColor = UIColor.white
-        repsLabel.text = String(previewImageView.numReps)
+        repsLabel.text = String(previewImageView.algos.numReps)
     }
 }
