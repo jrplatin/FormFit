@@ -34,7 +34,7 @@ class FormFitAlgos {
     var squatAngles : [CGFloat]
     var leftShoulderLocs : [CGFloat]
     var tibiaAngles : [CGFloat]
-    var isMovingArr : [Int]
+    var runningHistoryOfMins : [Int]
     var listOfPoseInformation : [PoseInformation]
     
     var currentPoseInformation : PoseInformation
@@ -54,7 +54,7 @@ class FormFitAlgos {
         squatAngles = [CGFloat]()
         leftShoulderLocs = [CGFloat]()
         tibiaAngles = [CGFloat]()
-        isMovingArr = [Bool]()
+        runningHistoryOfMins = [Bool]()
         listOfPoseInformation = [PoseInformation]()
         
         currentPoseInformation = PoseInformation(exerciseName: "Squat")
@@ -94,7 +94,7 @@ class FormFitAlgos {
     }
     
     func minLeftShoulderPos(jointToPosMap: [Joint.Name : CGPoint]) -> Int {
-        let listSize = 5
+        let listSize = 10
         if let loc = jointToPosMap[Joint.Name.leftShoulder]?.y {
             leftShoulderLocs.append(loc)
         }
@@ -138,12 +138,12 @@ class FormFitAlgos {
     
     func squatCheck(jointToPosMap: [Joint.Name : CGPoint]) {
         // detecting motion
-        isMovingArr.append(minLeftShoulderPos(jointToPosMap: jointToPosMap))
-        if (isMovingArr.count > 10) {
-            isMovingArr.removeFirst()
+        runningHistoryOfMins.append(minLeftShoulderPos(jointToPosMap: jointToPosMap))
+        if (runningHistoryOfMins.count > 10) {
+            runningHistoryOfMins.removeFirst()
         }
         
-        let moving = isMovingArr.contains(0)
+        let moving = runningHistoryOfMins.contains(0)
         
         //the user has started the descent
         if (moving && !hasStarted) {
