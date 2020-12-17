@@ -129,6 +129,6 @@ dmypy.json
 .pyre/
 
 # Xcode
-PoseFinder.xcodeproj/
+FormFit.xcodeproj/
 
 .DS_Store
