@@ -16,6 +16,8 @@ class ViewController: UIViewController {
 
     @IBOutlet weak var statusLabel: UILabel!
     
+    @IBOutlet weak var recordButton: UIButton!
+    
     private let videoCapture = VideoCapture()
 
     private var poseNet: PoseNet!
@@ -27,7 +29,9 @@ class ViewController: UIViewController {
     private let poseBuilderConfiguration = PoseBuilderConfiguration()
     
     private let algos = FormFitAlgos()
-
+    
+    private var isRecording = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -78,7 +82,15 @@ class ViewController: UIViewController {
     }
     
     @IBAction func onRecordButtonTapped(_ sender: Any) {
-        print("recording")
+        if (isRecording) {
+            isRecording = false
+            recordButton.backgroundColor = UIColor.systemGreen
+            recordButton.setTitle("Record", for: UIControl.State.normal)
+        } else {
+            isRecording = true
+            recordButton.backgroundColor = UIColor.systemRed
+            recordButton.setTitle("Recording...", for: UIControl.State.normal)
+        }
     }
 
 }

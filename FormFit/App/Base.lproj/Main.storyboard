@@ -60,8 +60,16 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eDh-CD-xem">
-                                <rect key="frame" x="163" y="719" width="49" height="30"/>
-                                <state key="normal" title="Record"/>
+                                <rect key="frame" x="93" y="698.66666666666663" width="189" height="34"/>
+                                <color key="backgroundColor" systemColor="systemGreenColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="34" id="C0C-OJ-X5K"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="Record">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
                                 <connections>
                                     <action selector="onRecordButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="AHL-Ku-jmI"/>
                                 </connections>
@@ -71,18 +79,20 @@
                         <constraints>
                             <constraint firstItem="ArZ-44-lD1" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" id="2Jo-v1-F6T"/>
                             <constraint firstItem="ArZ-44-lD1" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="IQo-uE-KGM"/>
+                            <constraint firstItem="eDh-CD-xem" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="77" id="M7r-c5-Tuq"/>
                             <constraint firstAttribute="trailing" secondItem="ArZ-44-lD1" secondAttribute="trailing" id="Ofr-gP-hut"/>
                             <constraint firstItem="ArZ-44-lD1" firstAttribute="top" secondItem="HHZ-93-8LK" secondAttribute="bottom" constant="-93" id="Q2I-mX-qXS"/>
                             <constraint firstItem="BtZ-RJ-x8n" firstAttribute="top" secondItem="F1z-cx-652" secondAttribute="bottom" constant="12" id="ZA4-Ra-Xz4"/>
                             <constraint firstItem="eDh-CD-xem" firstAttribute="centerX" secondItem="ArZ-44-lD1" secondAttribute="centerX" id="e5j-Zj-6C0"/>
                             <constraint firstAttribute="trailing" secondItem="BtZ-RJ-x8n" secondAttribute="trailing" constant="30" id="jr2-4Z-W6H"/>
                             <constraint firstItem="HHZ-93-8LK" firstAttribute="centerX" secondItem="ArZ-44-lD1" secondAttribute="centerX" id="juG-yj-MyJ"/>
-                            <constraint firstItem="eDh-CD-xem" firstAttribute="top" secondItem="ArZ-44-lD1" secondAttribute="bottom" constant="-93" id="yUp-RB-hVM"/>
+                            <constraint firstItem="zt5-5N-S1k" firstAttribute="top" secondItem="eDh-CD-xem" secondAttribute="bottom" constant="45.333333333333371" id="mcN-wa-6Vx"/>
                             <constraint firstItem="ArZ-44-lD1" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="ykF-C2-0P9"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="previewImageView" destination="ArZ-44-lD1" id="nT5-Yu-T3h"/>
+                        <outlet property="recordButton" destination="eDh-CD-xem" id="9qH-iM-h4W"/>
                         <outlet property="statusLabel" destination="HHZ-93-8LK" id="o68-Fs-Is0"/>
                     </connections>
                 </viewController>
@@ -101,6 +111,9 @@
         </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGreenColor">
+            <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

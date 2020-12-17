@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "4A2D23AD22BB70E400494C55"
-               BuildableName = "PoseFinder.app"
+               BuildableName = "FormFit.app"
                BlueprintName = "FormFit"
                ReferencedContainer = "container:FormFit.xcodeproj">
             </BuildableReference>
@@ -45,7 +45,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "4A2D23AD22BB70E400494C55"
-            BuildableName = "PoseFinder.app"
+            BuildableName = "FormFit.app"
             BlueprintName = "FormFit"
             ReferencedContainer = "container:FormFit.xcodeproj">
          </BuildableReference>
@@ -62,7 +62,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "4A2D23AD22BB70E400494C55"
-            BuildableName = "PoseFinder.app"
+            BuildableName = "FormFit.app"
             BlueprintName = "FormFit"
             ReferencedContainer = "container:FormFit.xcodeproj">
          </BuildableReference>
