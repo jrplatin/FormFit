@@ -99,7 +99,6 @@ class ViewController: UIViewController {
 
 }
 
-
 // MARK: - VideoCaptureDelegate
 
 extension ViewController: VideoCaptureDelegate {

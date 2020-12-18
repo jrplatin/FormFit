@@ -37,6 +37,10 @@ func subArray<T>(array: [T], s: Int, e: Int) -> [T] {
 
 // Smooth z-score thresholding filter
 func ThresholdingAlgo(y: [Double], lag: Int, threshold: Double, influence: Double) -> ([Int],[Double],[Double]) {
+    
+    if (y.count < lag) {
+        return ([Int](), [Double](), [Double]())
+    }
 
     // Create arrays
     var signals   = Array(repeating: 0, count: y.count)
