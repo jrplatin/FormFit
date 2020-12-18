@@ -88,6 +88,7 @@ class ViewController: UIViewController {
             isRecording = false
             recordButton.setTitle("Analyzing...", for: UIControl.State.normal)
             exerciseInfo = algo.finishExercise()
+            print(exerciseInfo!)
             recordButton.backgroundColor = UIColor.systemGreen
             recordButton.setTitle("Record", for: UIControl.State.normal)
         } else {
