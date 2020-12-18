@@ -25,6 +25,9 @@ struct ExerciseInformation {
 
 class FormFitAlgos {
     
+    let BACK_THRESHOLD = CGFloat(80) //placeholder
+    let TIBIA_THRESHOLD = CGFloat(120) //placeholder
+    
     private var leftShoulderLocs: [CGFloat]
     private var backAngles: [CGFloat]
     private var tibiaAngles: [CGFloat]
@@ -127,6 +130,66 @@ class FormFitAlgos {
         }
         
         return info
+    }
+    
+    private func fiveWindowAvg(index: Int, array: [CGFloat]) -> CGFloat {
+         if (index < 2 || index > array.count - 3) {
+             return array[index]
+         }
+
+         return (array[index - 2] + array[index - 1] + array[index] + array[index + 1] + array[index+2])/5
+    }
+
+    private func score(r: RepInformation) -> (Double, String) {
+        var score = 100.0
+        var avgBackAngles = [CGFloat]()
+        for i in 0...r.backAngles.count{
+            avgBackAngles.append(fiveWindowAvg(index: i, array: r.backAngles))
+        }
+        var avgTibiaAngles = [CGFloat]()
+        for i in 0...r.tibiaAngles.count{
+            avgTibiaAngles.append(fiveWindowAvg(index: i, array: r.backAngles))
+        }
+
+        let bottomIndex = r.shoulderPositions.firstIndex(of: r.shoulderPositions.max()!)
+
+
+        var backDescentBad = 0.0
+        var backAscentBad = 0.0
+        for i in 0...avgBackAngles.count{
+            if (avgBackAngles[i] < BACK_THRESHOLD) {
+                score -= (50.0 / Double(avgBackAngles.count))
+                if(i <= bottomIndex!) {
+                  backDescentBad+=1
+                } else {
+                  backAscentBad+=1
+                }
+            }
+        }
+        backDescentBad /= Double(avgBackAngles.count)
+        backAscentBad /= Double(avgBackAngles.count)
+
+        var tibiaDescentBad = 0.0
+        var tibiaAscentBad = 0.0
+        for i in 0...avgTibiaAngles.count{
+            if (avgTibiaAngles[i] > TIBIA_THRESHOLD) {
+                score -= (50.0 / Double(avgTibiaAngles.count))
+                if(i <= bottomIndex!) {
+                  tibiaDescentBad+=1
+                } else {
+                  tibiaAscentBad+=1
+                }
+            }
+        }
+        tibiaDescentBad /= Double(avgTibiaAngles.count)
+        tibiaAscentBad /= Double(avgTibiaAngles.count)
+
+        let feedback = "Your back angle was incorrect \(backDescentBad * 100)% of " +
+        "the descent and \(backAscentBad * 100)% of the ascent." +
+        "Your tibia angle was incorrect \(tibiaDescentBad * 100)% of " +
+        "the descent and \(tibiaAscentBad * 100)% of the ascent."
+
+        return (score, feedback)
     }
     
 }
