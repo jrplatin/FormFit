@@ -68,6 +68,10 @@ class FormFitAlgos {
         let info = ExerciseInformation(exerciseName: "Squat",
                                        timeStamp: NSDate().timeIntervalSince1970,
                                        repInfo: createReps())
+        for i in 1...info.repInfo.count - 1 {
+            let (val, feedback) = score(r: info.repInfo[i])
+            print("Rep \(i): Score=\(val) Feedback=\(feedback)")
+        }
         reset()
         return info
     }
@@ -143,12 +147,12 @@ class FormFitAlgos {
     private func score(r: RepInformation) -> (Double, String) {
         var score = 100.0
         var avgBackAngles = [CGFloat]()
-        for i in 0...r.backAngles.count{
+        for i in 0...r.backAngles.count - 1{
             avgBackAngles.append(fiveWindowAvg(index: i, array: r.backAngles))
         }
         var avgTibiaAngles = [CGFloat]()
-        for i in 0...r.tibiaAngles.count{
-            avgTibiaAngles.append(fiveWindowAvg(index: i, array: r.backAngles))
+        for i in 0...r.tibiaAngles.count - 1 {
+            avgTibiaAngles.append(fiveWindowAvg(index: i, array: r.tibiaAngles))
         }
 
         let bottomIndex = r.shoulderPositions.firstIndex(of: r.shoulderPositions.max()!)
@@ -156,7 +160,7 @@ class FormFitAlgos {
 
         var backDescentBad = 0.0
         var backAscentBad = 0.0
-        for i in 0...avgBackAngles.count{
+        for i in 0...avgBackAngles.count - 1 {
             if (avgBackAngles[i] < BACK_THRESHOLD) {
                 score -= (50.0 / Double(avgBackAngles.count))
                 if(i <= bottomIndex!) {
@@ -171,7 +175,7 @@ class FormFitAlgos {
 
         var tibiaDescentBad = 0.0
         var tibiaAscentBad = 0.0
-        for i in 0...avgTibiaAngles.count{
+        for i in 0...avgTibiaAngles.count - 1{
             if (avgTibiaAngles[i] > TIBIA_THRESHOLD) {
                 score -= (50.0 / Double(avgTibiaAngles.count))
                 if(i <= bottomIndex!) {
