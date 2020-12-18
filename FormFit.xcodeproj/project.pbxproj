@@ -28,6 +28,7 @@
 		4AE8C3D123AD2D3B005F9953 /* PoseNetInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE8C3D023AD2D3B005F9953 /* PoseNetInput.swift */; };
 		4AE8C3D323AD2D8A005F9953 /* PoseNetOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE8C3D223AD2D8A005F9953 /* PoseNetOutput.swift */; };
 		8827276F2561AB0000810153 /* FormFitAlgos.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8827276E2561AB0000810153 /* FormFitAlgos.swift */; };
+		88DC77BC258C26A50090ADCA /* MathLib.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88DC77BB258C26A50090ADCA /* MathLib.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -57,6 +58,7 @@
 		57C02DF057C02B4000000001 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		8827276E2561AB0000810153 /* FormFitAlgos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormFitAlgos.swift; sourceTree = "<group>"; };
 		88DC77B9258C14060090ADCA /* FormFit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FormFit.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		88DC77BB258C26A50090ADCA /* MathLib.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MathLib.swift; sourceTree = "<group>"; };
 		BEE6CF152B804A05BF905D20 /* SampleCode.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = SampleCode.xcconfig; path = Configuration/SampleCode.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -167,6 +169,7 @@
 		6594E51B23454C4100D3C44D /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				88DC77BB258C26A50090ADCA /* MathLib.swift */,
 				0D4BB83E249769C800076D64 /* PoseNetMobileNet075S16FP16.mlmodel */,
 				4AE8C3D023AD2D3B005F9953 /* PoseNetInput.swift */,
 				4AE8C3D223AD2D8A005F9953 /* PoseNetOutput.swift */,
@@ -261,6 +264,7 @@
 				4AE8C3D323AD2D8A005F9953 /* PoseNetOutput.swift in Sources */,
 				0DCEF2CE241676C000ECEC99 /* PoseBuilderConfiguration.swift in Sources */,
 				4ADD52F822BBCF580008FAAC /* Joint.swift in Sources */,
+				88DC77BC258C26A50090ADCA /* MathLib.swift in Sources */,
 				4ADE4C8C2346C07300FFD895 /* AVCaptureVideoOrientation+Extension.swift in Sources */,
 				4AE8C3CB23ACDF1C005F9953 /* PoseImageView.swift in Sources */,
 				0D4BB83F249769C800076D64 /* PoseNetMobileNet075S16FP16.mlmodel in Sources */,

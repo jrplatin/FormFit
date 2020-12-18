@@ -28,7 +28,9 @@ class ViewController: UIViewController {
     
     private let poseBuilderConfiguration = PoseBuilderConfiguration()
     
-    private let algos = FormFitAlgos()
+    private let algo = FormFitAlgos()
+    
+    private var exerciseInfo: ExerciseInformation?
     
     private var isRecording = false
     
@@ -84,6 +86,8 @@ class ViewController: UIViewController {
     @IBAction func onRecordButtonTapped(_ sender: Any) {
         if (isRecording) {
             isRecording = false
+            recordButton.setTitle("Analyzing...", for: UIControl.State.normal)
+            exerciseInfo = algo.finishExercise()
             recordButton.backgroundColor = UIColor.systemGreen
             recordButton.setTitle("Record", for: UIControl.State.normal)
         } else {
@@ -133,7 +137,16 @@ extension ViewController: PoseNetDelegate {
         let pose = poses.isEmpty ? nil : poses.sorted(by: {$0.confidence < $1.confidence})[0]
         previewImageView.show(pose: pose, on: currentFrame)
         
-        statusLabel.text = "Status"
-        statusLabel.textColor = UIColor.red
+        if (isRecording) {
+            algo.processFrame(pose: pose)
+        }
+        
+        if let exerciseInfo = exerciseInfo {
+            statusLabel.text = "Total Reps: \(exerciseInfo.repInfo.count)"
+            statusLabel.textColor = UIColor.green
+        } else {
+            statusLabel.text = "No exercises yet"
+            statusLabel.textColor = UIColor.red
+        }
     }
 }

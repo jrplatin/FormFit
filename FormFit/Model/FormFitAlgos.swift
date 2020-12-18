@@ -9,192 +9,124 @@
 import Foundation
 import UIKit
 
+struct RepInformation {
+    var shoulderPositions = [CGFloat]()
+    var backAngles = [CGFloat]()
+    var tibiaAngles = [CGFloat]()
+}
 
-
-struct PoseInformation {
+struct ExerciseInformation {
     var exerciseName : String?
-    var timeStamp : Int?
+    var timeStamp : Double?
     var exerciseScore : Int?
-    var exerciseComments = [String]()
+    var repInfo = [RepInformation]()
 }
 
 
 class FormFitAlgos {
     
-    // "static" final constants
-    let FRAME_AVE = 4
+    private var leftShoulderLocs: [CGFloat]
+    private var backAngles: [CGFloat]
+    private var tibiaAngles: [CGFloat]
     
-    let BAD_BACK_ANGLE = CGFloat(80.0)
-    let BAD_TIBIA_ANGLE = CGFloat(30.0)
-    let BAD_LEG_SLOPE = CGFloat(0.5)
-
-    let MOVEMENT_THRESHOLD = CGFloat(10.0)
-    
-    // intstance variables
-    var squatAngles : [CGFloat]
-    var leftShoulderLocs : [CGFloat]
-    var tibiaAngles : [CGFloat]
-    var runningHistoryOfMins : [Int]
-    var listOfPoseInformation : [PoseInformation]
-    
-    var currentPoseInformation : PoseInformation
-    var currentBackAngle : CGFloat?
-    
-    var hasStarted : Bool
-    var goingDown : Bool
-    var areKneesParallelToGround : Bool
-    var isGoodSquat : Bool
-    
-    var exerciseScore : Int
-    var numReps : Int
-
-    
-    // initialization
     init() {
-        squatAngles = [CGFloat]()
         leftShoulderLocs = [CGFloat]()
+        backAngles = [CGFloat]()
         tibiaAngles = [CGFloat]()
-        runningHistoryOfMins = [Int]()
-        listOfPoseInformation = [PoseInformation]()
-        
-        currentPoseInformation = PoseInformation(exerciseName: "Squat")
-        
-        hasStarted = false
-        goingDown = false
-        areKneesParallelToGround = false
-        isGoodSquat = false
-        
-        exerciseScore = 100
-        numReps = 0
     }
     
-    // helper methods
-    func getSlopeFromPoint(point1: CGPoint, point2: CGPoint) -> CGFloat {
-        let rise = point1.y - point2.y
-        let run = point1.x - point2.x
-        //return a big number in the case of inf/ slope
-        if(run == 0){
-            return 100000
-        }
-        return rise / run
-    }
-
-    func findAngleBetweenTwoLines(slope1: CGFloat, slope2: CGFloat) -> CGFloat {
-        let angle1 = atan(abs(slope1))
-        let angle2 = atan(abs(slope2))
-        return (180 / CGFloat.pi) * (angle1 + angle2)
-    }
-
-    func checkIfKneesAreParallelToGround(jointToPosMap: [Joint.Name : CGPoint]) -> Bool {
-        let leftKneeLoc = jointToPosMap[Joint.Name.leftKnee]
-        let leftHipLoc = jointToPosMap[Joint.Name.leftHip]
-        let hipToKneeSlope = getSlopeFromPoint(point1: leftKneeLoc!, point2: leftHipLoc!)
-
-        return hipToKneeSlope > BAD_LEG_SLOPE
+    private func reset() {
+        leftShoulderLocs = [CGFloat]()
+        backAngles = [CGFloat]()
+        tibiaAngles = [CGFloat]()
     }
     
-    func minLeftShoulderPos(jointToPosMap: [Joint.Name : CGPoint]) -> Int {
-        let listSize = 10
-        if let loc = jointToPosMap[Joint.Name.leftShoulder]?.y {
-            leftShoulderLocs.append(loc)
+    func processFrame(pose : Pose?) {
+        if let pose = pose {
+            // hip to shoulder, and hip to knee
+            let leftShoulderLoc = pose.joints[Joint.Name.leftShoulder]?.position
+            let leftKneeLoc = pose.joints[Joint.Name.leftKnee]?.position
+            let leftHipLoc = pose.joints[Joint.Name.leftHip]?.position
+            let leftAnkleLoc = pose.joints[Joint.Name.leftAnkle]?.position
+
+            let hipToKneeSlope = getSlopeFromPoint(point1: leftShoulderLoc!, point2: leftHipLoc!)
+            let shoulderToHipSlope = getSlopeFromPoint(point1: leftHipLoc!, point2: leftKneeLoc!)
+            let ankleToKneeSlope = getSlopeFromPoint(point1: leftKneeLoc!, point2: leftAnkleLoc!)
+            let backAngle = findAngleBetweenTwoLines(slope1: hipToKneeSlope, slope2: shoulderToHipSlope)
+            let tibiaAngle = findAngleBetweenTwoLines(slope1: hipToKneeSlope, slope2: ankleToKneeSlope)
+            
+            leftShoulderLocs.append(leftShoulderLoc!.y)
+            backAngles.append(backAngle)
+            tibiaAngles.append(tibiaAngle)
         }
-        if (leftShoulderLocs.count > listSize) {
-            leftShoulderLocs.removeFirst()
-        }
-        return 0
-        
     }
     
-    func checkTibiaAndBackAngles(jointToPosMap: [Joint.Name : CGPoint]) -> Bool {
-        // hip to shoulder, and hip to knee
-        let leftShoulderLoc = jointToPosMap[Joint.Name.leftShoulder]
-        let leftKneeLoc = jointToPosMap[Joint.Name.leftKnee]
-        let leftHipLoc = jointToPosMap[Joint.Name.leftHip]
-        let leftAnkleLoc = jointToPosMap[Joint.Name.leftAnkle]
-
-        let hipToKneeSlope = getSlopeFromPoint(point1: leftShoulderLoc!, point2: leftHipLoc!)
-        let shoulderToHipSlope = getSlopeFromPoint(point1: leftHipLoc!, point2: leftKneeLoc!)
-        let ankleToKneeSlope = getSlopeFromPoint(point1: leftKneeLoc!, point2: leftAnkleLoc!)
-        let backAngle = findAngleBetweenTwoLines(slope1: hipToKneeSlope, slope2: shoulderToHipSlope)
-        let tibiaAngle = findAngleBetweenTwoLines(slope1: hipToKneeSlope, slope2: ankleToKneeSlope)
-        squatAngles.append(backAngle)
-        tibiaAngles.append(tibiaAngle)
-        
-        currentBackAngle = backAngle
-        
-        let lastIndex = max(0, squatAngles.count - FRAME_AVE)
-        let numElements = min(squatAngles.count, FRAME_AVE)
-        let recentSquatAngles = squatAngles[lastIndex...]
-        let avgArrayValue = recentSquatAngles.reduce(0.0, +) / CGFloat(numElements)
-
-        let lastIndexTib = max(0, tibiaAngles.count - FRAME_AVE)
-        let numElementsTib = min(tibiaAngles.count, FRAME_AVE)
-        let recentTibAngles = tibiaAngles[lastIndexTib...]
-        let tibAvgValue = recentTibAngles.reduce(0.0, +) / CGFloat(numElementsTib)
-        
-        //the actual "check"
-        return (avgArrayValue <= BAD_BACK_ANGLE && tibAvgValue <= BAD_TIBIA_ANGLE)
+    func finishExercise() -> ExerciseInformation {
+        let info = ExerciseInformation(exerciseName: "Squat",
+                                       timeStamp: NSDate().timeIntervalSince1970,
+                                       repInfo: createReps())
+        reset()
+        return info
     }
     
-    func squatCheck(jointToPosMap: [Joint.Name : CGPoint]) {
-        // detecting motion
-        runningHistoryOfMins.append(minLeftShoulderPos(jointToPosMap: jointToPosMap))
-        if (runningHistoryOfMins.count > 10) {
-            runningHistoryOfMins.removeFirst()
-        }
+    private func createRep(startIndex: Int, endIndex: Int) -> RepInformation {
+        let shoulderPositionsForRep = Array(leftShoulderLocs[startIndex...endIndex])
+        let backAnglesForRep = Array(backAngles[startIndex...endIndex])
+        let tibiaAnglesForRep = Array(tibiaAngles[startIndex...endIndex])
+        return RepInformation(shoulderPositions: shoulderPositionsForRep,
+                              backAngles: backAnglesForRep,
+                              tibiaAngles: tibiaAnglesForRep)
+    }
+    
+    private func createReps() -> [RepInformation] {
+        var info = [RepInformation]()
         
-        let moving = runningHistoryOfMins.contains(0)
-        
-        //the user has started the descent
-        if (moving && !hasStarted) {
-            hasStarted = true
-            isGoodSquat = checkTibiaAndBackAngles(jointToPosMap: jointToPosMap);
-        }
-        //the user is descending and still moving
-        else if(!moving && goingDown && hasStarted){
-            isGoodSquat = checkTibiaAndBackAngles(jointToPosMap: jointToPosMap);
-            if(!isGoodSquat && exerciseScore > 75){
-                //deduct 25 points for a bad descent
-                exerciseScore = 75
-                currentPoseInformation.exerciseComments.append("Your back and/or tibia were not at good angles on your descent")
+        // Run filter
+        let shoulderPositionsDouble = leftShoulderLocs.map { Double($0) }
+        let (signals, _, _) = ThresholdingAlgo(y: shoulderPositionsDouble, lag: 35, threshold: 3.2, influence: 0)
 
+        var isInRep = false
+        var startOfRep = 0
+        var numReps = 0
+        var wasPrevRepZero = false
+        
+        
+        for i in 0...signals.count - 1 {
+            //we are at the start of a rep
+            if(signals[i] == 1 && !isInRep){
+                startOfRep = i
+                isInRep = true
+            }
+            // we are in the rep
+            else if((signals[i] == 0 && isInRep) || signals[i] == 1){
+                //handle the weird case where we have a false peak, or a peak that isn't followed by valley (-1)
+                //really just the end of the last rep
+                if(signals[i] == 1 && wasPrevRepZero){
+                    isInRep = false
+                    numReps += 1
+                    let endOfRep = i
+
+                    info.append(createRep(startIndex: startOfRep, endIndex: endOfRep))
+                }
+            }
+            //signal is -1, so this rep is done
+            else if (signals[i] == -1 && isInRep){
+                isInRep = false
+                numReps += 1
+                let endOfRep = i
+               
+                info.append(createRep(startIndex: startOfRep, endIndex: endOfRep))
+            }
+
+            if(signals[i] == 0){
+                wasPrevRepZero = true
+            }
+            else {
+                wasPrevRepZero = false
             }
         }
-        //the user has started the lift and stopped their descent, so we are at the bottom
-        else if (!moving && hasStarted && goingDown){
-            goingDown = false
-            areKneesParallelToGround = checkIfKneesAreParallelToGround(jointToPosMap: jointToPosMap)
-
-            if(!areKneesParallelToGround && exerciseScore > 50){
-                //deduct 25 points for not being parallel
-                exerciseScore = 50
-                currentPoseInformation.exerciseComments.append("Your knees were not at or below parallel")
-
-            }
-        }
-        //the user is ascending
-        else if(moving && !goingDown && hasStarted){
-            isGoodSquat = checkTibiaAndBackAngles(jointToPosMap: jointToPosMap);
-
-            if(!isGoodSquat && exerciseScore > 25){
-                //deduct 25 points for not ascending well
-                exerciseScore = 25
-                currentPoseInformation.exerciseComments.append("Your back and/or tibia were not at good angles on your ascent")
-            }
-        }
-        //the user is at the top again, so a rep has been completed
-        else if(!moving && !goingDown && hasStarted){
-            numReps += 1
-            goingDown = true
-            hasStarted = false
-            //set the final variables for currentPoseInformation
-            currentPoseInformation.exerciseScore = exerciseScore
-            //TODO: set the time stamp to the rep for now
-            currentPoseInformation.timeStamp = numReps
-            listOfPoseInformation.append(currentPoseInformation)
-            //set the currentPoseInfo to a new one
-            currentPoseInformation = PoseInformation()
-        }
+        
+        return info
     }
-
+    
 }
