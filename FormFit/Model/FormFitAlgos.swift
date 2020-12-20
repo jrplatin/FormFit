@@ -13,6 +13,8 @@ struct RepInformation {
     var shoulderPositions = [CGFloat]()
     var backAngles = [CGFloat]()
     var tibiaAngles = [CGFloat]()
+    var feedback: String
+    var score: Double
 }
 
 struct ExerciseInformation {
@@ -69,7 +71,7 @@ class FormFitAlgos {
                                        timeStamp: NSDate().timeIntervalSince1970,
                                        repInfo: createReps())
         for i in 1...info.repInfo.count - 1 {
-            let (val, feedback) = score(r: info.repInfo[i])
+            let (val, feedback) = score(of: info.repInfo[i])
             print("Rep \(i): Score=\(val) Feedback=\(feedback)")
         }
         reset()
@@ -80,9 +82,17 @@ class FormFitAlgos {
         let shoulderPositionsForRep = Array(leftShoulderLocs[startIndex...endIndex])
         let backAnglesForRep = Array(backAngles[startIndex...endIndex])
         let tibiaAnglesForRep = Array(tibiaAngles[startIndex...endIndex])
+        let bareRep = RepInformation(shoulderPositions: shoulderPositionsForRep,
+                              backAngles: backAnglesForRep,
+                              tibiaAngles: tibiaAnglesForRep,
+                              feedback: "",
+                              score: 0)
+        let (repScore, feedback) = score(of: bareRep)
         return RepInformation(shoulderPositions: shoulderPositionsForRep,
                               backAngles: backAnglesForRep,
-                              tibiaAngles: tibiaAnglesForRep)
+                              tibiaAngles: tibiaAnglesForRep,
+                              feedback: feedback,
+                              score: repScore)
     }
     
     private func createReps() -> [RepInformation] {
@@ -97,7 +107,10 @@ class FormFitAlgos {
         var numReps = 0
         var wasPrevRepZero = false
         
-        
+        // If we don't have any signals (generally from simulator) then just return empty
+        if signals.count == 0 {
+            return info
+        }
         for i in 0...signals.count - 1 {
             //we are at the start of a rep
             if(signals[i] == 1 && !isInRep){
@@ -144,7 +157,7 @@ class FormFitAlgos {
          return (array[index - 2] + array[index - 1] + array[index] + array[index + 1] + array[index+2])/5
     }
 
-    private func score(r: RepInformation) -> (Double, String) {
+    private func score(of r: RepInformation) -> (Double, String) {
         var score = 100.0
         var avgBackAngles = [CGFloat]()
         for i in 0...r.backAngles.count - 1{

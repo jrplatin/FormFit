@@ -10,7 +10,7 @@ import AVFoundation
 import UIKit
 import VideoToolbox
 
-class ViewController: UIViewController {
+class WorkoutViewController: UIViewController {
     /// The view the controller uses to visualize the detected poses.
     @IBOutlet private var previewImageView: PoseImageView!
 
@@ -34,6 +34,15 @@ class ViewController: UIViewController {
     
     private var isRecording = false
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Get the new view controller using segue.destination.
+        // Pass the selected object to the new view controller.
+        if segue.identifier == "ShowSummary" {
+            if let vc = segue.destination as? SummaryViewController {
+                vc.reps = exerciseInfo?.repInfo
+            }
+        }
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -83,13 +92,26 @@ class ViewController: UIViewController {
         }
     }
     
+    let fakeExerciseInfo = ExerciseInformation(
+        exerciseName: "Squats",
+        timeStamp: 100,
+        exerciseScore: 20,
+        repInfo: [
+            RepInformation(shoulderPositions: [], backAngles: [], tibiaAngles: [], feedback: "Do better, get gud", score: 1),
+            RepInformation(shoulderPositions: [], backAngles: [], tibiaAngles: [], feedback: "Great work", score: 10),
+        ])
+    
     @IBAction func onRecordButtonTapped(_ sender: Any) {
         if (isRecording) {
             isRecording = false
             recordButton.setTitle("Analyzing...", for: UIControl.State.normal)
-            exerciseInfo = algo.finishExercise()
+            
+            // MARK: Testing vs Real Data
+//            exerciseInfo = algo.finishExercise()
+            exerciseInfo = fakeExerciseInfo
             recordButton.backgroundColor = UIColor.systemGreen
             recordButton.setTitle("Record", for: UIControl.State.normal)
+            performSegue(withIdentifier: "ShowSummary", sender: sender)
         } else {
             isRecording = true
             recordButton.backgroundColor = UIColor.systemRed
@@ -101,7 +123,7 @@ class ViewController: UIViewController {
 
 // MARK: - VideoCaptureDelegate
 
-extension ViewController: VideoCaptureDelegate {
+extension WorkoutViewController: VideoCaptureDelegate {
     func videoCapture(_ videoCapture: VideoCapture, didCaptureFrame capturedImage: CGImage?) {
         guard currentFrame == nil else {
             return
@@ -117,7 +139,7 @@ extension ViewController: VideoCaptureDelegate {
 
 // MARK: - PoseNetDelegate
 
-extension ViewController: PoseNetDelegate {
+extension WorkoutViewController: PoseNetDelegate {
     func poseNet(_ poseNet: PoseNet, didPredict predictions: PoseNetOutput) {
         defer {
             // Release `currentFrame` when exiting this method.
