@@ -22,6 +22,13 @@ class SummaryViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        bestFeedbackLabel.lineBreakMode = .byWordWrapping
+        bestFeedbackLabel.numberOfLines = 0
+        worstFeedbackLabel.lineBreakMode = .byWordWrapping
+        worstFeedbackLabel.numberOfLines = 0
+        bestScoreLabel.layer.cornerRadius = 5
+        worstScoreLabel.layer.cornerRadius = 5
+        
         let (minRep, maxRep) = getMinAndMaxReps()
         if let minRep = minRep {
             worstScoreLabel.text = "\(minRep.score)"
@@ -31,8 +38,6 @@ class SummaryViewController: UIViewController {
             bestScoreLabel.text = "\(maxRep.score)"
             bestFeedbackLabel.text = maxRep.feedback
         }
-        bestFeedbackLabel.lineBreakMode = .byWordWrapping
-        worstFeedbackLabel.lineBreakMode = .byWordWrapping
     }
     
     func getMinAndMaxReps() -> (RepInformation?, RepInformation?) {

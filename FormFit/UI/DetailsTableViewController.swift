@@ -33,6 +33,7 @@ class DetailsTableViewController: UITableViewController {
         if let reps = reps {
             cell.textLabel?.text = "Rep #\(indexPath.row + 1) (\(reps[indexPath.row].score))"
             cell.detailTextLabel?.text = reps[indexPath.row].feedback
+            cell.detailTextLabel?.numberOfLines = 0
         }
 
         return cell
