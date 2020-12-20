@@ -98,6 +98,12 @@ class WorkoutViewController: UIViewController {
         exerciseScore: 20,
         repInfo: [
             RepInformation(shoulderPositions: [], backAngles: [], tibiaAngles: [], feedback: "Do better, get gud", score: 1),
+            RepInformation(shoulderPositions: [], backAngles: [], tibiaAngles: [], feedback: "Do better, get gud", score: 2),
+            RepInformation(shoulderPositions: [], backAngles: [], tibiaAngles: [], feedback: "Do better, get gud", score: 3),
+            RepInformation(shoulderPositions: [], backAngles: [], tibiaAngles: [], feedback: "Do better, get gud", score: 1),
+            RepInformation(shoulderPositions: [], backAngles: [], tibiaAngles: [], feedback: "Do better, get gud", score: 8),
+            RepInformation(shoulderPositions: [], backAngles: [], tibiaAngles: [], feedback: "Do better, get gud", score: 7),
+            RepInformation(shoulderPositions: [], backAngles: [], tibiaAngles: [], feedback: "Do better, get gud", score: 3),
             RepInformation(shoulderPositions: [], backAngles: [], tibiaAngles: [], feedback: "Great work", score: 10),
         ])
     
