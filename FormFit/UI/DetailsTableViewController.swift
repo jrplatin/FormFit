@@ -31,7 +31,7 @@ class DetailsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "RepCell", for: indexPath)
         if let reps = reps {
-            cell.textLabel?.text = "Rep #\(indexPath.row + 1) (\(reps[indexPath.row].score))"
+            cell.textLabel?.text = String(format: "Rep #%d (%0.2f)", indexPath.row + 1, reps[indexPath.row].score)
             cell.detailTextLabel?.text = reps[indexPath.row].feedback
             cell.detailTextLabel?.numberOfLines = 0
         }

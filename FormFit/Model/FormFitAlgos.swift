@@ -126,7 +126,7 @@ class FormFitAlgos {
                     numReps += 1
                     let endOfRep = i
                     
-                    if(endIndex - startIndex > 16){
+                    if(endOfRep - startOfRep > 16){
                         info.append(createRep(startIndex: startOfRep, endIndex: endOfRep))
                     }
                     
@@ -138,7 +138,7 @@ class FormFitAlgos {
                 numReps += 1
                 let endOfRep = i
                
-                if(endIndex - startIndex > 16){
+                if(endOfRep - startOfRep > 16){
                         info.append(createRep(startIndex: startOfRep, endIndex: endOfRep))
                  }
             }
