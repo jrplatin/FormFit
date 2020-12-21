@@ -201,10 +201,10 @@ class FormFitAlgos {
         tibiaDescentBad /= Double(avgTibiaAngles.count)
         tibiaAscentBad /= Double(avgTibiaAngles.count)
 
-        let feedback = "Your back angle was incorrect \(backDescentBad * 100)% of " +
-        "the descent and \(backAscentBad * 100)% of the ascent." +
-        "Your tibia angle was incorrect \(tibiaDescentBad * 100)% of " +
-        "the descent and \(tibiaAscentBad * 100)% of the ascent."
+        let feedback = "Your back angle was incorrect \(String(format: "%.0f", backDescentBad * 100))%" +
+        " of the descent and \(String(format: "%.0f", backAscentBad * 100))% of the ascent. " +
+        "Your tibia angle was incorrect \(String(format: "%.0f", tibiaDescentBad * 100))% of " +
+        "the descent and \(String(format: "%.0f", tibiaAscentBad * 100))% of the ascent."
 
         return (score, feedback)
     }

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="28d-uK-gv5">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="28d-uK-gv5">
     <device id="retina6_0" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -73,7 +73,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Status" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HHZ-93-8LK">
-                                <rect key="frame" x="171" y="108" width="49" height="21"/>
+                                <rect key="frame" x="170.66666666666666" y="98" width="49" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -85,11 +85,11 @@
                             <constraint firstItem="ArZ-44-lD1" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="IQo-uE-KGM"/>
                             <constraint firstItem="eDh-CD-xem" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="77" id="M7r-c5-Tuq"/>
                             <constraint firstAttribute="trailing" secondItem="ArZ-44-lD1" secondAttribute="trailing" id="Ofr-gP-hut"/>
+                            <constraint firstItem="HHZ-93-8LK" firstAttribute="top" secondItem="F1z-cx-652" secondAttribute="bottom" constant="10" id="QL8-xk-AP4"/>
                             <constraint firstItem="BtZ-RJ-x8n" firstAttribute="top" secondItem="F1z-cx-652" secondAttribute="bottom" constant="12" id="ZA4-Ra-Xz4"/>
                             <constraint firstItem="eDh-CD-xem" firstAttribute="centerX" secondItem="ArZ-44-lD1" secondAttribute="centerX" id="e5j-Zj-6C0"/>
                             <constraint firstAttribute="trailing" secondItem="BtZ-RJ-x8n" secondAttribute="trailing" constant="30" id="jr2-4Z-W6H"/>
                             <constraint firstItem="zt5-5N-S1k" firstAttribute="top" secondItem="eDh-CD-xem" secondAttribute="bottom" constant="45.333333333333371" id="mcN-wa-6Vx"/>
-                            <constraint firstItem="HHZ-93-8LK" firstAttribute="firstBaseline" secondItem="ArZ-44-lD1" secondAttribute="firstBaseline" constant="124.33333333333333" id="wqq-C9-yd1"/>
                             <constraint firstItem="HHZ-93-8LK" firstAttribute="centerX" secondItem="ArZ-44-lD1" secondAttribute="centerX" id="xIH-q6-jBr"/>
                             <constraint firstItem="ArZ-44-lD1" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="ykF-C2-0P9"/>
                         </constraints>
@@ -145,14 +145,6 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tpr-5T-O5U">
-                                <rect key="frame" x="75" y="229" width="37" height="20"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" systemColor="systemGreenColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Worst" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TtB-Ga-7p7">
                                 <rect key="frame" x="272" y="200" width="45" height="20.333333333333332"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -161,7 +153,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D7l-I1-CFb">
-                                <rect key="frame" x="276" y="229" width="37" height="20"/>
+                                <rect key="frame" x="269" y="229" width="50" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemPinkColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -173,6 +165,14 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="opaqueSeparatorColor"/>
                                 <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tpr-5T-O5U">
+                                <rect key="frame" x="68" y="229" width="50" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemGreenColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>

@@ -31,11 +31,11 @@ class SummaryViewController: UIViewController {
         
         let (minRep, maxRep) = getMinAndMaxReps()
         if let minRep = minRep {
-            worstScoreLabel.text = "\(minRep.score)"
+            worstScoreLabel.text = String(format: "%.0f", minRep.score)
             worstFeedbackLabel.text = minRep.feedback
         }
         if let maxRep = maxRep {
-            bestScoreLabel.text = "\(maxRep.score)"
+            bestScoreLabel.text = String(format: "%.0f", maxRep.score)
             bestFeedbackLabel.text = maxRep.feedback
         }
     }
