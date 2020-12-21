@@ -114,7 +114,6 @@ class WorkoutViewController: UIViewController {
             
             // MARK: Testing vs Real Data
             exerciseInfo = algo.finishExercise()
-            print(exerciseInfo!)
 //            exerciseInfo = fakeExerciseInfo
             recordButton.backgroundColor = UIColor.systemGreen
             recordButton.setTitle("Record", for: UIControl.State.normal)

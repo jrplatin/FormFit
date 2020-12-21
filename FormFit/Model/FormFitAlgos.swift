@@ -59,9 +59,11 @@ class FormFitAlgos {
 
             let shoulderToHipSlope = getSlopeFromPoint(point1: leftShoulderLoc!, point2: leftHipLoc!)
             let hipToKneeSlope = getSlopeFromPoint(point1: leftHipLoc!, point2: leftKneeLoc!)
-            let ankleToKneeSlope = getSlopeFromPoint(point1: leftKneeLoc!, point2: leftAnkleLoc!)
+            let kneeToAnkleSlope = getSlopeFromPoint(point1: leftKneeLoc!, point2: leftAnkleLoc!)
+//            print("\(shoulderToHipSlope),\(hipToKneeSlope),\(kneeToAnkleSlope)")
+            
             let backAngle = findAngleBetweenTwoLines(slope1: hipToKneeSlope, slope2: shoulderToHipSlope)
-            let tibiaAngle = findAngleBetweenTwoLines(slope1: hipToKneeSlope, slope2: ankleToKneeSlope)
+            let tibiaAngle = findAngleBetweenTwoLines(slope1: kneeToAnkleSlope, slope2: hipToKneeSlope)
             
             leftShoulderLocs.append(leftShoulderLoc!.y)
             backAngles.append(backAngle)
@@ -73,10 +75,6 @@ class FormFitAlgos {
         let info = ExerciseInformation(exerciseName: "Squat",
                                        timeStamp: NSDate().timeIntervalSince1970,
                                        repInfo: createReps())
-        for i in 1...info.repInfo.count - 1 {
-            let (val, feedback) = score(of: info.repInfo[i])
-            print("Rep \(i): Score=\(val) Feedback=\(feedback)")
-        }
         reset()
         return info
     }
@@ -162,11 +160,13 @@ class FormFitAlgos {
              return array[index]
          }
 
-         return (array[index - 2] + array[index - 1] + array[index] + array[index + 1] + array[index+2])/5
+        return (array[index - 2] + array[index - 1] + array[index] + array[index + 1] + array[index + 2]) / CGFloat(5)
     }
 
     private func score(of r: RepInformation) -> (Double, String) {
         var score = 100.0
+        
+        // Smoothing
         var avgBackAngles = [CGFloat]()
         for i in 0...r.backAngles.count - 1{
             avgBackAngles.append(fiveWindowAvg(index: i, array: r.backAngles))
@@ -175,44 +175,48 @@ class FormFitAlgos {
         for i in 0...r.tibiaAngles.count - 1 {
             avgTibiaAngles.append(fiveWindowAvg(index: i, array: r.tibiaAngles))
         }
-
-        let bottomIndex = r.shoulderPositions.firstIndex(of: r.shoulderPositions.max()!)
-
-
+        
+        // Only look at middle 50% of rep
+        let buffer = avgBackAngles.count / 4
+        avgBackAngles = Array(avgBackAngles[buffer...(avgBackAngles.count - buffer)])
+        avgTibiaAngles = Array(avgTibiaAngles[buffer...(avgTibiaAngles.count - buffer)])
+        let shoulderPosTrimmed = Array(r.shoulderPositions[buffer...(r.shoulderPositions.count - buffer)])
+        let bottomIndex = shoulderPosTrimmed.firstIndex(of: shoulderPosTrimmed.max()!)!
+        
         var backDescentBad = 0.0
         var backAscentBad = 0.0
         for i in 0...avgBackAngles.count - 1 {
-            if (abs(avgBackAngles[i]  BACK_THRESHOLD) > BACK_THRESHOLD_STD_DEV) {
+            if (abs(avgBackAngles[i] - BACK_THRESHOLD) > BACK_THRESHOLD_STD_DEV) {
                 score -= (50.0 / Double(avgBackAngles.count))
-                if(i <= bottomIndex!) {
-                  backDescentBad+=1
+                if(i <= bottomIndex) {
+                  backDescentBad += 1
                 } else {
-                  backAscentBad+=1
+                  backAscentBad += 1
                 }
             }
         }
-        backDescentBad /= Double(avgBackAngles.count)
-        backAscentBad /= Double(avgBackAngles.count)
+        backDescentBad = abs(backDescentBad / Double(bottomIndex + 1) * 100)
+        backAscentBad = abs(backAscentBad / Double(avgBackAngles.count - bottomIndex - 1) * 100)
 
         var tibiaDescentBad = 0.0
         var tibiaAscentBad = 0.0
         for i in 0...avgTibiaAngles.count - 1{
             if (abs(avgTibiaAngles[i] - TIBIA_THRESHOLD) > TIBIA_THRESHOLD_STD_DEV) {
                 score -= (50.0 / Double(avgTibiaAngles.count))
-                if(i <= bottomIndex!) {
-                  tibiaDescentBad+=1
+                if(i <= bottomIndex) {
+                  tibiaDescentBad += 1
                 } else {
-                  tibiaAscentBad+=1
+                  tibiaAscentBad += 1
                 }
             }
         }
-        tibiaDescentBad /= Double(avgTibiaAngles.count)
-        tibiaAscentBad /= Double(avgTibiaAngles.count)
+        tibiaDescentBad = abs(tibiaDescentBad / Double(bottomIndex + 1) * 100)
+        tibiaAscentBad = abs(tibiaAscentBad / Double(avgTibiaAngles.count - bottomIndex - 1) * 100)
 
-        let feedback = "Your back angle was incorrect \(String(format: "%.0f", backDescentBad * 100))%" +
-        " of the descent and \(String(format: "%.0f", backAscentBad * 100))% of the ascent. " +
-        "Your tibia angle was incorrect \(String(format: "%.0f", tibiaDescentBad * 100))% of " +
-        "the descent and \(String(format: "%.0f", tibiaAscentBad * 100))% of the ascent."
+        let feedback = "Your back angle was incorrect \(String(format: "%.0f", backDescentBad))%" +
+        " of the descent and \(String(format: "%.0f", backAscentBad))% of the ascent. " +
+        "Your tibia angle was incorrect \(String(format: "%.0f", tibiaDescentBad))% of " +
+        "the descent and \(String(format: "%.0f", tibiaAscentBad))% of the ascent."
 
         return (score, feedback)
     }
