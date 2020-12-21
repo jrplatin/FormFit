@@ -13,6 +13,7 @@ struct RepInformation {
     var shoulderPositions = [CGFloat]()
     var backAngles = [CGFloat]()
     var tibiaAngles = [CGFloat]()
+    var kneeSlopes = [CGFloat]()
     var feedback: String
     var score: Double
 }
@@ -27,26 +28,31 @@ struct ExerciseInformation {
 
 class FormFitAlgos {
     
-    let BACK_THRESHOLD = CGFloat(73) //placeholder
-    let TIBIA_THRESHOLD = CGFloat(55) //placeholder
+    let BACK_THRESHOLD = CGFloat(73) 
+    let TIBIA_THRESHOLD = CGFloat(55) 
     let BACK_THRESHOLD_STD_DEV = CGFloat(5)
-    let TIBIA_THRESHOLD_STD_DEV = CGFloat(5) //placeholder
+    let TIBIA_THRESHOLD_STD_DEV = CGFloat(5) 
+    let KNEE_SLOPE_THRESHOLD = CGFloat(0.5)
 
     
     private var leftShoulderLocs: [CGFloat]
     private var backAngles: [CGFloat]
+    private var kneeSlooes: [CGFloat]
     private var tibiaAngles: [CGFloat]
     
     init() {
         leftShoulderLocs = [CGFloat]()
         backAngles = [CGFloat]()
         tibiaAngles = [CGFloat]()
+        kneeSlooes: [CGFloat]()
+
     }
     
     private func reset() {
         leftShoulderLocs = [CGFloat]()
         backAngles = [CGFloat]()
         tibiaAngles = [CGFloat]()
+        kneeSlooes: [CGFloat]()
     }
     
     func processFrame(pose : Pose?) {
@@ -68,6 +74,7 @@ class FormFitAlgos {
             leftShoulderLocs.append(leftShoulderLoc!.y)
             backAngles.append(backAngle)
             tibiaAngles.append(tibiaAngle)
+            kneeAngles.append(hipToKneeSlope)
         }
     }
     
@@ -83,15 +90,18 @@ class FormFitAlgos {
         let shoulderPositionsForRep = Array(leftShoulderLocs[startIndex...endIndex])
         let backAnglesForRep = Array(backAngles[startIndex...endIndex])
         let tibiaAnglesForRep = Array(tibiaAngles[startIndex...endIndex])
+        let kneeSlopesForRep =  Array(kneeSlopes[startIndex...endIndex])
         let bareRep = RepInformation(shoulderPositions: shoulderPositionsForRep,
                               backAngles: backAnglesForRep,
                               tibiaAngles: tibiaAnglesForRep,
+                               kneeSlopes: kneeSlopesForRep,
                               feedback: "",
                               score: 0)
         let (repScore, feedback) = score(of: bareRep)
         return RepInformation(shoulderPositions: shoulderPositionsForRep,
                               backAngles: backAnglesForRep,
                               tibiaAngles: tibiaAnglesForRep,
+                               kneeSlopes: kneeSlopesForRep,
                               feedback: feedback,
                               score: repScore)
     }
@@ -166,6 +176,8 @@ class FormFitAlgos {
     private func score(of r: RepInformation) -> (Double, String) {
         var score = 100.0
         
+        
+        
         // Smoothing
         var avgBackAngles = [CGFloat]()
         for i in 0...r.backAngles.count - 1{
@@ -182,6 +194,8 @@ class FormFitAlgos {
         avgTibiaAngles = Array(avgTibiaAngles[buffer...(avgTibiaAngles.count - buffer)])
         let shoulderPosTrimmed = Array(r.shoulderPositions[buffer...(r.shoulderPositions.count - buffer)])
         let bottomIndex = shoulderPosTrimmed.firstIndex(of: shoulderPosTrimmed.max()!)!
+        
+        
         
         var backDescentBad = 0.0
         var backAscentBad = 0.0
@@ -212,11 +226,19 @@ class FormFitAlgos {
         }
         tibiaDescentBad = abs(tibiaDescentBad / Double(bottomIndex + 1) * 100)
         tibiaAscentBad = abs(tibiaAscentBad / Double(avgTibiaAngles.count - bottomIndex - 1) * 100)
+        
+        var depthString = ""
+        if(r.kneeSlope[bottomIndex] > KNEE_SLOPE_THRESHOLD){
+            depthString =  "You squat was also not deep enough!"
+        } else {
+           depthString =  "You squat was also deep enough!"
+
+        }
 
         let feedback = "Your back angle was incorrect \(String(format: "%.0f", backDescentBad))%" +
         " of the descent and \(String(format: "%.0f", backAscentBad))% of the ascent. " +
         "Your tibia angle was incorrect \(String(format: "%.0f", tibiaDescentBad))% of " +
-        "the descent and \(String(format: "%.0f", tibiaAscentBad))% of the ascent."
+        "the descent and \(String(format: "%.0f", tibiaAscentBad))% of the ascent." + depthString
 
         return (score, feedback)
     }
