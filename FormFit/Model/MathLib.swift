@@ -81,18 +81,28 @@ func ThresholdingAlgo(y: [Double], lag: Int, threshold: Double, influence: Doubl
 
 // helper methods
 func getSlopeFromPoint(point1: CGPoint, point2: CGPoint) -> CGFloat {
-    let rise = point1.y - point2.y
-    let run = point1.x - point2.x
+    let rise = point2.y - point1.y
+    let run = point2.x - point1.x
     //return a big number in the case of inf/ slope
-    if(run == 0){
+    if(run == 0) {
         return 100000
     }
     return rise / run
 }
 
+// abs(atan(slope1)) - atan(slope2)
 func findAngleBetweenTwoLines(slope1: CGFloat, slope2: CGFloat) -> CGFloat {
-    let angle1 = atan(abs(slope1))
-    let angle2 = atan(abs(slope2))
+    let angle1 = abs(atan(slope1))
+    let angle2 = atan(slope2)
+    return (180 / CGFloat.pi) * (angle1 - angle2)
+}
+
+// For person facing left.  Works for back and tibia angle.
+// For backAngle: slope1 is shoulderToHip, slope2 is kneeToHip.
+// For tibiaAngle: slope1 is kneeToAnkle, slope2 is kneeToHip.
+func findAngle(slope1: CGFloat, slope2: CGFloat) -> CGFloat {
+    let angle1 = abs(atan(slope1))
+    let angle2 = atan(slope2)
     return (180 / CGFloat.pi) * (angle1 + angle2)
 }
 

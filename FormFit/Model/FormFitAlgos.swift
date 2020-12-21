@@ -58,12 +58,12 @@ class FormFitAlgos {
             let leftAnkleLoc = pose.joints[Joint.Name.leftAnkle]?.position
 
             let shoulderToHipSlope = getSlopeFromPoint(point1: leftShoulderLoc!, point2: leftHipLoc!)
-            let hipToKneeSlope = getSlopeFromPoint(point1: leftHipLoc!, point2: leftKneeLoc!)
+            let kneeToHipSlope = getSlopeFromPoint(point1: leftKneeLoc!, point2: leftHipLoc!)
             let kneeToAnkleSlope = getSlopeFromPoint(point1: leftKneeLoc!, point2: leftAnkleLoc!)
 //            print("\(shoulderToHipSlope),\(hipToKneeSlope),\(kneeToAnkleSlope)")
             
-            let backAngle = findAngleBetweenTwoLines(slope1: hipToKneeSlope, slope2: shoulderToHipSlope)
-            let tibiaAngle = findAngleBetweenTwoLines(slope1: kneeToAnkleSlope, slope2: hipToKneeSlope)
+            let backAngle = findBackAngle(slope1: shoulderToHipSlope, slope2: kneeToHipSlope)
+            let tibiaAngle = findBackAngle(slope1: kneeToAnkleSlope, slope2: kneeToHipSlope)
             
             leftShoulderLocs.append(leftShoulderLoc!.y)
             backAngles.append(backAngle)
