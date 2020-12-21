@@ -27,8 +27,11 @@ struct ExerciseInformation {
 
 class FormFitAlgos {
     
-    let BACK_THRESHOLD = CGFloat(80) //placeholder
-    let TIBIA_THRESHOLD = CGFloat(120) //placeholder
+    let BACK_THRESHOLD = CGFloat(73) //placeholder
+    let TIBIA_THRESHOLD = CGFloat(55) //placeholder
+    let BACK_THRESHOLD_STD_DEV = CGFloat(5)
+    let TIBIA_THRESHOLD_STD_DEV = CGFloat(5) //placeholder
+
     
     private var leftShoulderLocs: [CGFloat]
     private var backAngles: [CGFloat]
@@ -179,7 +182,7 @@ class FormFitAlgos {
         var backDescentBad = 0.0
         var backAscentBad = 0.0
         for i in 0...avgBackAngles.count - 1 {
-            if (avgBackAngles[i] < BACK_THRESHOLD) {
+            if (abs(avgBackAngles[i]  BACK_THRESHOLD) > BACK_THRESHOLD_STD_DEV) {
                 score -= (50.0 / Double(avgBackAngles.count))
                 if(i <= bottomIndex!) {
                   backDescentBad+=1
@@ -194,7 +197,7 @@ class FormFitAlgos {
         var tibiaDescentBad = 0.0
         var tibiaAscentBad = 0.0
         for i in 0...avgTibiaAngles.count - 1{
-            if (avgTibiaAngles[i] > TIBIA_THRESHOLD) {
+            if (abs(avgTibiaAngles[i] - TIBIA_THRESHOLD) > TIBIA_THRESHOLD_STD_DEV) {
                 score -= (50.0 / Double(avgTibiaAngles.count))
                 if(i <= bottomIndex!) {
                   tibiaDescentBad+=1
