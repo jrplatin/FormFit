@@ -13,6 +13,7 @@ struct RepInformation {
     var shoulderPositions = [CGFloat]()
     var backAngles = [CGFloat]()
     var tibiaAngles = [CGFloat]()
+    var kneeSlopes = [CGFloat]()
     var feedback: String
     var score: Double
 }
@@ -27,26 +28,31 @@ struct ExerciseInformation {
 
 class FormFitAlgos {
     
-    let BACK_THRESHOLD = CGFloat(73) //placeholder
-    let TIBIA_THRESHOLD = CGFloat(55) //placeholder
+    let BACK_THRESHOLD = CGFloat(73) 
+    let TIBIA_THRESHOLD = CGFloat(55) 
     let BACK_THRESHOLD_STD_DEV = CGFloat(5)
-    let TIBIA_THRESHOLD_STD_DEV = CGFloat(5) //placeholder
+    let TIBIA_THRESHOLD_STD_DEV = CGFloat(5) 
+    let KNEE_SLOPE_THRESHOLD = CGFloat(0.0)
 
     
     private var leftShoulderLocs: [CGFloat]
     private var backAngles: [CGFloat]
     private var tibiaAngles: [CGFloat]
+    private var kneeSlopes: [CGFloat]
     
     init() {
         leftShoulderLocs = [CGFloat]()
         backAngles = [CGFloat]()
         tibiaAngles = [CGFloat]()
+        kneeSlopes = [CGFloat]()
+
     }
     
     private func reset() {
         leftShoulderLocs = [CGFloat]()
         backAngles = [CGFloat]()
         tibiaAngles = [CGFloat]()
+        kneeSlopes = [CGFloat]()
     }
     
     func processFrame(pose : Pose?) {
@@ -60,14 +66,15 @@ class FormFitAlgos {
             let shoulderToHipSlope = getSlopeFromPoint(point1: leftShoulderLoc!, point2: leftHipLoc!)
             let kneeToHipSlope = getSlopeFromPoint(point1: leftKneeLoc!, point2: leftHipLoc!)
             let kneeToAnkleSlope = getSlopeFromPoint(point1: leftKneeLoc!, point2: leftAnkleLoc!)
-//            print("\(shoulderToHipSlope),\(hipToKneeSlope),\(kneeToAnkleSlope)")
+            print("\(shoulderToHipSlope),\(kneeToHipSlope),\(kneeToAnkleSlope)")
             
-            let backAngle = findBackAngle(slope1: shoulderToHipSlope, slope2: kneeToHipSlope)
-            let tibiaAngle = findBackAngle(slope1: kneeToAnkleSlope, slope2: kneeToHipSlope)
+            let backAngle = findAngle(slope1: shoulderToHipSlope, slope2: kneeToHipSlope)
+            let tibiaAngle = findAngle(slope1: kneeToAnkleSlope, slope2: kneeToHipSlope)
             
             leftShoulderLocs.append(leftShoulderLoc!.y)
             backAngles.append(backAngle)
             tibiaAngles.append(tibiaAngle)
+            kneeSlopes.append(kneeToHipSlope)
         }
     }
     
@@ -83,15 +90,18 @@ class FormFitAlgos {
         let shoulderPositionsForRep = Array(leftShoulderLocs[startIndex...endIndex])
         let backAnglesForRep = Array(backAngles[startIndex...endIndex])
         let tibiaAnglesForRep = Array(tibiaAngles[startIndex...endIndex])
+        let kneeSlopesForRep =  Array(kneeSlopes[startIndex...endIndex])
         let bareRep = RepInformation(shoulderPositions: shoulderPositionsForRep,
                               backAngles: backAnglesForRep,
                               tibiaAngles: tibiaAnglesForRep,
+                               kneeSlopes: kneeSlopesForRep,
                               feedback: "",
                               score: 0)
         let (repScore, feedback) = score(of: bareRep)
         return RepInformation(shoulderPositions: shoulderPositionsForRep,
                               backAngles: backAnglesForRep,
                               tibiaAngles: tibiaAnglesForRep,
+                               kneeSlopes: kneeSlopesForRep,
                               feedback: feedback,
                               score: repScore)
     }
@@ -183,6 +193,7 @@ class FormFitAlgos {
         let shoulderPosTrimmed = Array(r.shoulderPositions[buffer...(r.shoulderPositions.count - buffer)])
         let bottomIndex = shoulderPosTrimmed.firstIndex(of: shoulderPosTrimmed.max()!)!
         
+        
         var backDescentBad = 0.0
         var backAscentBad = 0.0
         for i in 0...avgBackAngles.count - 1 {
@@ -212,11 +223,20 @@ class FormFitAlgos {
         }
         tibiaDescentBad = abs(tibiaDescentBad / Double(bottomIndex + 1) * 100)
         tibiaAscentBad = abs(tibiaAscentBad / Double(avgTibiaAngles.count - bottomIndex - 1) * 100)
+        
+        // Knee to hip slope should be positive at bottom
+        var depthString = ""
+        if(r.kneeSlopes[bottomIndex] < KNEE_SLOPE_THRESHOLD){
+            depthString =  "  Your squat was also not deep enough!"
+        } else {
+           depthString =  "  Your squat was also deep enough!"
+
+        }
 
         let feedback = "Your back angle was incorrect \(String(format: "%.0f", backDescentBad))%" +
         " of the descent and \(String(format: "%.0f", backAscentBad))% of the ascent. " +
         "Your tibia angle was incorrect \(String(format: "%.0f", tibiaDescentBad))% of " +
-        "the descent and \(String(format: "%.0f", tibiaAscentBad))% of the ascent."
+        "the descent and \(String(format: "%.0f", tibiaAscentBad))% of the ascent." + depthString
 
         return (score, feedback)
     }

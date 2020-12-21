@@ -90,7 +90,7 @@ func getSlopeFromPoint(point1: CGPoint, point2: CGPoint) -> CGFloat {
     return rise / run
 }
 
-// abs(atan(slope1)) - atan(slope2)
+// abs(atan(slope1)) - atan(slope2) (deprecated)
 func findAngleBetweenTwoLines(slope1: CGFloat, slope2: CGFloat) -> CGFloat {
     let angle1 = abs(atan(slope1))
     let angle2 = atan(slope2)
