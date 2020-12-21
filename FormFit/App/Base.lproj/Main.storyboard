@@ -221,11 +221,27 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Target back angle: 75 ± 5" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uNe-pP-Vpx">
+                                <rect key="frame" x="98.666666666666686" y="104" width="193" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Target tibia angle: 55 ± 5" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TNa-t6-85e">
+                                <rect key="frame" x="101" y="150" width="189" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="uNe-pP-Vpx" firstAttribute="top" secondItem="Glp-LI-ScX" secondAttribute="bottom" constant="16" id="6xz-le-H57"/>
+                            <constraint firstItem="TNa-t6-85e" firstAttribute="top" secondItem="uNe-pP-Vpx" secondAttribute="bottom" constant="25" id="Cg0-Fj-TXH"/>
+                            <constraint firstItem="TNa-t6-85e" firstAttribute="centerX" secondItem="HZA-xV-q5b" secondAttribute="centerX" id="DC5-hm-QTo"/>
                             <constraint firstItem="Nfu-YL-6si" firstAttribute="top" secondItem="MGh-MG-2vR" secondAttribute="bottom" constant="71" id="qdp-iO-kOF"/>
                             <constraint firstItem="MGh-MG-2vR" firstAttribute="centerX" secondItem="HZA-xV-q5b" secondAttribute="centerX" id="sG3-mM-RnQ"/>
+                            <constraint firstItem="uNe-pP-Vpx" firstAttribute="centerX" secondItem="HZA-xV-q5b" secondAttribute="centerX" id="xSE-Tb-KOY"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="j8x-eF-1lF"/>
