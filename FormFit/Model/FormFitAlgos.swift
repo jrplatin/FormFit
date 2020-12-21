@@ -125,8 +125,11 @@ class FormFitAlgos {
                     isInRep = false
                     numReps += 1
                     let endOfRep = i
-
-                    info.append(createRep(startIndex: startOfRep, endIndex: endOfRep))
+                    
+                    if(endIndex - startIndex > 16){
+                        info.append(createRep(startIndex: startOfRep, endIndex: endOfRep))
+                    }
+                    
                 }
             }
             //signal is -1, so this rep is done
@@ -135,7 +138,9 @@ class FormFitAlgos {
                 numReps += 1
                 let endOfRep = i
                
-                info.append(createRep(startIndex: startOfRep, endIndex: endOfRep))
+                if(endIndex - startIndex > 16){
+                        info.append(createRep(startIndex: startOfRep, endIndex: endOfRep))
+                 }
             }
 
             if(signals[i] == 0){
