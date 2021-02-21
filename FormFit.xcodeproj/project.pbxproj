@@ -27,6 +27,8 @@
 		4AE8C3CF23AD2A74005F9953 /* CGImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE8C3CE23AD2A74005F9953 /* CGImage+Extension.swift */; };
 		4AE8C3D123AD2D3B005F9953 /* PoseNetInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE8C3D023AD2D3B005F9953 /* PoseNetInput.swift */; };
 		4AE8C3D323AD2D8A005F9953 /* PoseNetOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE8C3D223AD2D8A005F9953 /* PoseNetOutput.swift */; };
+		720BB32725E206E5000B2CE4 /* ArchiveTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 720BB32625E206E5000B2CE4 /* ArchiveTableViewController.swift */; };
+		720BB32A25E21A54000B2CE4 /* AnotherTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 720BB32925E21A54000B2CE4 /* AnotherTableViewController.swift */; };
 		723CC24D258FAAA40071A413 /* SummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 723CC24C258FAAA40071A413 /* SummaryViewController.swift */; };
 		72D0B1DF258FC1C30073A157 /* DetailsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72D0B1DE258FC1C30073A157 /* DetailsTableViewController.swift */; };
 		8827276F2561AB0000810153 /* FormFitAlgos.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8827276E2561AB0000810153 /* FormFitAlgos.swift */; };
@@ -58,6 +60,8 @@
 		4AE8C3D023AD2D3B005F9953 /* PoseNetInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoseNetInput.swift; sourceTree = "<group>"; };
 		4AE8C3D223AD2D8A005F9953 /* PoseNetOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoseNetOutput.swift; sourceTree = "<group>"; };
 		57C02DF057C02B4000000001 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		720BB32625E206E5000B2CE4 /* ArchiveTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchiveTableViewController.swift; sourceTree = "<group>"; };
+		720BB32925E21A54000B2CE4 /* AnotherTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnotherTableViewController.swift; sourceTree = "<group>"; };
 		723CC24C258FAAA40071A413 /* SummaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryViewController.swift; sourceTree = "<group>"; };
 		72D0B1DE258FC1C30073A157 /* DetailsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DetailsTableViewController.swift; path = FormFit/UI/DetailsTableViewController.swift; sourceTree = SOURCE_ROOT; };
 		8827276E2561AB0000810153 /* FormFitAlgos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormFitAlgos.swift; sourceTree = "<group>"; };
@@ -110,6 +114,7 @@
 		4A2D23A522BB70E400494C55 = {
 			isa = PBXGroup;
 			children = (
+				720BB32925E21A54000B2CE4 /* AnotherTableViewController.swift */,
 				57C02DF057C02B4000000001 /* README.md */,
 				4A2D23B022BB70E400494C55 /* FormFit */,
 				1E2F76EA3781C8213469E3A0 /* Configuration */,
@@ -168,6 +173,7 @@
 				4A2D23B522BB70E400494C55 /* WorkoutViewController.swift */,
 				72D0B1DE258FC1C30073A157 /* DetailsTableViewController.swift */,
 				4AE8C3CA23ACDF1C005F9953 /* PoseImageView.swift */,
+				720BB32625E206E5000B2CE4 /* ArchiveTableViewController.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -256,11 +262,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				720BB32725E206E5000B2CE4 /* ArchiveTableViewController.swift in Sources */,
 				0DCEF2C92416701D00ECEC99 /* PoseBuilder+Single.swift in Sources */,
 				0DCEF2CB2416709B00ECEC99 /* PoseBuilder+Multiple.swift in Sources */,
 				0DCEF2C7241666CA00ECEC99 /* PoseBuilder.swift in Sources */,
 				4AA5C4B822BB9CC200277977 /* VideoCapture.swift in Sources */,
 				4AE8C3CF23AD2A74005F9953 /* CGImage+Extension.swift in Sources */,
+				720BB32A25E21A54000B2CE4 /* AnotherTableViewController.swift in Sources */,
 				4A0FC5BC23190AD6004886B9 /* CGPoint+Extension.swift in Sources */,
 				4A97FA952350ABDE00255C7F /* Pose.swift in Sources */,
 				4A2D23B622BB70E400494C55 /* WorkoutViewController.swift in Sources */,

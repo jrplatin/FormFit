@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-struct RepInformation {
+struct RepInformation : Codable {
     var shoulderPositions = [CGFloat]()
     var backAngles = [CGFloat]()
     var tibiaAngles = [CGFloat]()
@@ -18,9 +18,10 @@ struct RepInformation {
     var score: Double
 }
 
-struct ExerciseInformation {
+struct ExerciseInformation : Codable {
     var exerciseName : String?
     var timeStamp : Double?
+    var date : Date?
     var exerciseScore : Int?
     var repInfo = [RepInformation]()
 }

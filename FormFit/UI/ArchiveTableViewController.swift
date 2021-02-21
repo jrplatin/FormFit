@@ -1,18 +1,48 @@
 //
-//  DetailsTableViewController.swift
+//  ArchiveTableViewController.swift
 //  FormFit
 //
-//  Created by Davis Haupt on 12/20/20.
-//  Copyright © 2020 Apple. All rights reserved.
+//  Created by Davis Haupt on 2/20/21.
+//  Copyright © 2021 Apple. All rights reserved.
 //
 
 import UIKit
 
-class DetailsTableViewController: UITableViewController {
-    var reps: [RepInformation]?
+class ArchiveTableViewController: UITableViewController {
+    var files: [URL]?
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Get the new view controller using segue.destination.
+        // Pass the selected object to the new view controller.
+        if segue.identifier == "ArchiveSummary" {
+            if let vc = segue.destination as? SummaryViewController, let btn = sender as? UITableViewCell, let filename = btn.textLabel?.text, let dir = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first {
+                print(dir)
+                let url = dir.appendingPathComponent(filename)
+                print(url)
+                do {
+                    let workoutJson = try String(contentsOf: url, encoding: .utf8)
+                    let decoder = JSONDecoder()
+                    decoder.dateDecodingStrategy = .iso8601
+                    let workout = try decoder.decode(ExerciseInformation.self, from: workoutJson.data(using: .utf8)!)
+                    vc.reps = workout.repInfo
+                } catch {
+                    print(error)
+                }
+            }
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        if let dir = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first {
+            print(dir)
+            do {
+                self.files = try? FileManager.default.contentsOfDirectory(at: dir, includingPropertiesForKeys: nil)
+                print(self.files)
+            } catch {
+                print(error)
+            }
+        }
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -23,18 +53,24 @@ class DetailsTableViewController: UITableViewController {
 
     // MARK: - Table view data source
 
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return reps?.count ?? 0
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        // #warning Incomplete implementation, return the number of sections
+        return 1
     }
 
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "RepCell", for: indexPath)
-        if let reps = reps {
-            cell.textLabel?.text = String(format: "Rep #%d (%0.2f)", indexPath.row + 1, reps[indexPath.row].score)
-            cell.detailTextLabel?.text = reps[indexPath.row].feedback
-            cell.detailTextLabel?.numberOfLines = 0
-        }
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        // #warning Incomplete implementation, return the number of rows
+        return files?.count ?? 0
+    }
 
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ArchiveCell", for: indexPath)
+        if let files = files {
+            let url = files[indexPath.row]
+            cell.textLabel?.text = url.lastPathComponent
+            
+        }
         return cell
     }
     

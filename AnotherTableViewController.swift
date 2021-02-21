@@ -1,15 +1,14 @@
 //
-//  DetailsTableViewController.swift
+//  AnotherTableViewController.swift
 //  FormFit
 //
-//  Created by Davis Haupt on 12/20/20.
-//  Copyright © 2020 Apple. All rights reserved.
+//  Created by Davis Haupt on 2/20/21.
+//  Copyright © 2021 Apple. All rights reserved.
 //
 
 import UIKit
 
-class DetailsTableViewController: UITableViewController {
-    var reps: [RepInformation]?
+class AnotherTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,21 +22,25 @@ class DetailsTableViewController: UITableViewController {
 
     // MARK: - Table view data source
 
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return reps?.count ?? 0
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        // #warning Incomplete implementation, return the number of sections
+        return 0
     }
 
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        // #warning Incomplete implementation, return the number of rows
+        return 0
+    }
+
+    /*
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "RepCell", for: indexPath)
-        if let reps = reps {
-            cell.textLabel?.text = String(format: "Rep #%d (%0.2f)", indexPath.row + 1, reps[indexPath.row].score)
-            cell.detailTextLabel?.text = reps[indexPath.row].feedback
-            cell.detailTextLabel?.numberOfLines = 0
-        }
+        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+
+        // Configure the cell...
 
         return cell
     }
-    
+    */
 
     /*
     // Override to support conditional editing of the table view.

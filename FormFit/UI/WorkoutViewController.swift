@@ -97,7 +97,7 @@ class WorkoutViewController: UIViewController {
         timeStamp: 100,
         exerciseScore: 20,
         repInfo: [
-            RepInformation(shoulderPositions: [], backAngles: [], tibiaAngles: [], feedback: "Do better, get gud", score: 1),
+            RepInformation(shoulderPositions: [CGFloat(3.14)], backAngles: [], tibiaAngles: [], feedback: "Do better, get gud", score: 1),
             RepInformation(shoulderPositions: [], backAngles: [], tibiaAngles: [], feedback: "Your back angle was incorrect 45% of the descent and 20% of the ascent. Your tibia angle was incorrect 30% of the descent and 10% of the ascent.", score: 2),
             RepInformation(shoulderPositions: [], backAngles: [], tibiaAngles: [], feedback: "Do better, get gud", score: 3),
             RepInformation(shoulderPositions: [], backAngles: [], tibiaAngles: [], feedback: "Your back angle was incorrect 45% of the descent and 20% of the ascent. Your tibia angle was incorrect 30% of the descent and 10% of the ascent.", score: 1),
@@ -113,10 +113,34 @@ class WorkoutViewController: UIViewController {
             recordButton.setTitle("Analyzing...", for: UIControl.State.normal)
             
             // MARK: Testing vs Real Data
-            exerciseInfo = algo.finishExercise()
-//            exerciseInfo = fakeExerciseInfo
+//            exerciseInfo = algo.finishExercise()
+            exerciseInfo = fakeExerciseInfo
+            exerciseInfo?.date = Date.init()
             recordButton.backgroundColor = UIColor.systemGreen
             recordButton.setTitle("Record", for: UIControl.State.normal)
+            let encoder = JSONEncoder()
+            encoder.outputFormatting = .prettyPrinted
+            encoder.dateEncodingStrategy = .iso8601
+            let encodedInfo = try? encoder.encode(exerciseInfo)
+            let text = String(data: encodedInfo!, encoding: .utf8)!
+        
+            if let dir = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first {
+                do {
+                    try FileManager.default.createDirectory(at: dir, withIntermediateDirectories: true, attributes: nil)
+                } catch {
+                    print(error)
+                }
+                let fmt = DateFormatter()
+                fmt.dateFormat = "yyyy.MM.dd HH.mm.ss"
+                print(dir)
+                let fileURL = dir.appendingPathComponent(fmt.string(from: exerciseInfo!.date!)).appendingPathExtension(for: .json)
+                do {
+                    try text.write(to: fileURL, atomically: true, encoding: .utf8)
+                } catch {
+                    print("error", error)
+                }
+            }
+            print()
             performSegue(withIdentifier: "ShowSummary", sender: sender)
         } else {
             isRecording = true
