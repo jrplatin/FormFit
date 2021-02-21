@@ -34,6 +34,8 @@ class FormFitAlgos {
     let BACK_THRESHOLD_STD_DEV = CGFloat(5)
     let TIBIA_THRESHOLD_STD_DEV = CGFloat(5) 
     let KNEE_SLOPE_THRESHOLD = CGFloat(0.0)
+    let ELBOW_THRESHOLD = CGFloat(180)
+    let ELBOW_THRESHOLD_STD_DEV = CGFloat(5)
 
     
     private var leftShoulderLocs: [CGFloat]
@@ -105,7 +107,7 @@ class FormFitAlgos {
                                kneeSlopes: kneeSlopesForRep,
                               feedback: "",
                               score: 0)
-        let (repScore, feedback) = score(of: bareRep)
+        let (repScore, feedback) = scoreSquat(of: bareRep)
         return RepInformation(shoulderPositions: shoulderPositionsForRep,
                               backAngles: backAnglesForRep,
                               tibiaAngles: tibiaAnglesForRep,
@@ -181,7 +183,7 @@ class FormFitAlgos {
         return (array[index - 2] + array[index - 1] + array[index] + array[index + 1] + array[index + 2]) / CGFloat(5)
     }
 
-    private func score(of r: RepInformation) -> (Double, String) {
+    private func scoreSquat(of r: RepInformation) -> (Double, String) {
         var score = 100.0
         
         // Smoothing
@@ -245,6 +247,31 @@ class FormFitAlgos {
         " of the descent and \(String(format: "%.0f", backAscentBad))% of the ascent. " +
         "Your tibia angle was incorrect \(String(format: "%.0f", tibiaDescentBad))% of " +
         "the descent and \(String(format: "%.0f", tibiaAscentBad))% of the ascent." + depthString
+
+        return (score, feedback)
+    }
+    
+    private func scoreDeadlift(of r: RepInformation) -> (Double, String) {
+        var score = 100.0
+        
+        // Smoothing
+        var avgElbowAngles = [CGFloat]()
+        for i in 0...r.backAngles.count - 1{
+            avgElbowAngles.append(fiveWindowAvg(index: i, array: r.backAngles))
+        }
+        
+        var elbowBad = 0.0
+        for i in 0...avgElbowAngles.count - 1 {
+            if (abs(avgElbowAngles[i] - ELBOW_THRESHOLD) > ELBOW_THRESHOLD_STD_DEV) {
+                score -= (100.0 / Double(avgElbowAngles.count))
+                elbowBad += 1
+            }
+        }
+        
+        elbowBad = abs(elbowBad / Double(avgElbowAngles.count) * 100)
+
+        let feedback = "Your elbows were not locked  \(String(format: "%.0f", elbowBad))%" +
+            " of the deadlift. Keep those elbows locked!"
 
         return (score, feedback)
     }
