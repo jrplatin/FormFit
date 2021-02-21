@@ -13,6 +13,7 @@ struct RepInformation {
     var shoulderPositions = [CGFloat]()
     var backAngles = [CGFloat]()
     var tibiaAngles = [CGFloat]()
+    var elbowAngles = [CGFloat]()
     var kneeSlopes = [CGFloat]()
     var feedback: String
     var score: Double
@@ -36,20 +37,22 @@ class FormFitAlgos {
 
     
     private var leftShoulderLocs: [CGFloat]
+    private var elbowAngles: [CGFloat]
     private var backAngles: [CGFloat]
     private var tibiaAngles: [CGFloat]
     private var kneeSlopes: [CGFloat]
     
     init() {
         leftShoulderLocs = [CGFloat]()
+        elbowAngles = [CGFloat]()
         backAngles = [CGFloat]()
         tibiaAngles = [CGFloat]()
         kneeSlopes = [CGFloat]()
-
     }
     
     private func reset() {
         leftShoulderLocs = [CGFloat]()
+        elbowAngles = [CGFloat]()
         backAngles = [CGFloat]()
         tibiaAngles = [CGFloat]()
         kneeSlopes = [CGFloat]()
@@ -59,19 +62,24 @@ class FormFitAlgos {
         if let pose = pose {
             // hip to shoulder, and hip to knee
             let leftShoulderLoc = pose.joints[Joint.Name.leftShoulder]?.position
+            let leftElbowLoc = pose.joints[Joint.Name.leftElbow]?.position
+            let leftWristLoc = pose.joints[Joint.Name.leftWrist]?.position
             let leftKneeLoc = pose.joints[Joint.Name.leftKnee]?.position
             let leftHipLoc = pose.joints[Joint.Name.leftHip]?.position
             let leftAnkleLoc = pose.joints[Joint.Name.leftAnkle]?.position
 
+            let shoulderToElbowSlope = getSlopeFromPoint(point1: leftShoulderLoc!, point2: leftElbowLoc!)
+            let wristToElbowSlope = getSlopeFromPoint(point1: leftWristLoc!, point2: leftElbowLoc!)
             let shoulderToHipSlope = getSlopeFromPoint(point1: leftShoulderLoc!, point2: leftHipLoc!)
             let kneeToHipSlope = getSlopeFromPoint(point1: leftKneeLoc!, point2: leftHipLoc!)
             let kneeToAnkleSlope = getSlopeFromPoint(point1: leftKneeLoc!, point2: leftAnkleLoc!)
-            print("\(shoulderToHipSlope),\(kneeToHipSlope),\(kneeToAnkleSlope)")
             
+            let elbowAngle = findAngle(slope1: shoulderToElbowSlope, slope2: wristToElbowSlope)
             let backAngle = findAngle(slope1: shoulderToHipSlope, slope2: kneeToHipSlope)
             let tibiaAngle = findAngle(slope1: kneeToAnkleSlope, slope2: kneeToHipSlope)
             
             leftShoulderLocs.append(leftShoulderLoc!.y)
+            elbowAngles.append(elbowAngle)
             backAngles.append(backAngle)
             tibiaAngles.append(tibiaAngle)
             kneeSlopes.append(kneeToHipSlope)
