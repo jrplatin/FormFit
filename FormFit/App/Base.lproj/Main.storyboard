@@ -100,7 +100,36 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uIZ-1J-cU7" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-783" y="842"/>
+            <point key="canvasLocation" x="128" y="864"/>
+        </scene>
+        <!--Playback View Controller-->
+        <scene sceneID="J8P-F6-UqQ">
+            <objects>
+                <viewController id="nr1-eO-owb" customClass="PlaybackViewController" customModule="FormFit" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="vxJ-6v-SlN"/>
+                        <viewControllerLayoutGuide type="bottom" id="j4m-q7-XNn"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="UVB-QE-lxe">
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GaL-fG-exx" customClass="PoseImageView" customModule="FormFit" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="88" width="390" height="706"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="OVn-df-VoQ"/>
+                    <connections>
+                        <outlet property="poseImage" destination="GaL-fG-exx" id="jE4-Yu-BEq"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vBq-3e-wQP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1141.5384615384614" y="-619.19431279620846"/>
         </scene>
         <!--Workout View Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -172,6 +201,14 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OlZ-bM-y1k">
+                                <rect key="frame" x="321" y="96" width="32" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Help"/>
+                                <connections>
+                                    <segue destination="nr1-eO-owb" kind="show" identifier="PlaybackSegue" id="4Nv-uf-74x"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>

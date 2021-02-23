@@ -30,6 +30,13 @@
 		720BB32725E206E5000B2CE4 /* ArchiveTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 720BB32625E206E5000B2CE4 /* ArchiveTableViewController.swift */; };
 		720BB32A25E21A54000B2CE4 /* AnotherTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 720BB32925E21A54000B2CE4 /* AnotherTableViewController.swift */; };
 		723CC24D258FAAA40071A413 /* SummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 723CC24C258FAAA40071A413 /* SummaryViewController.swift */; };
+		7296E01D25E462F700CF517A /* squat1.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 7296E01C25E462EA00CF517A /* squat1.mp4 */; };
+		7296E02025E464FA00CF517A /* VideoPlayback.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7296E01F25E464FA00CF517A /* VideoPlayback.swift */; };
+		7296E02325E466F500CF517A /* PlaybackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7296E02225E466F500CF517A /* PlaybackViewController.swift */; };
+		7296E02625E4782B00CF517A /* davis.mov in Resources */ = {isa = PBXBuildFile; fileRef = 7296E02525E4782B00CF517A /* davis.mov */; };
+		7296E02925E47F2A00CF517A /* squat2.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 7296E02825E47F2A00CF517A /* squat2.mp4 */; };
+		7296E02C25E485DA00CF517A /* squat3.mov in Resources */ = {isa = PBXBuildFile; fileRef = 7296E02B25E485DA00CF517A /* squat3.mov */; };
+		7296E02F25E4870600CF517A /* squat3.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 7296E02E25E4870600CF517A /* squat3.mp4 */; };
 		72D0B1DF258FC1C30073A157 /* DetailsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72D0B1DE258FC1C30073A157 /* DetailsTableViewController.swift */; };
 		8827276F2561AB0000810153 /* FormFitAlgos.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8827276E2561AB0000810153 /* FormFitAlgos.swift */; };
 		88DC77BC258C26A50090ADCA /* MathLib.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88DC77BB258C26A50090ADCA /* MathLib.swift */; };
@@ -63,6 +70,13 @@
 		720BB32625E206E5000B2CE4 /* ArchiveTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchiveTableViewController.swift; sourceTree = "<group>"; };
 		720BB32925E21A54000B2CE4 /* AnotherTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnotherTableViewController.swift; sourceTree = "<group>"; };
 		723CC24C258FAAA40071A413 /* SummaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryViewController.swift; sourceTree = "<group>"; };
+		7296E01C25E462EA00CF517A /* squat1.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = squat1.mp4; sourceTree = "<group>"; };
+		7296E01F25E464FA00CF517A /* VideoPlayback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayback.swift; sourceTree = "<group>"; };
+		7296E02225E466F500CF517A /* PlaybackViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackViewController.swift; sourceTree = "<group>"; };
+		7296E02525E4782B00CF517A /* davis.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = davis.mov; sourceTree = "<group>"; };
+		7296E02825E47F2A00CF517A /* squat2.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = squat2.mp4; sourceTree = "<group>"; };
+		7296E02B25E485DA00CF517A /* squat3.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = squat3.mov; sourceTree = "<group>"; };
+		7296E02E25E4870600CF517A /* squat3.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = squat3.mp4; sourceTree = "<group>"; };
 		72D0B1DE258FC1C30073A157 /* DetailsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DetailsTableViewController.swift; path = FormFit/UI/DetailsTableViewController.swift; sourceTree = SOURCE_ROOT; };
 		8827276E2561AB0000810153 /* FormFitAlgos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormFitAlgos.swift; sourceTree = "<group>"; };
 		88DC77B9258C14060090ADCA /* FormFit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FormFit.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -114,6 +128,11 @@
 		4A2D23A522BB70E400494C55 = {
 			isa = PBXGroup;
 			children = (
+				7296E02E25E4870600CF517A /* squat3.mp4 */,
+				7296E02B25E485DA00CF517A /* squat3.mov */,
+				7296E02825E47F2A00CF517A /* squat2.mp4 */,
+				7296E02525E4782B00CF517A /* davis.mov */,
+				7296E01C25E462EA00CF517A /* squat1.mp4 */,
 				720BB32925E21A54000B2CE4 /* AnotherTableViewController.swift */,
 				57C02DF057C02B4000000001 /* README.md */,
 				4A2D23B022BB70E400494C55 /* FormFit */,
@@ -141,6 +160,7 @@
 			children = (
 				4AA5C4B722BB9CC200277977 /* VideoCapture.swift */,
 				4ADE4C8B2346C07300FFD895 /* AVCaptureVideoOrientation+Extension.swift */,
+				7296E01F25E464FA00CF517A /* VideoPlayback.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -174,6 +194,7 @@
 				72D0B1DE258FC1C30073A157 /* DetailsTableViewController.swift */,
 				4AE8C3CA23ACDF1C005F9953 /* PoseImageView.swift */,
 				720BB32625E206E5000B2CE4 /* ArchiveTableViewController.swift */,
+				7296E02225E466F500CF517A /* PlaybackViewController.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -249,9 +270,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7296E01D25E462F700CF517A /* squat1.mp4 in Resources */,
 				4A2D23BE22BB70E500494C55 /* LaunchScreen.storyboard in Resources */,
+				7296E02F25E4870600CF517A /* squat3.mp4 in Resources */,
+				7296E02625E4782B00CF517A /* davis.mov in Resources */,
 				4A2D23BB22BB70E500494C55 /* Assets.xcassets in Resources */,
+				7296E02C25E485DA00CF517A /* squat3.mov in Resources */,
 				4A2D23B922BB70E400494C55 /* Main.storyboard in Resources */,
+				7296E02925E47F2A00CF517A /* squat2.mp4 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -266,12 +292,14 @@
 				0DCEF2C92416701D00ECEC99 /* PoseBuilder+Single.swift in Sources */,
 				0DCEF2CB2416709B00ECEC99 /* PoseBuilder+Multiple.swift in Sources */,
 				0DCEF2C7241666CA00ECEC99 /* PoseBuilder.swift in Sources */,
+				7296E02025E464FA00CF517A /* VideoPlayback.swift in Sources */,
 				4AA5C4B822BB9CC200277977 /* VideoCapture.swift in Sources */,
 				4AE8C3CF23AD2A74005F9953 /* CGImage+Extension.swift in Sources */,
 				720BB32A25E21A54000B2CE4 /* AnotherTableViewController.swift in Sources */,
 				4A0FC5BC23190AD6004886B9 /* CGPoint+Extension.swift in Sources */,
 				4A97FA952350ABDE00255C7F /* Pose.swift in Sources */,
 				4A2D23B622BB70E400494C55 /* WorkoutViewController.swift in Sources */,
+				7296E02325E466F500CF517A /* PlaybackViewController.swift in Sources */,
 				4AE8C3D123AD2D3B005F9953 /* PoseNetInput.swift in Sources */,
 				4AA5C4BA22BBBC2A00277977 /* PoseNet.swift in Sources */,
 				8827276F2561AB0000810153 /* FormFitAlgos.swift in Sources */,
