@@ -26,7 +26,7 @@ class PlaybackViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        playVideo(forResource: "squat1", ofType: "mp4")
+        playVideo(forResource: "squat3", ofType: "mp4")
         if videoUrl == nil, let path = Bundle.main.path(forResource: "squat3", ofType: "mp4") {
             videoUrl = URL(fileURLWithPath: path)
             print("video loaded from \(path)")
@@ -40,7 +40,7 @@ class PlaybackViewController: UIViewController {
 
         poseNet.delegate = self
         
-        self.processVideo()
+//        self.processVideo()
 
 //        DispatchQueue.global(qos: .background).async {
 //        }

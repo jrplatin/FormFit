@@ -45,7 +45,6 @@ class WorkoutViewController: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-
         // For convenience, the idle timer is disabled to prevent the screen from locking.
         UIApplication.shared.isIdleTimerDisabled = true
 
@@ -97,14 +96,14 @@ class WorkoutViewController: UIViewController {
         timeStamp: 100,
         exerciseScore: 20,
         repInfo: [
-            RepInformation(shoulderPositions: [CGFloat(3.14)], backAngles: [], tibiaAngles: [], feedback: "Do better, get gud", score: 1),
-            RepInformation(shoulderPositions: [], backAngles: [], tibiaAngles: [], feedback: "Your back angle was incorrect 45% of the descent and 20% of the ascent. Your tibia angle was incorrect 30% of the descent and 10% of the ascent.", score: 2),
-            RepInformation(shoulderPositions: [], backAngles: [], tibiaAngles: [], feedback: "Do better, get gud", score: 3),
-            RepInformation(shoulderPositions: [], backAngles: [], tibiaAngles: [], feedback: "Your back angle was incorrect 45% of the descent and 20% of the ascent. Your tibia angle was incorrect 30% of the descent and 10% of the ascent.", score: 1),
-            RepInformation(shoulderPositions: [], backAngles: [], tibiaAngles: [], feedback: "Your back angle was incorrect 45% of the descent and 20% of the ascent. Your tibia angle was incorrect 30% of the descent and 10% of the ascent.", score: 8),
-            RepInformation(shoulderPositions: [], backAngles: [], tibiaAngles: [], feedback: "Do better, get gud", score: 7),
-            RepInformation(shoulderPositions: [], backAngles: [], tibiaAngles: [], feedback: "Do better, get gud", score: 3),
-            RepInformation(shoulderPositions: [], backAngles: [], tibiaAngles: [], feedback: "Your back angle was incorrect 1% of the descent and 2% of the ascent. Your tibia angle was incorrect 7% of the descent and 4% of the ascent.", score: 10),
+            RepInformation(shoulderPositions: [CGFloat(3.14)], backAngles: [75.0, 80.2, 82.2, 35.2, 44.2, 75.5], tibiaAngles: [55.0, 57.0, 60.0, 77.0, 55.0], feedback: "Do better, get gud", score: 1),
+//            RepInformation(shoulderPositions: [], backAngles: [], tibiaAngles: [], feedback: "Your back angle was incorrect 45% of the descent and 20% of the ascent. Your tibia angle was incorrect 30% of the descent and 10% of the ascent.", score: 2),
+//            RepInformation(shoulderPositions: [], backAngles: [], tibiaAngles: [], feedback: "Do better, get gud", score: 3),
+//            RepInformation(shoulderPositions: [], backAngles: [], tibiaAngles: [], feedback: "Your back angle was incorrect 45% of the descent and 20% of the ascent. Your tibia angle was incorrect 30% of the descent and 10% of the ascent.", score: 1),
+//            RepInformation(shoulderPositions: [], backAngles: [], tibiaAngles: [], feedback: "Your back angle was incorrect 45% of the descent and 20% of the ascent. Your tibia angle was incorrect 30% of the descent and 10% of the ascent.", score: 8),
+//            RepInformation(shoulderPositions: [], backAngles: [], tibiaAngles: [], feedback: "Do better, get gud", score: 7),
+//            RepInformation(shoulderPositions: [], backAngles: [], tibiaAngles: [], feedback: "Do better, get gud", score: 3),
+//            RepInformation(shoulderPositions: [], backAngles: [], tibiaAngles: [], feedback: "Your back angle was incorrect 1% of the descent and 2% of the ascent. Your tibia angle was incorrect 7% of the descent and 4% of the ascent.", score: 10),
         ])
     
     @IBAction func onRecordButtonTapped(_ sender: Any) {

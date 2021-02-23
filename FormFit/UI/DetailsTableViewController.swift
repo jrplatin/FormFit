@@ -28,11 +28,14 @@ class DetailsTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "RepCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "RepCell", for: indexPath) as! RepTableViewCell
         if let reps = reps {
-            cell.textLabel?.text = String(format: "Rep #%d (%0.2f)", indexPath.row + 1, reps[indexPath.row].score)
-            cell.detailTextLabel?.text = reps[indexPath.row].feedback
-            cell.detailTextLabel?.numberOfLines = 0
+            let rep = reps[indexPath.row]
+            cell.title?.text = String(format: "Rep #%d (%0.2f)", indexPath.row + 1, rep.score)
+            cell.canvas.rep = rep
+//            cell.textLabel?.text = String(format: "Rep #%d (%0.2f)", indexPath.row + 1, reps[indexPath.row].score)
+//            cell.detailTextLabel?.text = reps[indexPath.row].feedback
+//            cell.detailTextLabel?.numberOfLines = 0
         }
 
         return cell
