@@ -17,6 +17,7 @@ class PlaybackViewController: UIViewController {
     private let poseBuilderConfiguration = PoseBuilderConfiguration()
     private var poseNet: PoseNet!
     private var currentFrame: CGImage?
+    var exerciseName: String?
     
     var videoUrl : URL?
     private var generator : AVAssetImageGenerator!
@@ -26,19 +27,23 @@ class PlaybackViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        playVideo(forResource: "squat3", ofType: "mp4")
-        if videoUrl == nil, let path = Bundle.main.path(forResource: "squat3", ofType: "mp4") {
-            videoUrl = URL(fileURLWithPath: path)
-            print("video loaded from \(path)")
+        if exerciseName == "Squat" {
+            playVideo(forResource: "squat3", ofType: "mp4")
+        } else {
+            playVideo(forResource: "deadlift", ofType: "mp4")
         }
-        
-        do {
-            poseNet = try PoseNet()
-        } catch {
-            fatalError("Failed to load model. \(error.localizedDescription)")
-        }
-
-        poseNet.delegate = self
+//        if videoUrl == nil, let path = Bundle.main.path(forResource: "squat3", ofType: "mp4") {
+//            videoUrl = URL(fileURLWithPath: path)
+//            print("video loaded from \(path)")
+//        }
+//
+//        do {
+//            poseNet = try PoseNet()
+//        } catch {
+//            fatalError("Failed to load model. \(error.localizedDescription)")
+//        }
+//
+//        poseNet.delegate = self
         
 //        self.processVideo()
 

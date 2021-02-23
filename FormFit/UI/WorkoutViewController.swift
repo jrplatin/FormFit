@@ -34,15 +34,26 @@ class WorkoutViewController: UIViewController {
     
     private var isRecording = false
     
+    var exerciseName: String?
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
         if segue.identifier == "ShowSummary" {
             if let vc = segue.destination as? SummaryViewController {
                 vc.reps = exerciseInfo?.repInfo
+                vc.exerciseName = exerciseName!
             }
         }
+        
+        if segue.identifier == "PlaybackSegue" {
+            if let vc = segue.destination as? PlaybackViewController {
+                vc.exerciseName = exerciseName!
+            }
+        }
+        
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // For convenience, the idle timer is disabled to prevent the screen from locking.
@@ -70,6 +81,10 @@ class WorkoutViewController: UIViewController {
             self.videoCapture.startCapturing()
         }
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        setupAndBeginCapturingVideoFrames()
+    }
 
     override func viewWillDisappear(_ animated: Bool) {
         videoCapture.stopCapturing {
@@ -96,7 +111,7 @@ class WorkoutViewController: UIViewController {
         timeStamp: 100,
         exerciseScore: 20,
         repInfo: [
-            RepInformation(shoulderPositions: [CGFloat(3.14)], backAngles: [75.0, 80.2, 82.2, 35.2, 44.2, 75.5], tibiaAngles: [55.0, 57.0, 60.0, 77.0, 55.0], feedback: "Do better, get gud", score: 1),
+            RepInformation(shoulderPositions: [CGFloat(3.14)], backAngles: [75.0, 80.2, 82.2, 35.2, 44.2, 75.5], tibiaAngles: [55.0, 57.0, 60.0, 77.0, 55.0], exerciseName: "Squat", feedback: "Do better, get gud", score: 1),
 //            RepInformation(shoulderPositions: [], backAngles: [], tibiaAngles: [], feedback: "Your back angle was incorrect 45% of the descent and 20% of the ascent. Your tibia angle was incorrect 30% of the descent and 10% of the ascent.", score: 2),
 //            RepInformation(shoulderPositions: [], backAngles: [], tibiaAngles: [], feedback: "Do better, get gud", score: 3),
 //            RepInformation(shoulderPositions: [], backAngles: [], tibiaAngles: [], feedback: "Your back angle was incorrect 45% of the descent and 20% of the ascent. Your tibia angle was incorrect 30% of the descent and 10% of the ascent.", score: 1),
@@ -112,8 +127,8 @@ class WorkoutViewController: UIViewController {
             recordButton.setTitle("Analyzing...", for: UIControl.State.normal)
             
             // MARK: Testing vs Real Data
-//            exerciseInfo = algo.finishExercise()
-            exerciseInfo = fakeExerciseInfo
+            exerciseInfo = algo.finishExercise(exerciseName: exerciseName!)
+//            exerciseInfo = fakeExerciseInfo
             exerciseInfo?.date = Date.init()
             recordButton.backgroundColor = UIColor.systemGreen
             recordButton.setTitle("Record", for: UIControl.State.normal)

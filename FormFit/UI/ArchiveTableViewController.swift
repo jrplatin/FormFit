@@ -8,6 +8,10 @@
 
 import UIKit
 
+class ArchiveCell: UITableViewCell {
+    var filename: String?
+}
+
 class ArchiveTableViewController: UITableViewController {
     var files: [URL]?
     
@@ -15,16 +19,15 @@ class ArchiveTableViewController: UITableViewController {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
         if segue.identifier == "ArchiveSummary" {
-            if let vc = segue.destination as? SummaryViewController, let btn = sender as? UITableViewCell, let filename = btn.textLabel?.text, let dir = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first {
-                print(dir)
+            if let vc = segue.destination as? SummaryViewController, let btn = sender as? ArchiveCell, let filename = btn.filename, let dir = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first {
                 let url = dir.appendingPathComponent(filename)
-                print(url)
                 do {
                     let workoutJson = try String(contentsOf: url, encoding: .utf8)
                     let decoder = JSONDecoder()
                     decoder.dateDecodingStrategy = .iso8601
                     let workout = try decoder.decode(ExerciseInformation.self, from: workoutJson.data(using: .utf8)!)
                     vc.reps = workout.repInfo
+                    vc.exerciseName = workout.exerciseName
                 } catch {
                     print(error)
                 }
@@ -36,12 +39,7 @@ class ArchiveTableViewController: UITableViewController {
         super.viewDidLoad()
         if let dir = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first {
             print(dir)
-            do {
-                self.files = try? FileManager.default.contentsOfDirectory(at: dir, includingPropertiesForKeys: nil)
-                print(self.files)
-            } catch {
-                print(error)
-            }
+            self.files = try? FileManager.default.contentsOfDirectory(at: dir, includingPropertiesForKeys: nil)
         }
 
         // Uncomment the following line to preserve selection between presentations
@@ -65,10 +63,23 @@ class ArchiveTableViewController: UITableViewController {
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ArchiveCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ArchiveCell", for: indexPath) as! ArchiveCell
         if let files = files {
             let url = files[indexPath.row]
-            cell.textLabel?.text = url.lastPathComponent
+            cell.filename = url.lastPathComponent
+            do {
+                let workoutJson = try String(contentsOf: url, encoding: .utf8)
+                let decoder = JSONDecoder()
+                decoder.dateDecodingStrategy = .iso8601
+                let workout = try decoder.decode(ExerciseInformation.self, from: workoutJson.data(using: .utf8)!)
+                let fullDateString = String(describing: workout.date!)
+                let dateString = String(describing: fullDateString.dropLast(15))
+                let timeString = String(describing: fullDateString.dropFirst(11).dropLast(6))
+                cell.textLabel?.text = "\(workout.exerciseName!)s on \(dateString) at \(timeString) UTC"
+            } catch {
+                print(error)
+            }
+            
             
         }
         return cell

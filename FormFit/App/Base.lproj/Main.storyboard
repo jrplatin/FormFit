@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="28d-uK-gv5">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="28d-uK-gv5">
     <device id="retina6_0" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Menu View Controller-->
         <scene sceneID="JWu-fV-9Qc">
             <objects>
-                <viewController id="LhG-Ze-6dY" sceneMemberID="viewController">
+                <viewController id="LhG-Ze-6dY" customClass="MenuViewController" customModule="FormFit" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="2IP-fQ-3UE"/>
                         <viewControllerLayoutGuide type="bottom" id="gmq-1R-ILM"/>
@@ -27,12 +27,15 @@
                                         <rect key="frame" x="0.0" y="0.0" width="71" height="30"/>
                                         <state key="normal" title="Squat"/>
                                         <connections>
-                                            <segue destination="BYZ-38-t0r" kind="show" id="Y1i-sp-CAK"/>
+                                            <segue destination="BYZ-38-t0r" kind="show" identifier="Squat" id="Y1i-sp-CAK"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RCq-Qo-P4T">
                                         <rect key="frame" x="0.0" y="43" width="71" height="30"/>
                                         <state key="normal" title="Deadlift"/>
+                                        <connections>
+                                            <segue destination="BYZ-38-t0r" kind="show" identifier="Deadlift" id="qRF-aK-RWh"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DOI-rM-zZz">
                                         <rect key="frame" x="0.0" y="86" width="71" height="30"/>
@@ -45,7 +48,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Archive"/>
                                 <connections>
-                                    <segue destination="9rB-d8-TWD" kind="show" id="OAt-Da-CWa"/>
+                                    <segue destination="9rB-d8-TWD" kind="show" identifier="" id="OAt-Da-CWa"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -70,7 +73,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ArchiveCell" textLabel="AY4-oi-x5Q" style="IBUITableViewCellStyleDefault" id="Qpg-BQ-uNd">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ArchiveCell" textLabel="AY4-oi-x5Q" style="IBUITableViewCellStyleDefault" id="Qpg-BQ-uNd" customClass="ArchiveCell" customModule="FormFit" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="390" height="43.666667938232422"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Qpg-BQ-uNd" id="oJk-UP-Gwc">
@@ -164,22 +167,6 @@
                                     <outletCollection property="gestureRecognizers" destination="Cdz-YX-9um" appends="YES" id="byo-Wy-gFz"/>
                                 </connections>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BtZ-RJ-x8n">
-                                <rect key="frame" x="329.66666666666669" y="100" width="30.333333333333314" height="37.666666666666657"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="BtZ-RJ-x8n" secondAttribute="height" multiplier="29:36" id="rfo-h7-Zrd"/>
-                                </constraints>
-                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <size key="titleShadowOffset" width="-2" height="0.0"/>
-                                <state key="normal" image="arrow.triangle.2.circlepath.camera.fill" catalog="system">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large"/>
-                                </state>
-                                <connections>
-                                    <action selector="onCameraButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="5dj-RN-msI"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eDh-CD-xem">
                                 <rect key="frame" x="93" y="730.66666666666663" width="204" height="34"/>
                                 <color key="backgroundColor" systemColor="systemGreenColor"/>
@@ -209,6 +196,22 @@
                                     <segue destination="nr1-eO-owb" kind="show" identifier="PlaybackSegue" id="4Nv-uf-74x"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BtZ-RJ-x8n">
+                                <rect key="frame" x="321" y="128" width="30.333333333333314" height="37.666666666666657"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="BtZ-RJ-x8n" secondAttribute="height" multiplier="29:36" id="rfo-h7-Zrd"/>
+                                </constraints>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <size key="titleShadowOffset" width="-2" height="0.0"/>
+                                <state key="normal" image="arrow.triangle.2.circlepath.camera.fill" catalog="system">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large"/>
+                                </state>
+                                <connections>
+                                    <action selector="onCameraButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="5dj-RN-msI"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
@@ -217,9 +220,9 @@
                             <constraint firstItem="eDh-CD-xem" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="77" id="M7r-c5-Tuq"/>
                             <constraint firstAttribute="trailing" secondItem="ArZ-44-lD1" secondAttribute="trailing" id="Ofr-gP-hut"/>
                             <constraint firstItem="HHZ-93-8LK" firstAttribute="top" secondItem="F1z-cx-652" secondAttribute="bottom" constant="10" id="QL8-xk-AP4"/>
-                            <constraint firstItem="BtZ-RJ-x8n" firstAttribute="top" secondItem="F1z-cx-652" secondAttribute="bottom" constant="12" id="ZA4-Ra-Xz4"/>
+                            <constraint firstItem="BtZ-RJ-x8n" firstAttribute="top" secondItem="F1z-cx-652" secondAttribute="bottom" constant="40" id="ZA4-Ra-Xz4"/>
                             <constraint firstItem="eDh-CD-xem" firstAttribute="centerX" secondItem="ArZ-44-lD1" secondAttribute="centerX" id="e5j-Zj-6C0"/>
-                            <constraint firstAttribute="trailing" secondItem="BtZ-RJ-x8n" secondAttribute="trailing" constant="30" id="jr2-4Z-W6H"/>
+                            <constraint firstAttribute="trailing" secondItem="BtZ-RJ-x8n" secondAttribute="trailing" constant="38" id="jr2-4Z-W6H"/>
                             <constraint firstItem="zt5-5N-S1k" firstAttribute="top" secondItem="eDh-CD-xem" secondAttribute="bottom" constant="45.333333333333371" id="mcN-wa-6Vx"/>
                             <constraint firstItem="HHZ-93-8LK" firstAttribute="centerX" secondItem="ArZ-44-lD1" secondAttribute="centerX" id="xIH-q6-jBr"/>
                             <constraint firstItem="ArZ-44-lD1" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="ykF-C2-0P9"/>
@@ -327,8 +330,8 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Target back angle: 75 ± 5" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uNe-pP-Vpx">
-                                <rect key="frame" x="98.666666666666686" y="104" width="193" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Target back angle: 55 ± 5" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uNe-pP-Vpx">
+                                <rect key="frame" x="98" y="104" width="194" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -354,6 +357,8 @@
                     <connections>
                         <outlet property="bestFeedbackLabel" destination="u2A-mU-d31" id="xZW-Mv-FaQ"/>
                         <outlet property="bestScoreLabel" destination="Tpr-5T-O5U" id="cvL-4S-MMz"/>
+                        <outlet property="targetFormLabel1" destination="uNe-pP-Vpx" id="hmP-iU-ksV"/>
+                        <outlet property="targetFormLabel2" destination="TNa-t6-85e" id="kf8-Ve-kCF"/>
                         <outlet property="worstFeedbackLabel" destination="rpH-lw-uaA" id="i1L-az-VHo"/>
                         <outlet property="worstScoreLabel" destination="D7l-I1-CFb" id="69X-EQ-QcY"/>
                     </connections>
@@ -437,7 +442,8 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="B1O-i6-mMs"/>
+        <segue reference="bqF-9Z-EGq"/>
+        <segue reference="qRF-aK-RWh"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="arrow.triangle.2.circlepath.camera.fill" catalog="system" width="128" height="94"/>

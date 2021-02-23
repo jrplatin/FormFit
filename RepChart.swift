@@ -41,16 +41,25 @@ class RepChart: UIView {
     override func draw(_ rect: CGRect) {
         // Drawing code
         UIColor.black.set()
-        horizontalLineAt(angle: 80, rect: rect, top: false).stroke()
-        horizontalLineAt(angle: 70, rect: rect, top: false).stroke()
-        horizontalLineAt(angle: 60, rect: rect, top: true).stroke()
-        horizontalLineAt(angle: 50, rect: rect, top: true).stroke()
-        
         if let rep = self.rep {
-            UIColor.red.set()
-            lineChart(of: rep.backAngles, rect: rect).stroke()
-            UIColor.blue.set()
-            lineChart(of: rep.tibiaAngles, rect: rect, top: false).stroke()
+            if (rep.exerciseName == "Squat") {
+                horizontalLineAt(angle: 60, rect: rect, top: false).stroke()
+                horizontalLineAt(angle: 50, rect: rect, top: false).stroke()
+                horizontalLineAt(angle: 60, rect: rect, top: true).stroke()
+                horizontalLineAt(angle: 50, rect: rect, top: true).stroke()
+                
+                UIColor.red.set()
+                lineChart(of: rep.backAngles, rect: rect).stroke()
+                UIColor.blue.set()
+                lineChart(of: rep.tibiaAngles, rect: rect, top: false).stroke()
+            } else {
+                horizontalLineAt(angle: 60, rect: rect, top: false).stroke()
+                horizontalLineAt(angle: 50, rect: rect, top: false).stroke()
+                
+                UIColor.red.set()
+                lineChart(of: rep.elbowAngles, rect: rect, top: false).stroke()
+            }
+
         }
     }
 

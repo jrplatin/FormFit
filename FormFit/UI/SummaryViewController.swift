@@ -10,6 +10,9 @@ import UIKit
 
 class SummaryViewController: UIViewController {
     var reps: [RepInformation]?
+    
+    @IBOutlet weak var targetFormLabel1: UILabel!
+    @IBOutlet weak var targetFormLabel2: UILabel!
 
     @IBOutlet weak var bestScoreLabel: UILabel!
     @IBOutlet weak var bestFeedbackLabel: UILabel!
@@ -17,8 +20,7 @@ class SummaryViewController: UIViewController {
     @IBOutlet weak var worstScoreLabel: UILabel!
     @IBOutlet weak var worstFeedbackLabel: UILabel!
     
-    
-    
+    var exerciseName: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,6 +30,14 @@ class SummaryViewController: UIViewController {
         worstFeedbackLabel.numberOfLines = 0
 //        bestScoreLabel.layer.cornerRadius = 50
 //        worstScoreLabel.layer.cornerRadius = 50
+        
+        if exerciseName == "Squat" {
+            targetFormLabel1.text = "Target back angle: 55 ± 5"
+            targetFormLabel2.text = "Target tibia angle: 55 ± 5"
+        } else {
+            targetFormLabel1.text = "Target elbow angle: 5 ± 5"
+            targetFormLabel2.text = ""
+        }
         
         let (minRep, maxRep) = getMinAndMaxReps()
         if let minRep = minRep {
