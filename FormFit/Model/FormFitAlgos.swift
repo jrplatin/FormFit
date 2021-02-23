@@ -263,7 +263,7 @@ class FormFitAlgos {
         // Smoothing
         var avgElbowAngles = [CGFloat]()
         for i in 0...r.backAngles.count - 1{
-            avgElbowAngles.append(fiveWindowAvg(index: i, array: r.backAngles))
+            avgElbowAngles.append(fiveWindowAvg(index: i, array: r.elbowAngles))
         }
         
         var elbowBad = 0.0
