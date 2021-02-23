@@ -5,6 +5,7 @@
 //  Created by Kieran Halloran on 11/15/20.
 //  Copyright © 2020 Apple. All rights reserved.
 //
+
 import Foundation
 import UIKit
 
@@ -32,11 +33,12 @@ class FormFitAlgos {
     
     let BACK_THRESHOLD = CGFloat(55)
     let TIBIA_THRESHOLD = CGFloat(55)
-    let BACK_THRESHOLD_STD_DEV = CGFloat(5)
-    let TIBIA_THRESHOLD_STD_DEV = CGFloat(5)
+    let BACK_THRESHOLD_STD_DEV = CGFloat(10)
+    let TIBIA_THRESHOLD_STD_DEV = CGFloat(10)
     let KNEE_SLOPE_THRESHOLD = CGFloat(0.0)
-    let ELBOW_THRESHOLD = CGFloat(180)
-    let ELBOW_THRESHOLD_STD_DEV = CGFloat(5)
+    let ELBOW_THRESHOLD_1 = CGFloat(180)
+    let ELBOW_THRESHOLD_2 = CGFloat(0)
+    let ELBOW_THRESHOLD_STD_DEV = CGFloat(10)
 
     
     private var leftShoulderLocs: [CGFloat]
@@ -166,8 +168,8 @@ class FormFitAlgos {
                 let endOfRep = i
                
                 if(endOfRep - startOfRep > 16){
-                        info.append(createRep(startIndex: startOfRep, endIndex: endOfRep, exerciseName: exerciseName))
-                 }
+                    info.append(createRep(startIndex: startOfRep, endIndex: endOfRep, exerciseName: exerciseName))
+                }
             }
 
             if(signals[i] == 0){
@@ -182,7 +184,7 @@ class FormFitAlgos {
     }
     
     private func fiveWindowAvg(index: Int, array: [CGFloat]) -> CGFloat {
-         if (index < 2 || index > array.count - 3) {
+        if (index < 2 || index > array.count - 3) {
              return array[index]
          }
 
@@ -262,13 +264,15 @@ class FormFitAlgos {
         
         // Smoothing
         var avgElbowAngles = [CGFloat]()
-        for i in 0...r.backAngles.count - 1{
+        for i in 0...r.elbowAngles.count - 1 {
             avgElbowAngles.append(fiveWindowAvg(index: i, array: r.elbowAngles))
         }
         
         var elbowBad = 0.0
         for i in 0...avgElbowAngles.count - 1 {
-            if (abs(avgElbowAngles[i] - ELBOW_THRESHOLD) > ELBOW_THRESHOLD_STD_DEV) {
+            let err1 = abs(avgElbowAngles[i] - ELBOW_THRESHOLD_1)
+            let err2 = abs(avgElbowAngles[i] - ELBOW_THRESHOLD_2)
+            if (err1 > ELBOW_THRESHOLD_STD_DEV && err2 > ELBOW_THRESHOLD_STD_DEV) {
                 score -= (100.0 / Double(avgElbowAngles.count))
                 elbowBad += 1
             }

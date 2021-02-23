@@ -32,8 +32,8 @@ class SummaryViewController: UIViewController {
 //        worstScoreLabel.layer.cornerRadius = 50
         
         if exerciseName == "Squat" {
-            targetFormLabel1.text = "Target back angle: 55 ± 5"
-            targetFormLabel2.text = "Target tibia angle: 55 ± 5"
+            targetFormLabel1.text = "Target back angle: 55 ± 10"
+            targetFormLabel2.text = "Target tibia angle: 55 ± 10"
         } else {
             targetFormLabel1.text = "Target elbow angle: 5 ± 5"
             targetFormLabel2.text = ""
