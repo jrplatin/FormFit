@@ -414,7 +414,10 @@
                                             </constraints>
                                         </view>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gHE-Gm-eNU">
-                                            <rect key="frame" x="28" y="48" width="71" height="36"/>
+                                            <rect key="frame" x="28" y="48" width="209" height="36"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="209" id="NGc-xV-BA3"/>
+                                            </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -425,7 +428,7 @@
                                         <constraint firstItem="twb-SV-TOo" firstAttribute="centerY" secondItem="gHE-Gm-eNU" secondAttribute="centerY" id="1ec-Dd-nPu"/>
                                         <constraint firstItem="twb-SV-TOo" firstAttribute="top" secondItem="L44-x8-jjh" secondAttribute="topMargin" constant="5" id="39C-PD-7os"/>
                                         <constraint firstItem="twb-SV-TOo" firstAttribute="leading" secondItem="L44-x8-jjh" secondAttribute="leading" constant="245" id="Iez-XQ-nXR"/>
-                                        <constraint firstAttribute="trailing" secondItem="gHE-Gm-eNU" secondAttribute="trailing" constant="291" id="VZB-iv-Ptb"/>
+                                        <constraint firstAttribute="trailing" secondItem="gHE-Gm-eNU" secondAttribute="trailing" constant="153" id="TjD-qq-9Zc"/>
                                         <constraint firstItem="twb-SV-TOo" firstAttribute="trailing" secondItem="L44-x8-jjh" secondAttribute="trailingMargin" id="Z1C-o8-AJh"/>
                                         <constraint firstItem="gHE-Gm-eNU" firstAttribute="centerY" secondItem="L44-x8-jjh" secondAttribute="centerY" id="tSQ-5b-MXq"/>
                                     </constraints>
