@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Segment
 
 class MenuViewController: UIViewController {
 
@@ -24,6 +25,7 @@ class MenuViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 //         Get the new view controller using segue.destination.
 //         Pass the selected object to the new view controller.
+        Analytics.shared().track("Exercise Opened", properties: ["id": segue.identifier ?? "Unknown"])
          if segue.identifier == "Squat" {
              if let vc = segue.destination as? WorkoutViewController {
                 vc.exerciseName = "Squat"

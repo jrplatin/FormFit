@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -12,6 +12,7 @@
 		0DCEF2C92416701D00ECEC99 /* PoseBuilder+Single.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCEF2C82416701D00ECEC99 /* PoseBuilder+Single.swift */; };
 		0DCEF2CB2416709B00ECEC99 /* PoseBuilder+Multiple.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCEF2CA2416709B00ECEC99 /* PoseBuilder+Multiple.swift */; };
 		0DCEF2CE241676C000ECEC99 /* PoseBuilderConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCEF2CD241676C000ECEC99 /* PoseBuilderConfiguration.swift */; };
+		2CA030502F56EAD1D3190FC7 /* Pods_FormFit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7FA5CCAFFC4D6E7066EE33DF /* Pods_FormFit.framework */; };
 		4A0FC5BC23190AD6004886B9 /* CGPoint+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A0FC5BB23190AD6004886B9 /* CGPoint+Extension.swift */; };
 		4A2D23B222BB70E400494C55 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2D23B122BB70E400494C55 /* AppDelegate.swift */; };
 		4A2D23B622BB70E400494C55 /* WorkoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2D23B522BB70E400494C55 /* WorkoutViewController.swift */; };
@@ -44,7 +45,6 @@
 		883245EF25E4E2CB005A6D69 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 883245EE25E4E2CB005A6D69 /* MenuViewController.swift */; };
 		883245F225E4EB34005A6D69 /* deadlift.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 883245F125E4EB34005A6D69 /* deadlift.mp4 */; };
 		88DC77BC258C26A50090ADCA /* MathLib.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88DC77BB258C26A50090ADCA /* MathLib.swift */; };
-		ADB314C573180489BC6838E4 /* libPods-FormFit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BAE285C7B769E1A22816D2E /* libPods-FormFit.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -73,7 +73,6 @@
 		4AE8C3D023AD2D3B005F9953 /* PoseNetInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoseNetInput.swift; sourceTree = "<group>"; };
 		4AE8C3D223AD2D8A005F9953 /* PoseNetOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoseNetOutput.swift; sourceTree = "<group>"; };
 		57C02DF057C02B4000000001 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		5BAE285C7B769E1A22816D2E /* libPods-FormFit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FormFit.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		720BB32625E206E5000B2CE4 /* ArchiveTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchiveTableViewController.swift; sourceTree = "<group>"; };
 		720BB32925E21A54000B2CE4 /* AnotherTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnotherTableViewController.swift; sourceTree = "<group>"; };
 		723CC24C258FAAA40071A413 /* SummaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryViewController.swift; sourceTree = "<group>"; };
@@ -88,6 +87,7 @@
 		7296E03425E4A88D00CF517A /* RepChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepChart.swift; sourceTree = "<group>"; };
 		72D0B1DE258FC1C30073A157 /* DetailsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DetailsTableViewController.swift; path = FormFit/UI/DetailsTableViewController.swift; sourceTree = SOURCE_ROOT; };
 		7B49FF96C87DE1517E982C4F /* Pods-FormFit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FormFit.debug.xcconfig"; path = "Target Support Files/Pods-FormFit/Pods-FormFit.debug.xcconfig"; sourceTree = "<group>"; };
+		7FA5CCAFFC4D6E7066EE33DF /* Pods_FormFit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FormFit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8827276E2561AB0000810153 /* FormFitAlgos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormFitAlgos.swift; sourceTree = "<group>"; };
 		883245EE25E4E2CB005A6D69 /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		883245F125E4EB34005A6D69 /* deadlift.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = deadlift.mp4; sourceTree = "<group>"; };
@@ -101,7 +101,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				ADB314C573180489BC6838E4 /* libPods-FormFit.a in Frameworks */,
+				2CA030502F56EAD1D3190FC7 /* Pods_FormFit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -243,7 +243,7 @@
 		EAAF89B30FC59873B3294396 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				5BAE285C7B769E1A22816D2E /* libPods-FormFit.a */,
+				7FA5CCAFFC4D6E7066EE33DF /* Pods_FormFit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -456,7 +456,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -512,7 +512,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;

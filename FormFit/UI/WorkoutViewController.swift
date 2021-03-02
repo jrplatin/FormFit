@@ -9,6 +9,7 @@ The implementation of the application's view controller, responsible for coordin
 import AVFoundation
 import UIKit
 import VideoToolbox
+import Segment
 
 class WorkoutViewController: UIViewController {
     /// The view the controller uses to visualize the detected poses.
@@ -43,6 +44,7 @@ class WorkoutViewController: UIViewController {
             if let vc = segue.destination as? SummaryViewController {
                 vc.reps = exerciseInfo?.repInfo
                 vc.exerciseName = exerciseName!
+                Analytics.shared().track("Exercise Completed", properties: ["num_reps": exerciseInfo?.repInfo.count ?? 0, "set_timestamp": exerciseInfo?.timeStamp ?? -1])
             }
         }
         

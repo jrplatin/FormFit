@@ -7,12 +7,14 @@
 //
 
 import UIKit
+import Segment
 
 class DetailsTableViewController: UITableViewController {
     var reps: [RepInformation]?
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        Analytics.shared().track("Details Viewed")
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
