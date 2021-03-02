@@ -44,9 +44,11 @@
 		883245EF25E4E2CB005A6D69 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 883245EE25E4E2CB005A6D69 /* MenuViewController.swift */; };
 		883245F225E4EB34005A6D69 /* deadlift.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 883245F125E4EB34005A6D69 /* deadlift.mp4 */; };
 		88DC77BC258C26A50090ADCA /* MathLib.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88DC77BB258C26A50090ADCA /* MathLib.swift */; };
+		ADB314C573180489BC6838E4 /* libPods-FormFit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BAE285C7B769E1A22816D2E /* libPods-FormFit.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		04EE22120376629FF0C0A829 /* Pods-FormFit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FormFit.release.xcconfig"; path = "Target Support Files/Pods-FormFit/Pods-FormFit.release.xcconfig"; sourceTree = "<group>"; };
 		0563E980FDE557646F54ED8A /* LICENSE.txt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
 		0D4BB83E249769C800076D64 /* PoseNetMobileNet075S16FP16.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = PoseNetMobileNet075S16FP16.mlmodel; sourceTree = "<group>"; };
 		0DCEF2C6241666CA00ECEC99 /* PoseBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoseBuilder.swift; sourceTree = "<group>"; };
@@ -71,6 +73,7 @@
 		4AE8C3D023AD2D3B005F9953 /* PoseNetInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoseNetInput.swift; sourceTree = "<group>"; };
 		4AE8C3D223AD2D8A005F9953 /* PoseNetOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoseNetOutput.swift; sourceTree = "<group>"; };
 		57C02DF057C02B4000000001 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		5BAE285C7B769E1A22816D2E /* libPods-FormFit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FormFit.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		720BB32625E206E5000B2CE4 /* ArchiveTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchiveTableViewController.swift; sourceTree = "<group>"; };
 		720BB32925E21A54000B2CE4 /* AnotherTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnotherTableViewController.swift; sourceTree = "<group>"; };
 		723CC24C258FAAA40071A413 /* SummaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryViewController.swift; sourceTree = "<group>"; };
@@ -84,6 +87,7 @@
 		7296E03125E4A4C200CF517A /* RepTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepTableViewCell.swift; sourceTree = "<group>"; };
 		7296E03425E4A88D00CF517A /* RepChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepChart.swift; sourceTree = "<group>"; };
 		72D0B1DE258FC1C30073A157 /* DetailsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DetailsTableViewController.swift; path = FormFit/UI/DetailsTableViewController.swift; sourceTree = SOURCE_ROOT; };
+		7B49FF96C87DE1517E982C4F /* Pods-FormFit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FormFit.debug.xcconfig"; path = "Target Support Files/Pods-FormFit/Pods-FormFit.debug.xcconfig"; sourceTree = "<group>"; };
 		8827276E2561AB0000810153 /* FormFitAlgos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormFitAlgos.swift; sourceTree = "<group>"; };
 		883245EE25E4E2CB005A6D69 /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		883245F125E4EB34005A6D69 /* deadlift.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = deadlift.mp4; sourceTree = "<group>"; };
@@ -97,6 +101,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ADB314C573180489BC6838E4 /* libPods-FormFit.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -133,6 +138,15 @@
 			name = Configuration;
 			sourceTree = "<group>";
 		};
+		3E45885523870A983E87AAF0 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				7B49FF96C87DE1517E982C4F /* Pods-FormFit.debug.xcconfig */,
+				04EE22120376629FF0C0A829 /* Pods-FormFit.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		4A2D23A522BB70E400494C55 = {
 			isa = PBXGroup;
 			children = (
@@ -149,6 +163,8 @@
 				1E2F76EA3781C8213469E3A0 /* Configuration */,
 				0D8A71B927BDB43FD8F91908 /* LICENSE */,
 				88DC77B9258C14060090ADCA /* FormFit.app */,
+				3E45885523870A983E87AAF0 /* Pods */,
+				EAAF89B30FC59873B3294396 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -224,6 +240,14 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		EAAF89B30FC59873B3294396 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				5BAE285C7B769E1A22816D2E /* libPods-FormFit.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -231,6 +255,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4A2D23C222BB70E500494C55 /* Build configuration list for PBXNativeTarget "FormFit" */;
 			buildPhases = (
+				73C79B18CCFB67E1A1853320 /* [CP] Check Pods Manifest.lock */,
 				4A2D23AA22BB70E400494C55 /* Sources */,
 				4A2D23AB22BB70E400494C55 /* Frameworks */,
 				4A2D23AC22BB70E400494C55 /* Resources */,
@@ -296,6 +321,31 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		73C79B18CCFB67E1A1853320 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-FormFit-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		4A2D23AA22BB70E400494C55 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -356,7 +406,7 @@
 /* Begin XCBuildConfiguration section */
 		4A2D23C022BB70E500494C55 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = BEE6CF152B804A05BF905D20 /* SampleCode.xcconfig */;
+			baseConfigurationReference = 7B49FF96C87DE1517E982C4F /* Pods-FormFit.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -418,7 +468,7 @@
 		};
 		4A2D23C122BB70E500494C55 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = BEE6CF152B804A05BF905D20 /* SampleCode.xcconfig */;
+			baseConfigurationReference = 04EE22120376629FF0C0A829 /* Pods-FormFit.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -474,18 +524,18 @@
 		};
 		4A2D23C322BB70E500494C55 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = BEE6CF152B804A05BF905D20 /* SampleCode.xcconfig */;
+			baseConfigurationReference = 7B49FF96C87DE1517E982C4F /* Pods-FormFit.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 9J7UX2RQ7T;
+				DEVELOPMENT_TEAM = L724QK4D4V;
 				INFOPLIST_FILE = "$(SRCROOT)/FormFit/App/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = khalloran.FormFit;
+				PRODUCT_BUNDLE_IDENTIFIER = davish.FormFit;
 				PRODUCT_NAME = FormFit;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
@@ -495,18 +545,18 @@
 		};
 		4A2D23C422BB70E500494C55 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = BEE6CF152B804A05BF905D20 /* SampleCode.xcconfig */;
+			baseConfigurationReference = 04EE22120376629FF0C0A829 /* Pods-FormFit.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 9J7UX2RQ7T;
+				DEVELOPMENT_TEAM = L724QK4D4V;
 				INFOPLIST_FILE = "$(SRCROOT)/FormFit/App/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = khalloran.FormFit;
+				PRODUCT_BUNDLE_IDENTIFIER = davish.FormFit;
 				PRODUCT_NAME = FormFit;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
