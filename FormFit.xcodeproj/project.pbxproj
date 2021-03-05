@@ -31,19 +31,15 @@
 		720BB32725E206E5000B2CE4 /* ArchiveTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 720BB32625E206E5000B2CE4 /* ArchiveTableViewController.swift */; };
 		720BB32A25E21A54000B2CE4 /* AnotherTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 720BB32925E21A54000B2CE4 /* AnotherTableViewController.swift */; };
 		723CC24D258FAAA40071A413 /* SummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 723CC24C258FAAA40071A413 /* SummaryViewController.swift */; };
-		7296E01D25E462F700CF517A /* squat1.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 7296E01C25E462EA00CF517A /* squat1.mp4 */; };
 		7296E02025E464FA00CF517A /* VideoPlayback.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7296E01F25E464FA00CF517A /* VideoPlayback.swift */; };
 		7296E02325E466F500CF517A /* PlaybackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7296E02225E466F500CF517A /* PlaybackViewController.swift */; };
-		7296E02625E4782B00CF517A /* davis.mov in Resources */ = {isa = PBXBuildFile; fileRef = 7296E02525E4782B00CF517A /* davis.mov */; };
-		7296E02925E47F2A00CF517A /* squat2.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 7296E02825E47F2A00CF517A /* squat2.mp4 */; };
-		7296E02C25E485DA00CF517A /* squat3.mov in Resources */ = {isa = PBXBuildFile; fileRef = 7296E02B25E485DA00CF517A /* squat3.mov */; };
-		7296E02F25E4870600CF517A /* squat3.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 7296E02E25E4870600CF517A /* squat3.mp4 */; };
 		7296E03225E4A4C200CF517A /* RepTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7296E03125E4A4C200CF517A /* RepTableViewCell.swift */; };
 		7296E03525E4A88D00CF517A /* RepChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7296E03425E4A88D00CF517A /* RepChart.swift */; };
 		72D0B1DF258FC1C30073A157 /* DetailsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72D0B1DE258FC1C30073A157 /* DetailsTableViewController.swift */; };
 		8827276F2561AB0000810153 /* FormFitAlgos.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8827276E2561AB0000810153 /* FormFitAlgos.swift */; };
 		883245EF25E4E2CB005A6D69 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 883245EE25E4E2CB005A6D69 /* MenuViewController.swift */; };
 		883245F225E4EB34005A6D69 /* deadlift.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 883245F125E4EB34005A6D69 /* deadlift.mp4 */; };
+		88BDD2CB25F2CC8200598FD9 /* squat.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 88BDD2C925F2C9A100598FD9 /* squat.mp4 */; };
 		88DC77BC258C26A50090ADCA /* MathLib.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88DC77BB258C26A50090ADCA /* MathLib.swift */; };
 /* End PBXBuildFile section */
 
@@ -76,13 +72,8 @@
 		720BB32625E206E5000B2CE4 /* ArchiveTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchiveTableViewController.swift; sourceTree = "<group>"; };
 		720BB32925E21A54000B2CE4 /* AnotherTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnotherTableViewController.swift; sourceTree = "<group>"; };
 		723CC24C258FAAA40071A413 /* SummaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryViewController.swift; sourceTree = "<group>"; };
-		7296E01C25E462EA00CF517A /* squat1.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = squat1.mp4; sourceTree = "<group>"; };
 		7296E01F25E464FA00CF517A /* VideoPlayback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayback.swift; sourceTree = "<group>"; };
 		7296E02225E466F500CF517A /* PlaybackViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackViewController.swift; sourceTree = "<group>"; };
-		7296E02525E4782B00CF517A /* davis.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = davis.mov; sourceTree = "<group>"; };
-		7296E02825E47F2A00CF517A /* squat2.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = squat2.mp4; sourceTree = "<group>"; };
-		7296E02B25E485DA00CF517A /* squat3.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = squat3.mov; sourceTree = "<group>"; };
-		7296E02E25E4870600CF517A /* squat3.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = squat3.mp4; sourceTree = "<group>"; };
 		7296E03125E4A4C200CF517A /* RepTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepTableViewCell.swift; sourceTree = "<group>"; };
 		7296E03425E4A88D00CF517A /* RepChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepChart.swift; sourceTree = "<group>"; };
 		72D0B1DE258FC1C30073A157 /* DetailsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DetailsTableViewController.swift; path = FormFit/UI/DetailsTableViewController.swift; sourceTree = SOURCE_ROOT; };
@@ -91,6 +82,7 @@
 		8827276E2561AB0000810153 /* FormFitAlgos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormFitAlgos.swift; sourceTree = "<group>"; };
 		883245EE25E4E2CB005A6D69 /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		883245F125E4EB34005A6D69 /* deadlift.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = deadlift.mp4; sourceTree = "<group>"; };
+		88BDD2C925F2C9A100598FD9 /* squat.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = squat.mp4; sourceTree = "<group>"; };
 		88DC77B9258C14060090ADCA /* FormFit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FormFit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		88DC77BB258C26A50090ADCA /* MathLib.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MathLib.swift; sourceTree = "<group>"; };
 		BEE6CF152B804A05BF905D20 /* SampleCode.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = SampleCode.xcconfig; path = Configuration/SampleCode.xcconfig; sourceTree = "<group>"; };
@@ -150,13 +142,9 @@
 		4A2D23A522BB70E400494C55 = {
 			isa = PBXGroup;
 			children = (
+				88BDD2C925F2C9A100598FD9 /* squat.mp4 */,
 				883245F125E4EB34005A6D69 /* deadlift.mp4 */,
 				7296E03425E4A88D00CF517A /* RepChart.swift */,
-				7296E02E25E4870600CF517A /* squat3.mp4 */,
-				7296E02B25E485DA00CF517A /* squat3.mov */,
-				7296E02825E47F2A00CF517A /* squat2.mp4 */,
-				7296E02525E4782B00CF517A /* davis.mov */,
-				7296E01C25E462EA00CF517A /* squat1.mp4 */,
 				720BB32925E21A54000B2CE4 /* AnotherTableViewController.swift */,
 				57C02DF057C02B4000000001 /* README.md */,
 				4A2D23B022BB70E400494C55 /* FormFit */,
@@ -307,15 +295,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7296E01D25E462F700CF517A /* squat1.mp4 in Resources */,
+				88BDD2CB25F2CC8200598FD9 /* squat.mp4 in Resources */,
 				4A2D23BE22BB70E500494C55 /* LaunchScreen.storyboard in Resources */,
-				7296E02F25E4870600CF517A /* squat3.mp4 in Resources */,
-				7296E02625E4782B00CF517A /* davis.mov in Resources */,
 				4A2D23BB22BB70E500494C55 /* Assets.xcassets in Resources */,
-				7296E02C25E485DA00CF517A /* squat3.mov in Resources */,
 				883245F225E4EB34005A6D69 /* deadlift.mp4 in Resources */,
 				4A2D23B922BB70E400494C55 /* Main.storyboard in Resources */,
-				7296E02925E47F2A00CF517A /* squat2.mp4 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -535,6 +519,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = kieranh.FormFit;
 				PRODUCT_NAME = FormFit;
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -556,6 +541,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = kieranh.FormFit;
 				PRODUCT_NAME = FormFit;
 				PROVISIONING_PROFILE_SPECIFIER = "";

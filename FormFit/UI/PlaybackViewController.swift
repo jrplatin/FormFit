@@ -28,7 +28,7 @@ class PlaybackViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         if exerciseName == "Squat" {
-            playVideo(forResource: "squat3", ofType: "mp4")
+            playVideo(forResource: "squat", ofType: "mp4")
         } else {
             playVideo(forResource: "deadlift", ofType: "mp4")
         }
