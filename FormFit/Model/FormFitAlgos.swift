@@ -36,6 +36,9 @@ class FormFitAlgos {
     let KNEE_SLOPE_THRESHOLD = CGFloat(0.0)
     let ELBOW_THRESHOLD = CGFloat(180)
     let ELBOW_THRESHOLD_STD_DEV = CGFloat(5)
+    
+    let CURL_BACK_THRESHOLD = CGFloat(180)
+    let CURL_BACK_THRESHOLD_STD_DEV = CGFloat(5)
 
     
     private var leftShoulderLocs: [CGFloat]
@@ -256,8 +259,8 @@ class FormFitAlgos {
         
         // Smoothing
         var avgElbowAngles = [CGFloat]()
-        for i in 0...r.backAngles.count - 1{
-            avgElbowAngles.append(fiveWindowAvg(index: i, array: r.backAngles))
+        for i in 0...r.elbowAngles.count - 1{
+            avgElbowAngles.append(fiveWindowAvg(index: i, array: r.elbowAngles))
         }
         
         var elbowBad = 0.0
@@ -272,6 +275,31 @@ class FormFitAlgos {
 
         let feedback = "Your elbows were not locked  \(String(format: "%.0f", elbowBad))%" +
             " of the deadlift. Keep those elbows locked!"
+
+        return (score, feedback)
+    }
+    
+    private func scoreCurl(of r: RepInformation) -> (Double, String) {
+        var score = 100.0
+        
+        // Smoothing
+        var avgBackAngles = [CGFloat]()
+        for i in 0...r.backAngles.count - 1{
+            avgBackAngles.append(fiveWindowAvg(index: i, array: r.backAngles))
+        }
+        
+        var backBent = 0.0
+        for i in 0...avgBackAngles.count - 1 {
+            if (abs(avgBackAngles[i] - CURL_BACK_THRESHOLD) > CURL_BACK_THRESHOLD_STD_DEV) {
+                score -= (100.0 / Double(avgBackAngles.count))
+                backBent += 1
+            }
+        }
+        
+        backBent = abs(backBent / Double(avgBackAngles.count) * 100)
+
+        let feedback = "Your back was not straight  \(String(format: "%.0f", backBent))%" +
+            " of the curl. Keep your back upright!"
 
         return (score, feedback)
     }
