@@ -13,11 +13,32 @@ class MenuViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let defaults = UserDefaults.standard
+        if defaults.object(forKey: "tutorial") == nil {
+            defaults.set(true, forKey: "tutorial")
+        }
+        
+        tutorialSwitch.setOn(defaults.bool(forKey: "tutorial"), animated: false)
 
         // Do any additional setup after loading the view.
     }
+//    if let tutorial = sender as? UISwitch {
+//        print("SWITCHED \(tutorial.isOn)")
+//        let defaults = UserDefaults.standard
+//        defaults.set(tutorial.isOn, forKey: "tutorial")
+//    }
     
-
+    @IBOutlet weak var tutorialSwitch: UISwitch!
+    
+    @IBAction func tutorialSwitchDidChange(_ sender: Any) {
+        if let tutorial = sender as? UISwitch {
+            print("SWITCHED \(tutorial.isOn)")
+            let defaults = UserDefaults.standard
+            defaults.set(tutorial.isOn, forKey: "tutorial")
+        }
+    }
+    
     
 //     MARK: - Navigation
 //

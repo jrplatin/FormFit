@@ -11,42 +11,29 @@ import UIKit
 class SummaryViewController: UIViewController {
     var reps: [RepInformation]?
     
-    @IBOutlet weak var targetFormLabel1: UILabel!
-    @IBOutlet weak var targetFormLabel2: UILabel!
-
     @IBOutlet weak var bestScoreLabel: UILabel!
-    @IBOutlet weak var bestFeedbackLabel: UILabel!
     
     @IBOutlet weak var worstScoreLabel: UILabel!
-    @IBOutlet weak var worstFeedbackLabel: UILabel!
+    @IBOutlet weak var bestRepChart: RepChart!
+    @IBOutlet weak var worstRepChart: RepChart!
     
     var exerciseName: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        bestFeedbackLabel.lineBreakMode = .byWordWrapping
-        bestFeedbackLabel.numberOfLines = 0
-        worstFeedbackLabel.lineBreakMode = .byWordWrapping
-        worstFeedbackLabel.numberOfLines = 0
 //        bestScoreLabel.layer.cornerRadius = 50
 //        worstScoreLabel.layer.cornerRadius = 50
         
-        if exerciseName == "Squat" {
-            targetFormLabel1.text = "Target back angle: 55 ± 10"
-            targetFormLabel2.text = "Target tibia angle: 55 ± 10"
-        } else {
-            targetFormLabel1.text = "Target elbow angle: 5 ± 5"
-            targetFormLabel2.text = ""
-        }
         
         let (minRep, maxRep) = getMinAndMaxReps()
         if let minRep = minRep {
             worstScoreLabel.text = String(format: "%.0f", minRep.score)
-            worstFeedbackLabel.text = minRep.feedback
+            worstRepChart.rep = minRep
+            
         }
         if let maxRep = maxRep {
             bestScoreLabel.text = String(format: "%.0f", maxRep.score)
-            bestFeedbackLabel.text = maxRep.feedback
+            bestRepChart.rep = maxRep
         }
     }
     

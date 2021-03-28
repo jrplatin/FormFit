@@ -69,6 +69,11 @@ class WorkoutViewController: UIViewController {
 
         poseNet.delegate = self
         setupAndBeginCapturingVideoFrames()
+        
+        let defaults = UserDefaults.standard
+        if defaults.bool(forKey: "tutorial") {
+            performSegue(withIdentifier: "PlaybackSegue", sender: nil)
+        }
     }
 
     private func setupAndBeginCapturingVideoFrames() {
@@ -206,14 +211,18 @@ extension WorkoutViewController: PoseNetDelegate {
         
         if (isRecording) {
             algo.processFrame(pose: pose)
-        }
-        
-        if let exerciseInfo = exerciseInfo {
-            statusLabel.text = "Total Reps: \(exerciseInfo.repInfo.count)"
-            statusLabel.textColor = UIColor.green
+            let defaults = UserDefaults.standard
+            if defaults.bool(forKey: "tutorial") {
+                if pose == nil {
+                    statusLabel.text = "Adjust position for skeleton"
+                } else {
+                    statusLabel.text = "Lift Away!"
+                }
+            } else {
+                statusLabel.text = ""
+            }
         } else {
-            statusLabel.text = "No exercises yet"
-            statusLabel.textColor = UIColor.red
+            statusLabel.text = ""
         }
     }
 }
