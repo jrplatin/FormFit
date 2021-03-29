@@ -41,7 +41,7 @@ class ArchiveTableViewController: UITableViewController {
         super.viewDidLoad()
         if let dir = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first {
             print(dir)
-            self.files = try? FileManager.default.contentsOfDirectory(at: dir, includingPropertiesForKeys: nil).filter(isDataFile(_:))
+            self.files = try? FileManager.default.contentsOfDirectory(at: dir, includingPropertiesForKeys: nil).filter(isDataFile(_:)).reversed()
         }
 
         // Uncomment the following line to preserve selection between presentations
