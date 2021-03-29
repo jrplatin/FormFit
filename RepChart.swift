@@ -52,12 +52,19 @@ class RepChart: UIView {
                 lineChart(of: rep.backAngles, rect: rect).stroke()
                 UIColor.blue.set()
                 lineChart(of: rep.tibiaAngles, rect: rect, top: false).stroke()
+            } else if (rep.exerciseName == "Deadlift") {
+                horizontalLineAt(angle: -10, rect: rect, top: false).stroke()
+                horizontalLineAt(angle: 10, rect: rect, top: false).stroke()
+                
+                UIColor.red.set()
+                let fixedElbowAngles = rep.leftElbowAngles.map {min(abs(180-$0), $0)}
+                lineChart(of: fixedElbowAngles, rect: rect, top: false).stroke()
             } else {
                 horizontalLineAt(angle: -10, rect: rect, top: false).stroke()
                 horizontalLineAt(angle: 10, rect: rect, top: false).stroke()
                 
                 UIColor.red.set()
-                let fixedElbowAngles = rep.elbowAngles.map {min(abs(180-$0), $0)}
+                let fixedElbowAngles = rep.rightElbowAngles.map {min(abs(180-$0), $0)}
                 lineChart(of: fixedElbowAngles, rect: rect, top: false).stroke()
             }
 

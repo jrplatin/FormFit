@@ -11,7 +11,9 @@ import UIKit
 
 struct RepInformation : Codable {
     var shoulderPositions = [CGFloat]()
-    var elbowAngles = [CGFloat]()
+    var leftElbowAngles = [CGFloat]()
+    var rightWristPositions = [CGFloat]()
+    var rightElbowAngles = [CGFloat]()
     var backAngles = [CGFloat]()
     var tibiaAngles = [CGFloat]()
     var kneeSlopes = [CGFloat]()
@@ -42,14 +44,18 @@ class FormFitAlgos {
 
     
     private var leftShoulderLocs: [CGFloat]
-    private var elbowAngles: [CGFloat]
+    private var leftElbowAngles: [CGFloat]
+    private var rightWristLocs: [CGFloat]
+    private var rightElbowAngles: [CGFloat]
     private var backAngles: [CGFloat]
     private var tibiaAngles: [CGFloat]
     private var kneeSlopes: [CGFloat]
     
     init() {
         leftShoulderLocs = [CGFloat]()
-        elbowAngles = [CGFloat]()
+        leftElbowAngles = [CGFloat]()
+        rightWristLocs = [CGFloat]()
+        rightElbowAngles = [CGFloat]()
         backAngles = [CGFloat]()
         tibiaAngles = [CGFloat]()
         kneeSlopes = [CGFloat]()
@@ -57,7 +63,9 @@ class FormFitAlgos {
     
     private func reset() {
         leftShoulderLocs = [CGFloat]()
-        elbowAngles = [CGFloat]()
+        leftElbowAngles = [CGFloat]()
+        rightWristLocs = [CGFloat]()
+        rightElbowAngles = [CGFloat]()
         backAngles = [CGFloat]()
         tibiaAngles = [CGFloat]()
         kneeSlopes = [CGFloat]()
@@ -72,26 +80,38 @@ class FormFitAlgos {
             let leftKneeLoc = pose.joints[Joint.Name.leftKnee]?.position
             let leftHipLoc = pose.joints[Joint.Name.leftHip]?.position
             let leftAnkleLoc = pose.joints[Joint.Name.leftAnkle]?.position
-
-            let shoulderToElbowSlope = getSlopeFromPoint(point1: leftShoulderLoc!, point2: leftElbowLoc!)
-            let wristToElbowSlope = getSlopeFromPoint(point1: leftWristLoc!, point2: leftElbowLoc!)
-            let shoulderToHipSlope = getSlopeFromPoint(point1: leftShoulderLoc!, point2: leftHipLoc!)
-            let kneeToHipSlope = getSlopeFromPoint(point1: leftKneeLoc!, point2: leftHipLoc!)
-            let kneeToAnkleSlope = getSlopeFromPoint(point1: leftKneeLoc!, point2: leftAnkleLoc!)
             
-            let elbowAngle = findAngle(slope1: shoulderToElbowSlope, slope2: wristToElbowSlope)
-            let backAngle = findAngle(slope1: shoulderToHipSlope, slope2: kneeToHipSlope)
-            let tibiaAngle = findAngle(slope1: kneeToAnkleSlope, slope2: kneeToHipSlope)
+            let rightShoulderLoc = pose.joints[Joint.Name.rightShoulder]?.position
+            let rightElbowLoc = pose.joints[Joint.Name.rightElbow]?.position
+            let rightWristLoc = pose.joints[Joint.Name.rightWrist]?.position
+
+            let leftShoulderToElbowSlope = getSlopeFromPoint(point1: leftShoulderLoc!, point2: leftElbowLoc!)
+            let leftWristToElbowSlope = getSlopeFromPoint(point1: leftWristLoc!, point2: leftElbowLoc!)
+            let leftShoulderToHipSlope = getSlopeFromPoint(point1: leftShoulderLoc!, point2: leftHipLoc!)
+            let leftKneeToHipSlope = getSlopeFromPoint(point1: leftKneeLoc!, point2: leftHipLoc!)
+            let leftKneeToAnkleSlope = getSlopeFromPoint(point1: leftKneeLoc!, point2: leftAnkleLoc!)
+            
+            let rightShoulderToElbowSlope = getSlopeFromPoint(point1: rightShoulderLoc!, point2: rightElbowLoc!)
+            let rightWristToElbowSlope = getSlopeFromPoint(point1: rightWristLoc!, point2: rightElbowLoc!)
+            
+            let leftElbowAngle = findAngle(slope1: leftShoulderToElbowSlope, slope2: leftWristToElbowSlope)
+            let backAngle = findAngle(slope1: leftShoulderToHipSlope, slope2: leftKneeToHipSlope)
+            let tibiaAngle = findAngle(slope1: leftKneeToAnkleSlope, slope2: leftKneeToHipSlope)
+            
+            let rightElbowAngle = findAngle(slope1: rightShoulderToElbowSlope, slope2: rightWristToElbowSlope)
             
             leftShoulderLocs.append(leftShoulderLoc!.y)
-            elbowAngles.append(elbowAngle)
+            leftElbowAngles.append(leftElbowAngle)
+            rightWristLocs.append(rightWristLoc!.y)
+            rightElbowAngles.append(rightElbowAngle)
             backAngles.append(backAngle)
             tibiaAngles.append(tibiaAngle)
-            kneeSlopes.append(kneeToHipSlope)
+            kneeSlopes.append(leftKneeToHipSlope)
         }
     }
     
     func finishExercise(exerciseName: String) -> ExerciseInformation {
+        fixElbowAngles()
         let info = ExerciseInformation(exerciseName: exerciseName,
                                        timeStamp: NSDate().timeIntervalSince1970,
                                        repInfo: createReps(exerciseName: exerciseName))
@@ -101,35 +121,70 @@ class FormFitAlgos {
     
     private func createRep(startIndex: Int, endIndex: Int, exerciseName: String) -> RepInformation {
         let shoulderPositionsForRep = Array(leftShoulderLocs[startIndex...endIndex])
-        let elbowAnglesForRep = Array(elbowAngles[startIndex...endIndex])
+        let leftElbowAnglesForRep = Array(leftElbowAngles[startIndex...endIndex])
+        let rightWristPositionsForRep = Array(rightWristLocs[startIndex...endIndex])
+        let rightElbowAnglesForRep = Array(rightElbowAngles[startIndex...endIndex])
         let backAnglesForRep = Array(backAngles[startIndex...endIndex])
         let tibiaAnglesForRep = Array(tibiaAngles[startIndex...endIndex])
         let kneeSlopesForRep =  Array(kneeSlopes[startIndex...endIndex])
         let bareRep = RepInformation(shoulderPositions: shoulderPositionsForRep,
-                                     elbowAngles: elbowAnglesForRep,
+                                     leftElbowAngles: leftElbowAnglesForRep,
+                                     rightWristPositions: rightWristPositionsForRep,
+                                     rightElbowAngles: rightElbowAnglesForRep,
                                      backAngles: backAnglesForRep,
                                      tibiaAngles: tibiaAnglesForRep,
                                      kneeSlopes: kneeSlopesForRep,
                                      exerciseName: exerciseName,
                                      feedback: "",
                                      score: 0)
-        let (repScore, feedback) = exerciseName == "Squat" ? scoreSquat(of: bareRep) : scoreDeadlift(of: bareRep)
+        var repScore = 0.0
+        var feedback = ""
+        if (exerciseName == "Squat") {
+            (repScore, feedback) = scoreSquat(of: bareRep)
+        } else if (exerciseName == "Deadlift") {
+            (repScore, feedback) = scoreDeadlift(of: bareRep)
+        } else if (exerciseName == "Curl"){
+            (repScore, feedback) = (1.0, "curl feedback")
+        }
+        
         return RepInformation(shoulderPositions: shoulderPositionsForRep,
-                              elbowAngles: elbowAnglesForRep,
-                              backAngles: backAnglesForRep,
-                              tibiaAngles: tibiaAnglesForRep,
-                              kneeSlopes: kneeSlopesForRep,
-                              exerciseName: exerciseName,
-                              feedback: feedback,
-                              score: repScore)
+                                leftElbowAngles: leftElbowAnglesForRep,
+                                rightWristPositions: rightWristPositionsForRep,
+                                rightElbowAngles: rightElbowAnglesForRep,
+                                backAngles: backAnglesForRep,
+                                tibiaAngles: tibiaAnglesForRep,
+                                kneeSlopes: kneeSlopesForRep,
+                                exerciseName: exerciseName,
+                                feedback: feedback,
+                                score: repScore)
     }
     
-    private func createReps(exerciseName: String) -> [RepInformation] {
-        var info = [RepInformation]()
+    private func fixElbowAngles() {
+        for i in 1...rightElbowAngles.count-1 {
+            if rightElbowAngles[i] < 0 && rightElbowAngles[i-1] > 90 {
+                rightElbowAngles[i] = 180 + rightElbowAngles[i]
+            } else if rightElbowAngles[i] < 0 {
+                rightElbowAngles[i] = abs(rightElbowAngles[i])
+            }
+            print(rightElbowAngles[i])
+        }
+        
+    }
+    
+    private func getRepBounds(exerciseName: String) -> ([Int], [Int]) {
+        var startIndices = [Int]()
+        var endIndices = [Int]()
         
         // Run filter
-        let shoulderPositionsDouble = leftShoulderLocs.map { Double($0) }
-        let (signals, _, _) = ThresholdingAlgo(y: shoulderPositionsDouble, lag: 35, threshold: 3.2, influence: 0)
+        var signals = [Int]()
+        if (exerciseName == "Squat" || exerciseName == "Deadlift") {
+            let shoulderPositionsDouble = leftShoulderLocs.map { Double($0) }
+            (signals, _, _) = ThresholdingAlgo(y: shoulderPositionsDouble, lag: 35, threshold: 3.2, influence: 0)
+        } else if (exerciseName == "Curl") {
+            let wristPositionsDouble = rightWristLocs.map { Double($0) }
+            (signals, _, _) = ThresholdingAlgo(y: wristPositionsDouble, lag: 35, threshold: 3.2, influence: 0)
+        }
+        
 
         var isInRep = false
         var startOfRep = 0
@@ -138,7 +193,7 @@ class FormFitAlgos {
         
         // If we don't have any signals (generally from simulator) then just return empty
         if signals.count == 0 {
-            return info
+            return ([0], [leftShoulderLocs.count])
         }
         for i in 0...signals.count - 1 {
             //we are at the start of a rep
@@ -156,7 +211,8 @@ class FormFitAlgos {
                     let endOfRep = i
                     
                     if(endOfRep - startOfRep > 16){
-                        info.append(createRep(startIndex: startOfRep, endIndex: endOfRep, exerciseName: exerciseName))
+                        startIndices.append(startOfRep)
+                        endIndices.append(endOfRep)
                     }
                     
                 }
@@ -168,7 +224,8 @@ class FormFitAlgos {
                 let endOfRep = i
                
                 if(endOfRep - startOfRep > 16){
-                    info.append(createRep(startIndex: startOfRep, endIndex: endOfRep, exerciseName: exerciseName))
+                    startIndices.append(startOfRep)
+                    endIndices.append(endOfRep)
                 }
             }
 
@@ -178,6 +235,17 @@ class FormFitAlgos {
             else {
                 wasPrevRepZero = false
             }
+        }
+        
+        return (startIndices, endIndices)
+    }
+    
+    private func createReps(exerciseName: String) -> [RepInformation] {
+        var info = [RepInformation]()
+        
+        let (startIndices, endIndices) = getRepBounds(exerciseName: exerciseName)
+        for i in 0...startIndices.count - 1 {
+            info.append(createRep(startIndex: startIndices[i], endIndex: endIndices[i], exerciseName: exerciseName))
         }
         
         return info
@@ -196,7 +264,7 @@ class FormFitAlgos {
         
         // Smoothing
         var avgBackAngles = [CGFloat]()
-        for i in 0...r.backAngles.count - 1{
+        for i in 0...r.backAngles.count - 1 {
             avgBackAngles.append(fiveWindowAvg(index: i, array: r.backAngles))
         }
         var avgTibiaAngles = [CGFloat]()
@@ -264,8 +332,8 @@ class FormFitAlgos {
         
         // Smoothing
         var avgElbowAngles = [CGFloat]()
-        for i in 0...r.elbowAngles.count - 1 {
-            avgElbowAngles.append(fiveWindowAvg(index: i, array: r.elbowAngles))
+        for i in 0...r.rightElbowAngles.count - 1 {
+            avgElbowAngles.append(fiveWindowAvg(index: i, array: r.rightElbowAngles))
         }
         
         var elbowBad = 0.0

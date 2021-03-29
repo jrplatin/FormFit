@@ -34,6 +34,10 @@ class MenuViewController: UIViewController {
             if let vc = segue.destination as? WorkoutViewController {
                 vc.exerciseName = "Deadlift"
             }
+        } else if segue.identifier == "Curl" {
+            if let vc = segue.destination as? WorkoutViewController {
+                vc.exerciseName = "Curl"
+            }
         }
     }
     

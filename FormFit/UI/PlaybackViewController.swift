@@ -29,8 +29,10 @@ class PlaybackViewController: UIViewController {
         super.viewDidLoad()
         if exerciseName == "Squat" {
             playVideo(forResource: "squat", ofType: "mp4")
-        } else {
+        } else if exerciseName == "Deadlift" {
             playVideo(forResource: "deadlift", ofType: "mp4")
+        } else if exerciseName == "Curl" {
+            playVideo(forResource: "curl", ofType: "mp4")
         }
 //        if videoUrl == nil, let path = Bundle.main.path(forResource: "squat3", ofType: "mp4") {
 //            videoUrl = URL(fileURLWithPath: path)

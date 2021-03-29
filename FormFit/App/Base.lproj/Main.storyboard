@@ -40,6 +40,9 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DOI-rM-zZz">
                                         <rect key="frame" x="0.0" y="86" width="71" height="30"/>
                                         <state key="normal" title="Bicep Curl"/>
+                                        <connections>
+                                            <segue destination="BYZ-38-t0r" kind="show" identifier="Curl" id="QWn-C0-A60"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                             </stackView>
@@ -469,7 +472,7 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="B1O-i6-mMs"/>
-        <segue reference="qRF-aK-RWh"/>
+        <segue reference="QWn-C0-A60"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="arrow.triangle.2.circlepath.camera.fill" catalog="system" width="128" height="94"/>
