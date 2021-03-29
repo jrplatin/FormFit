@@ -15,6 +15,7 @@ class SummaryViewController: UIViewController {
     @IBOutlet weak var worstRepChart: RepChart!
     @IBOutlet weak var minRepLabel: UILabel!
     @IBOutlet weak var maxRepLabel: UILabel!
+    @IBOutlet weak var chartExplanation: UILabel!
     
     var exerciseName: String?
     
@@ -36,6 +37,20 @@ class SummaryViewController: UIViewController {
             maxRepLabel.text = String(format: "%.0f", maxRep.score)
             bestRepChart.rep = maxRep
             bestRepChart.setNeedsDisplay()
+        }
+        
+        chartExplanation.numberOfLines = 2
+        
+        switch exerciseName {
+        case "Squat":
+            chartExplanation.text = "Red line: Hip angle (range: 45˚-65˚)\n"
+                + "Blue line: Knee angle (range: 45˚-60˚)"
+        case "Deadlift":
+            chartExplanation.text = "Red line: Elbow angle (range: 0˚ ± 10˚)"
+        case "Curl":
+            chartExplanation.text = "Red line: Elbow angle (range: 0˚ - 20˚)\nBlue line: Hip angle (range: 0˚ ± 10˚)"
+        default:
+            break
         }
     }
     

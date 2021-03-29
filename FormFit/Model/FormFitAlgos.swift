@@ -41,6 +41,7 @@ class FormFitAlgos {
     let ELBOW_THRESHOLD_1 = CGFloat(180)
     let ELBOW_THRESHOLD_2 = CGFloat(0)
     let ELBOW_THRESHOLD_STD_DEV = CGFloat(10)
+    let CURL_BACK_THRESHOLD_STD_DEV = CGFloat(5)
 
     
     private var leftShoulderLocs: [CGFloat]
@@ -144,7 +145,7 @@ class FormFitAlgos {
         } else if (exerciseName == "Deadlift") {
             (repScore, feedback) = scoreDeadlift(of: bareRep)
         } else if (exerciseName == "Curl"){
-            (repScore, feedback) = (1.0, "curl feedback")
+            (repScore, feedback) = scoreCurl(of: bareRep)
         }
         
         return RepInformation(shoulderPositions: shoulderPositionsForRep,
@@ -160,6 +161,9 @@ class FormFitAlgos {
     }
     
     private func fixElbowAngles() {
+        if (rightElbowAngles.count < 2) {
+            return
+        }
         for i in 1...rightElbowAngles.count-1 {
             if rightElbowAngles[i] < 0 && rightElbowAngles[i-1] > 90 {
                 rightElbowAngles[i] = 180 + rightElbowAngles[i]
@@ -171,11 +175,8 @@ class FormFitAlgos {
         
     }
     
-    private func getRepBounds(exerciseName: String) -> ([Int], [Int]) {
-        var startIndices = [Int]()
-        var endIndices = [Int]()
-        
-        // Run filter
+    private func createReps(exerciseName: String) -> [RepInformation] {
+        var info = [RepInformation]()
         var signals = [Int]()
         if (exerciseName == "Squat" || exerciseName == "Deadlift") {
             let shoulderPositionsDouble = leftShoulderLocs.map { Double($0) }
@@ -184,7 +185,6 @@ class FormFitAlgos {
             let wristPositionsDouble = rightWristLocs.map { Double($0) }
             (signals, _, _) = ThresholdingAlgo(y: wristPositionsDouble, lag: 35, threshold: 3.2, influence: 0)
         }
-        
 
         var isInRep = false
         var startOfRep = 0
@@ -193,7 +193,7 @@ class FormFitAlgos {
         
         // If we don't have any signals (generally from simulator) then just return empty
         if signals.count == 0 {
-            return ([0], [leftShoulderLocs.count])
+            return info
         }
         for i in 0...signals.count - 1 {
             //we are at the start of a rep
@@ -211,8 +211,7 @@ class FormFitAlgos {
                     let endOfRep = i
                     
                     if(endOfRep - startOfRep > 16){
-                        startIndices.append(startOfRep)
-                        endIndices.append(endOfRep)
+                        info.append(createRep(startIndex: startOfRep, endIndex: endOfRep, exerciseName: exerciseName))
                     }
                     
                 }
@@ -224,28 +223,15 @@ class FormFitAlgos {
                 let endOfRep = i
                
                 if(endOfRep - startOfRep > 16){
-                    startIndices.append(startOfRep)
-                    endIndices.append(endOfRep)
-                }
+                        info.append(createRep(startIndex: startOfRep, endIndex: endOfRep, exerciseName: exerciseName))
+                 }
             }
-
             if(signals[i] == 0){
                 wasPrevRepZero = true
             }
             else {
                 wasPrevRepZero = false
             }
-        }
-        
-        return (startIndices, endIndices)
-    }
-    
-    private func createReps(exerciseName: String) -> [RepInformation] {
-        var info = [RepInformation]()
-        
-        let (startIndices, endIndices) = getRepBounds(exerciseName: exerciseName)
-        for i in 0...startIndices.count - 1 {
-            info.append(createRep(startIndex: startIndices[i], endIndex: endIndices[i], exerciseName: exerciseName))
         }
         
         return info
@@ -353,5 +339,32 @@ class FormFitAlgos {
 
         return (score, feedback)
     }
+    
+    private func scoreCurl(of r: RepInformation) -> (Double, String) {
+         var score = 100.0
+
+         // Smoothing
+         var avgBackAngles = [CGFloat]()
+         for i in 0...r.backAngles.count - 1{
+             avgBackAngles.append(fiveWindowAvg(index: i, array: r.backAngles))
+         }
+
+         var backBent = 0.0
+         for i in 0...avgBackAngles.count - 1 {
+            let err1 = abs(avgBackAngles[i] - ELBOW_THRESHOLD_1)
+            let err2 = abs(avgBackAngles[i] - ELBOW_THRESHOLD_2)
+            if (err1 > CURL_BACK_THRESHOLD_STD_DEV && err2 > CURL_BACK_THRESHOLD_STD_DEV) {
+                 score -= (100.0 / Double(avgBackAngles.count))
+                 backBent += 1
+             }
+         }
+
+         backBent = abs(backBent / Double(avgBackAngles.count) * 100)
+
+         let feedback = "Your back was not straight  \(String(format: "%.0f", backBent))%" +
+             " of the curl. Keep your back upright!"
+
+         return (score, feedback)
+     }
     
 }

@@ -66,12 +66,17 @@ class RepChart: UIView {
                 let fixedElbowAngles = rep.leftElbowAngles.map {min(abs(180-$0), $0)}
                 lineChart(of: fixedElbowAngles, rect: rect, top: false).stroke()
             } else {
+                horizontalLineAt(angle: 20, rect: rect, top: true).stroke()
+                horizontalLineAt(angle: 0.5, rect: rect, top: true).stroke()
                 horizontalLineAt(angle: -10, rect: rect, top: false).stroke()
                 horizontalLineAt(angle: 10, rect: rect, top: false).stroke()
                 
                 UIColor.red.set()
                 let fixedElbowAngles = rep.rightElbowAngles.map {min(abs(180-$0), $0)}
-                lineChart(of: fixedElbowAngles, rect: rect, top: false).stroke()
+                lineChart(of: fixedElbowAngles, rect: rect, top: true).stroke()
+                UIColor.blue.set()
+                let fixedBackAngles = rep.backAngles.map {min(abs(180-$0), $0)}
+                lineChart(of: fixedBackAngles, rect: rect, top: false).stroke()
             }
 
         }

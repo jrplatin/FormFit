@@ -16,6 +16,7 @@ class ArchiveCell: UITableViewCell {
 
 class ArchiveTableViewController: UITableViewController {
     var files: [URL]?
+    var workouts: [ExerciseInformation]?
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
@@ -43,6 +44,24 @@ class ArchiveTableViewController: UITableViewController {
             print(dir)
             self.files = try? FileManager.default.contentsOfDirectory(at: dir, includingPropertiesForKeys: nil).filter(isDataFile(_:)).reversed()
         }
+        
+        if let files = files {
+            var workoutList = [ExerciseInformation]()
+            for i in 0...files.count - 1 {
+                let name = files[i].lastPathComponent
+                do {
+                    let workoutJson = try String(contentsOf: files[i], encoding: .utf8)
+                    let decoder = JSONDecoder()
+                    decoder.dateDecodingStrategy = .iso8601
+                    let workout = try decoder.decode(ExerciseInformation.self, from: workoutJson.data(using: .utf8)!)
+                    workoutList.append(workout)
+                } catch {
+                    print("list decode error on \(name): \(error)")
+                }
+            }
+            workouts = workoutList.sorted(by: {$0.timeStamp! > $1.timeStamp!})
+        }
+        
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -64,31 +83,24 @@ class ArchiveTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return files?.count ?? 0
+        return workouts?.count ?? 0
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ArchiveCell", for: indexPath) as! ArchiveCell
         if let files = files {
-            let url = files[indexPath.row]
-            cell.filename = url.lastPathComponent
-            do {
-                
-                let workoutJson = try String(contentsOf: url, encoding: .utf8)
-                let decoder = JSONDecoder()
-                decoder.dateDecodingStrategy = .iso8601
-                let workout = try decoder.decode(ExerciseInformation.self, from: workoutJson.data(using: .utf8)!)
-                let fullDateString = String(describing: workout.date!)
-                let dateString = String(describing: fullDateString.dropLast(15))
-                let timeString = String(describing: fullDateString.dropFirst(11).dropLast(6))
-                cell.title.text = "\(workout.exerciseName!)s on \(dateString) at \(timeString) UTC"
-                cell.repCount.text = "\(workout.repInfo.count) reps"
-            } catch {
-                print("list decode error on \(url.lastPathComponent): \(error)")
-            }
-            
-            
+            cell.filename = files[indexPath.row].lastPathComponent
+        }
+        if let workouts = workouts {
+            let workout = workouts[indexPath.row]
+            let dateformat = DateFormatter()
+            dateformat.dateFormat = "MM/dd/yy h:mm a"
+            let fullDateString = dateformat.string(from: workout.date!)
+            let dateString = String(describing: fullDateString.dropLast(8))
+            let timeString = String(describing: fullDateString.dropFirst(9))
+            cell.title.text = "\(workout.exerciseName!)s on \(dateString) at \(timeString)"
+            cell.repCount.text = "\(workout.repInfo.count) reps"
         }
         return cell
     }

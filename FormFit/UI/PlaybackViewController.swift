@@ -38,7 +38,7 @@ class PlaybackViewController: UIViewController {
         case "Deadlift":
             helpLabel.text = "Try to keep your elbows straight during the deadlift, and don't arch your back!"
         case "Curl":
-            break
+            helpLabel.text = "Try to keep your back straight and elbows at your side!"
         default:
             break
         }
