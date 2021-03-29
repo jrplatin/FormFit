@@ -41,6 +41,7 @@
 		883245F225E4EB34005A6D69 /* deadlift.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 883245F125E4EB34005A6D69 /* deadlift.mp4 */; };
 		88BDD2CB25F2CC8200598FD9 /* squat.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 88BDD2C925F2C9A100598FD9 /* squat.mp4 */; };
 		88DC77BC258C26A50090ADCA /* MathLib.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88DC77BB258C26A50090ADCA /* MathLib.swift */; };
+		88F5A0BE260C0AB400D6E5C6 /* curl.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 88F5A0BD260C0A6300D6E5C6 /* curl.mp4 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -85,6 +86,7 @@
 		88BDD2C925F2C9A100598FD9 /* squat.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = squat.mp4; sourceTree = "<group>"; };
 		88DC77B9258C14060090ADCA /* FormFit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FormFit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		88DC77BB258C26A50090ADCA /* MathLib.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MathLib.swift; sourceTree = "<group>"; };
+		88F5A0BD260C0A6300D6E5C6 /* curl.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = curl.mp4; sourceTree = "<group>"; };
 		BEE6CF152B804A05BF905D20 /* SampleCode.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = SampleCode.xcconfig; path = Configuration/SampleCode.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -142,6 +144,7 @@
 		4A2D23A522BB70E400494C55 = {
 			isa = PBXGroup;
 			children = (
+				88F5A0BD260C0A6300D6E5C6 /* curl.mp4 */,
 				88BDD2C925F2C9A100598FD9 /* squat.mp4 */,
 				883245F125E4EB34005A6D69 /* deadlift.mp4 */,
 				7296E03425E4A88D00CF517A /* RepChart.swift */,
@@ -295,6 +298,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				88F5A0BE260C0AB400D6E5C6 /* curl.mp4 in Resources */,
 				88BDD2CB25F2CC8200598FD9 /* squat.mp4 in Resources */,
 				4A2D23BE22BB70E500494C55 /* LaunchScreen.storyboard in Resources */,
 				4A2D23BB22BB70E500494C55 /* Assets.xcassets in Resources */,
