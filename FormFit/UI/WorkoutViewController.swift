@@ -12,6 +12,8 @@ import VideoToolbox
 import Segment
 
 class WorkoutViewController: UIViewController {
+    var hadLastPose = false
+
     /// The view the controller uses to visualize the detected poses.
     @IBOutlet private var previewImageView: PoseImageView!
 
@@ -69,6 +71,11 @@ class WorkoutViewController: UIViewController {
 
         poseNet.delegate = self
         setupAndBeginCapturingVideoFrames()
+        
+        let defaults = UserDefaults.standard
+        if defaults.bool(forKey: "tutorial") {
+            performSegue(withIdentifier: "PlaybackSegue", sender: nil)
+        }
     }
 
     private func setupAndBeginCapturingVideoFrames() {
@@ -206,14 +213,27 @@ extension WorkoutViewController: PoseNetDelegate {
         
         if (isRecording) {
             algo.processFrame(pose: pose)
-        }
-        
-        if let exerciseInfo = exerciseInfo {
-            statusLabel.text = "Total Reps: \(exerciseInfo.repInfo.count)"
-            statusLabel.textColor = UIColor.green
+            let defaults = UserDefaults.standard
+            if pose == nil {
+                if defaults.bool(forKey: "tutorial") {
+                    statusLabel.text = "Adjust position for skeleton"
+                }
+                hadLastPose = false
+            } else {
+                if !hadLastPose {
+                    AudioServicesPlayAlertSound(SystemSoundID(1001))
+                }
+                if defaults.bool(forKey: "tutorial") {
+                    statusLabel.text = "Lift Away!"
+
+                }
+                hadLastPose = true
+            }
+            if !defaults.bool(forKey: "tutorial") {
+                statusLabel.text = ""
+            }
         } else {
-            statusLabel.text = "No exercises yet"
-            statusLabel.textColor = UIColor.red
+            statusLabel.text = ""
         }
     }
 }

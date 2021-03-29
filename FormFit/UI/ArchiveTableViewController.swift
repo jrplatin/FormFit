@@ -10,6 +10,8 @@ import UIKit
 
 class ArchiveCell: UITableViewCell {
     var filename: String?
+    @IBOutlet weak var title: UILabel!
+    @IBOutlet weak var repCount: UILabel!
 }
 
 class ArchiveTableViewController: UITableViewController {
@@ -39,7 +41,7 @@ class ArchiveTableViewController: UITableViewController {
         super.viewDidLoad()
         if let dir = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first {
             print(dir)
-            self.files = try? FileManager.default.contentsOfDirectory(at: dir, includingPropertiesForKeys: nil)
+            self.files = try? FileManager.default.contentsOfDirectory(at: dir, includingPropertiesForKeys: nil).filter(isDataFile(_:)).reversed()
         }
 
         // Uncomment the following line to preserve selection between presentations
@@ -55,6 +57,10 @@ class ArchiveTableViewController: UITableViewController {
         // #warning Incomplete implementation, return the number of sections
         return 1
     }
+    
+    func isDataFile(_ str: URL) -> Bool {
+        return !(str.lastPathComponent.hasPrefix("segment") || str.lastPathComponent.hasPrefix("analytics"))
+    }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
@@ -68,6 +74,7 @@ class ArchiveTableViewController: UITableViewController {
             let url = files[indexPath.row]
             cell.filename = url.lastPathComponent
             do {
+                
                 let workoutJson = try String(contentsOf: url, encoding: .utf8)
                 let decoder = JSONDecoder()
                 decoder.dateDecodingStrategy = .iso8601
@@ -75,9 +82,10 @@ class ArchiveTableViewController: UITableViewController {
                 let fullDateString = String(describing: workout.date!)
                 let dateString = String(describing: fullDateString.dropLast(15))
                 let timeString = String(describing: fullDateString.dropFirst(11).dropLast(6))
-                cell.textLabel?.text = "\(workout.exerciseName!)s on \(dateString) at \(timeString) UTC"
+                cell.title.text = "\(workout.exerciseName!)s on \(dateString) at \(timeString) UTC"
+                cell.repCount.text = "\(workout.repInfo.count) reps"
             } catch {
-                print(error)
+                print("list decode error on \(url.lastPathComponent): \(error)")
             }
             
             

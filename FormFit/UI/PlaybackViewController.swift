@@ -25,15 +25,44 @@ class PlaybackViewController: UIViewController {
     var frames = [CGImage]()
     var numExpectedFrames : Int?
     
+    @IBOutlet weak var helpLabel: UILabel!
+    
+    @IBAction func watchDemoTouched(_ sender: Any) {
+        playDemo()
+    }
+    
+    func setLabel() {
+        switch exerciseName {
+        case "Squat":
+            helpLabel.text = "Try to keep your back and tibia between 45º and 65º. "
+        case "Deadlift":
+            helpLabel.text = "Try to keep your elbows straight during the deadlift, and don't arch your back!"
+        case "Curl":
+            break
+        default:
+            break
+        }
+    }
+    
+    func playDemo() {
+        switch exerciseName {
+        case "Squat":
+            playVideo(forResource: "squat", ofType: "mp4")
+        case "Deadlift":
+            playVideo(forResource: "deadlift", ofType: "mp4")
+        case "Curl":
+            playVideo(forResource: "curl", ofType: "mp4")
+        default:
+            break
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        if exerciseName == "Squat" {
-            playVideo(forResource: "squat", ofType: "mp4")
-        } else if exerciseName == "Deadlift" {
-            playVideo(forResource: "deadlift", ofType: "mp4")
-        } else if exerciseName == "Curl" {
-            playVideo(forResource: "curl", ofType: "mp4")
-        }
+        helpLabel.lineBreakMode = .byWordWrapping
+        helpLabel .numberOfLines = 0
+        setLabel()
+        
 //        if videoUrl == nil, let path = Bundle.main.path(forResource: "squat3", ofType: "mp4") {
 //            videoUrl = URL(fileURLWithPath: path)
 //            print("video loaded from \(path)")
