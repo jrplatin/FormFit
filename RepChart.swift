@@ -10,7 +10,11 @@ import UIKit
 
 class RepChart: UIView {
     
-    var rep: RepInformation?
+    var rep: RepInformation? {
+        didSet {
+            setNeedsDisplay()
+        }
+    }
     
     func getPoint(x: CGFloat, angle: CGFloat, rect: CGRect, top: Bool = true) -> CGPoint {
         let offset = top ? 0 : rect.height / 2
@@ -39,9 +43,11 @@ class RepChart: UIView {
     // Only override draw() if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.
     override func draw(_ rect: CGRect) {
+        print("drawing!")
         // Drawing code
         UIColor.black.set()
         if let rep = self.rep {
+            print("drawing rep!")
             if (rep.exerciseName == "Squat") {
                 horizontalLineAt(angle: 65, rect: rect, top: false).stroke()
                 horizontalLineAt(angle: 45, rect: rect, top: false).stroke()

@@ -12,6 +12,8 @@ import VideoToolbox
 import Segment
 
 class WorkoutViewController: UIViewController {
+    var hadLastPose = false
+
     /// The view the controller uses to visualize the detected poses.
     @IBOutlet private var previewImageView: PoseImageView!
 
@@ -212,13 +214,22 @@ extension WorkoutViewController: PoseNetDelegate {
         if (isRecording) {
             algo.processFrame(pose: pose)
             let defaults = UserDefaults.standard
-            if defaults.bool(forKey: "tutorial") {
-                if pose == nil {
+            if pose == nil {
+                if defaults.bool(forKey: "tutorial") {
                     statusLabel.text = "Adjust position for skeleton"
-                } else {
-                    statusLabel.text = "Lift Away!"
                 }
+                hadLastPose = false
             } else {
+                if !hadLastPose {
+                    AudioServicesPlayAlertSound(SystemSoundID(1001))
+                }
+                if defaults.bool(forKey: "tutorial") {
+                    statusLabel.text = "Lift Away!"
+
+                }
+                hadLastPose = true
+            }
+            if !defaults.bool(forKey: "tutorial") {
                 statusLabel.text = ""
             }
         } else {

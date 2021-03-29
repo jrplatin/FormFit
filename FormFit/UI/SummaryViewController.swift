@@ -11,29 +11,31 @@ import UIKit
 class SummaryViewController: UIViewController {
     var reps: [RepInformation]?
     
-    @IBOutlet weak var bestScoreLabel: UILabel!
-    
-    @IBOutlet weak var worstScoreLabel: UILabel!
     @IBOutlet weak var bestRepChart: RepChart!
     @IBOutlet weak var worstRepChart: RepChart!
+    @IBOutlet weak var minRepLabel: UILabel!
+    @IBOutlet weak var maxRepLabel: UILabel!
     
     var exerciseName: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        bestScoreLabel.layer.cornerRadius = 50
-//        worstScoreLabel.layer.cornerRadius = 50
+        maxRepLabel.layer.cornerRadius = 50
+        minRepLabel.layer.cornerRadius = 50
         
         
         let (minRep, maxRep) = getMinAndMaxReps()
         if let minRep = minRep {
-            worstScoreLabel.text = String(format: "%.0f", minRep.score)
+            print("min rep: \(minRep)")
+            minRepLabel.text = String(format: "%.0f", minRep.score)
             worstRepChart.rep = minRep
+            worstRepChart.setNeedsDisplay()
             
         }
         if let maxRep = maxRep {
-            bestScoreLabel.text = String(format: "%.0f", maxRep.score)
+            maxRepLabel.text = String(format: "%.0f", maxRep.score)
             bestRepChart.rep = maxRep
+            bestRepChart.setNeedsDisplay()
         }
     }
     
