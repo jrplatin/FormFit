@@ -16,7 +16,7 @@ class ArchiveCell: UITableViewCell {
 
 class ArchiveTableViewController: UITableViewController {
     var files: [URL]?
-    var workouts: [ExerciseInformation]?
+    var workoutsAndFileNames: [(ExerciseInformation, String)]?
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
@@ -46,7 +46,7 @@ class ArchiveTableViewController: UITableViewController {
         }
         
         if let files = files {
-            var workoutList = [ExerciseInformation]()
+            var workoutList = [(ExerciseInformation, String)]()
             for i in 0...files.count - 1 {
                 let name = files[i].lastPathComponent
                 do {
@@ -54,12 +54,12 @@ class ArchiveTableViewController: UITableViewController {
                     let decoder = JSONDecoder()
                     decoder.dateDecodingStrategy = .iso8601
                     let workout = try decoder.decode(ExerciseInformation.self, from: workoutJson.data(using: .utf8)!)
-                    workoutList.append(workout)
+                    workoutList.append((workout, files[i].lastPathComponent))
                 } catch {
                     print("list decode error on \(name): \(error)")
                 }
             }
-            workouts = workoutList.sorted(by: {$0.timeStamp! > $1.timeStamp!})
+            workoutsAndFileNames = workoutList.sorted(by: {$0.0.timeStamp! > $1.0.timeStamp!})
         }
         
 
@@ -83,17 +83,15 @@ class ArchiveTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return workouts?.count ?? 0
+        return workoutsAndFileNames?.count ?? 0
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ArchiveCell", for: indexPath) as! ArchiveCell
-        if let files = files {
-            cell.filename = files[indexPath.row].lastPathComponent
-        }
-        if let workouts = workouts {
-            let workout = workouts[indexPath.row]
+        if let workoutsAndFileNames = workoutsAndFileNames {
+            cell.filename = workoutsAndFileNames[indexPath.row].1
+            let workout = workoutsAndFileNames[indexPath.row].0
             let dateformat = DateFormatter()
             dateformat.dateFormat = "MM/dd/yy h:mm a"
             let fullDateString = dateformat.string(from: workout.date!)
